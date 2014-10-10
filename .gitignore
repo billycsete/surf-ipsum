@@ -50,13 +50,9 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-# Codekit #
+# Libs #
 ###########
-*.codekit
-*.codekit-cache
-codekit-config.json
-
-# Dependency Directories #
-##########################
 bower_components
 node_modules
+lib
+.codekit-cache

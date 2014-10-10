@@ -1,0 +1,13 @@
+// =================================================
+//
+// Breakpoints
+//
+// 1. this partial is needed to use 'new-breakpoint'
+//
+// =================================================
+
+// @import '../neat/neat-helpers'; // 1
+
+$small: new-breakpoint(min-width 480px 4);
+$medium: new-breakpoint(min-width 760px 6);
+$large: new-breakpoint(min-width 1200px 12);
