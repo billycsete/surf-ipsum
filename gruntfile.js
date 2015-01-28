@@ -46,7 +46,8 @@ module.exports = function( grunt ) {
     browserify: {
       main: {
         files : {
-          'dist/js/main.js': ['src/js/main.js']
+          'dist/js/generator.js': ['src/js/generator/main.js'],
+          'dist/js/uploader.js': ['src/js/uploader/main.js']
         }
       }
     },
@@ -60,7 +61,8 @@ module.exports = function( grunt ) {
       dist: {
         files: {
           'dist/js/head-min.js': ['dist/js/head.js'],
-          'dist/js/main-min.js': ['dist/js/main.js']
+          'dist/js/uploader-min.js': ['dist/js/uploader.js'],
+          'dist/js/generator-min.js': ['dist/js/generator.js']
         }
       }
     },
@@ -112,7 +114,6 @@ module.exports = function( grunt ) {
   // Load tasks
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-bower-task');
-  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
