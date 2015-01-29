@@ -9459,14 +9459,17 @@ module.exports = Firebase;
 
 var $        = require('../../../lib/jquery/jquery');
 var Firebase = require('Firebase');
+var UploaderMessage = require('./UploaderMessage');
 
 var proto;
 
-var Suploader = function(uploaderElement) {
+var Uploader = function(uploaderElement) {
 	this.$uploaderElement = uploaderElement;
 	this.$formElement = uploaderElement.find('form');
 	this.$inputElement = uploaderElement.find('input');
 	this.$submitButton = uploaderElement.find('button');
+
+	this.uploaderMessage = new UploaderMessage();
 	this.$uploaderMessage = $('#uploader-message');
 
 	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
@@ -9475,7 +9478,7 @@ var Suploader = function(uploaderElement) {
 	this.init();
 };
 
-proto = Suploader.prototype;
+proto = Uploader.prototype;
 
 
 
@@ -9566,7 +9569,7 @@ proto._onSubmit = function ( evt ) {
 
 proto._onSuccess = function ( inputValue ) {
 	this.$uploaderElement.addClass('show-message show-message-success');
-	this.$uploaderMessage.append('<i class="icon-thumbs-up"></i>Great success! Uploaded: <strong>' + inputValue + '</strong>').fadeIn();
+	this.$uploaderMessage.append('<i class="icon-thumbs-up"></i> Great success! Uploaded: <strong>' + inputValue + '</strong>').fadeIn();
 	// reset input
 	this.$inputElement.val('');
 	this.$uploaderElement.removeClass('input-has-value');
@@ -9574,18 +9577,17 @@ proto._onSuccess = function ( inputValue ) {
 
 
 
-// <div class="error"><i class="icon-thumbs-down"></i>Already exists, bish!</div>
-// <div class="success"><i class="icon-thumbs-up"></i>Uhhh, theres nothing there.</div>
 proto._isValidInput = function( inputValue ) {
 	if (this._isDuplicate(inputValue)) {
 		this.$uploaderElement.addClass('show-message show-message-error');
+		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i> Already exists, bish!').fadeIn();
 		console.log('duplicate value');
 		return false;
 	}
 
 	if (inputValue === '') {
 		this.$uploaderElement.addClass('show-message show-message-error');
-		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i>Already exists, bish!').fadeIn();
+		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i> The input is empty, silly!').fadeIn();
 		console.log('input is empty, silly');
 		return false;
 	}
@@ -9601,15 +9603,46 @@ proto._isDuplicate = function( string ) {
 
 
 
-module.exports = Suploader;
+module.exports = Uploader;
 
 
-},{"../../../lib/jquery/jquery":1,"Firebase":2}],4:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"./UploaderMessage":4,"Firebase":2}],4:[function(require,module,exports){
+'use strict';
+
+var $ = require('../../../lib/jquery/jquery');
+
+var proto;
+
+var UploaderMessage = function ( ) {
+	this.$messageElement = $('#uploader-message');
+};
+
+proto = UploaderMessage.prototype;
+
+
+proto.showMessage = function ( message ) {
+	console.log('show message');
+};
+
+
+proto.hideMessage = function () {
+	console.log('hide message');
+};
+
+
+proto.setMessage = function () {
+
+};
+
+
+module.exports = UploaderMessage;
+
+},{"../../../lib/jquery/jquery":1}],5:[function(require,module,exports){
 'use strict'
 
 // Require statements
 var $         = require('../../../lib/jquery/jquery');
-var Suploader = require('./Suploader');
+var Uploader = require('./Uploader');
 
 var Main = {
 
@@ -9618,7 +9651,7 @@ var Main = {
 		this.$uploaderElement = $('#uploader-element');
 
 		// Make new uploader
-		var loader = new Suploader(this.$uploaderElement);
+		var loader = new Uploader(this.$uploaderElement);
 
 	}
 
@@ -9626,4 +9659,4 @@ var Main = {
 
 Main.initialize();
 
-},{"../../../lib/jquery/jquery":1,"./Suploader":3}]},{},[4]);
+},{"../../../lib/jquery/jquery":1,"./Uploader":3}]},{},[5]);

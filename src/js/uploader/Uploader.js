@@ -2,14 +2,17 @@
 
 var $        = require('../../../lib/jquery/jquery');
 var Firebase = require('Firebase');
+var UploaderMessage = require('./UploaderMessage');
 
 var proto;
 
-var Suploader = function(uploaderElement) {
+var Uploader = function(uploaderElement) {
 	this.$uploaderElement = uploaderElement;
 	this.$formElement = uploaderElement.find('form');
 	this.$inputElement = uploaderElement.find('input');
 	this.$submitButton = uploaderElement.find('button');
+
+	this.uploaderMessage = new UploaderMessage();
 	this.$uploaderMessage = $('#uploader-message');
 
 	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
@@ -18,7 +21,7 @@ var Suploader = function(uploaderElement) {
 	this.init();
 };
 
-proto = Suploader.prototype;
+proto = Uploader.prototype;
 
 
 
@@ -109,7 +112,7 @@ proto._onSubmit = function ( evt ) {
 
 proto._onSuccess = function ( inputValue ) {
 	this.$uploaderElement.addClass('show-message show-message-success');
-	this.$uploaderMessage.append('<i class="icon-thumbs-up"></i>Great success! Uploaded: <strong>' + inputValue + '</strong>').fadeIn();
+	this.$uploaderMessage.append('<i class="icon-thumbs-up"></i> Great success! Uploaded: <strong>' + inputValue + '</strong>').fadeIn();
 	// reset input
 	this.$inputElement.val('');
 	this.$uploaderElement.removeClass('input-has-value');
@@ -117,18 +120,17 @@ proto._onSuccess = function ( inputValue ) {
 
 
 
-// <div class="error"><i class="icon-thumbs-down"></i>Already exists, bish!</div>
-// <div class="success"><i class="icon-thumbs-up"></i>Uhhh, theres nothing there.</div>
 proto._isValidInput = function( inputValue ) {
 	if (this._isDuplicate(inputValue)) {
 		this.$uploaderElement.addClass('show-message show-message-error');
+		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i> Already exists, bish!').fadeIn();
 		console.log('duplicate value');
 		return false;
 	}
 
 	if (inputValue === '') {
 		this.$uploaderElement.addClass('show-message show-message-error');
-		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i>Already exists, bish!').fadeIn();
+		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i> The input is empty, silly!').fadeIn();
 		console.log('input is empty, silly');
 		return false;
 	}
@@ -144,5 +146,5 @@ proto._isDuplicate = function( string ) {
 
 
 
-module.exports = Suploader;
+module.exports = Uploader;
 
