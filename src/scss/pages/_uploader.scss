@@ -6,7 +6,7 @@
 
 .page-uploader {
 
-	.form-wrapper {
+	.uploader-element {
 		position: relative;
 		z-index: 1;
 		width: 80%;
@@ -14,14 +14,14 @@
 		margin: 100px auto 0;
 	}
 
-	.upload-form {
+	.uploader-form {
 		position: relative;
 		z-index: 1;
 		font-size: 4rem;
 		margin-bottom: 1rem;
 	}
 
-	.upload-input {
+	.uploader-input {
 		width: 100%;
 		padding: 1rem 2rem;
 		border: none;
@@ -46,7 +46,7 @@
 		}
 	}
 
-	.upload-submit {
+	.uploader-submit {
 		position: absolute;
 		top: 0;
 		right: 0;
