@@ -88,24 +88,32 @@ proto._onValueChange = function( evt ) {
 
 
 proto._onSubmit = function ( evt ) {
+	// stop submit event
 	evt.preventDefault();
-	console.log('submitted form');
-
+	// store input value
 	var inputValue = this.$inputElement.val();
-
-	if(this._isDuplicate(inputValue)) {
-		console.log('ALREADY EXISTS BISH!');
+	// return if its not a valid input
+	if(!this._isValidInput(inputValue)) {
 		return;
-	};
-
-	// Push the value from the input to firebase
+	}
+	// push the value from the input to firebase
 	this.firebase.push(inputValue);
 };
 
 
 
-proto._validateString = function() {
+proto._isValidInput = function( inputValue ) {
+	if (this._isDuplicate(inputValue)) {
+		console.log('duplicate value');
+		return false;
+	}
 
+	if (inputValue === '') {
+		console.log('input is empty, silly');
+		return false;
+	}
+
+	return true;
 };
 
 

@@ -17,7 +17,10 @@
 			<button id="uploader-submit" class="uploader-submit" type="submit">→</button>
 		</form>
 
-		<div id="message" class="message">Please use all lower case unless the phrase you are entering is a proper noun.</div>
+		<div id="message" class="message">
+			<div class="error error-duplicate">Already exists, bish!</div>
+			<div class="error error-empty">Uhhh, theres nothing there.</div>
+		</div>
 	</div><!--/upload-element-->
 
 	<script src="js/uploader-min.js" type="text/javascript" charset="utf-8"></script>

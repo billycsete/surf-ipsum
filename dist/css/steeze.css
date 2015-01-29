@@ -553,7 +553,10 @@ figure.fluid {
   background: none;
   color: #aaa; }
 .page-uploader .message {
+  position: relative;
+  z-index: 1;
   color: #aaa;
-  font-style: italic; }
+  font-style: italic;
+  opacity: 0; }
 
 /*# sourceMappingURL=steeze.css.map */

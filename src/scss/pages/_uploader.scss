@@ -57,7 +57,10 @@
 	}
 
 	.message {
+		position: relative;
+		z-index: 1;
 		color: #aaa;
 		font-style: italic;
+		opacity: 0;
 	}
 }
