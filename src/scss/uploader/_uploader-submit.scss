@@ -1,0 +1,20 @@
+// =================================================
+//
+// Uploader - Submit
+//
+// =================================================
+
+.uploader-submit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 1rem;
+	border: none;
+	background: #ddd;
+	color: #aaa;
+
+	&:hover {
+		background: #ccc;
+		color: #eee;
+	}
+}

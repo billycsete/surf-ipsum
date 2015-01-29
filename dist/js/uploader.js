@@ -9535,10 +9535,10 @@ proto._onValueChange = function( evt ) {
 
 	if (inputValue === '') {
 		this.$uploaderElement.removeClass('input-has-value');
-		console.log('input is empty');
+		// console.log('input is empty');
 	} else {
 		this.$uploaderElement.addClass('input-has-value');
-		console.log('value changed to: ' + inputValue);
+		// console.log('value changed to: ' + inputValue);
 	}
 };
 

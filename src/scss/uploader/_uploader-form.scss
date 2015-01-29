@@ -1,9 +1,11 @@
 // =================================================
 //
-// Body
+// Uploader - Form
 //
 // =================================================
 
-html *, body * {
-	@include box-sizing(border-box);
+.uploader-form {
+	position: relative;
+	z-index: 1;
+	font-size: 4rem;
 }
