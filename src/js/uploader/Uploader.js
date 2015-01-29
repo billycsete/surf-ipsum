@@ -7,14 +7,14 @@ var UploaderMessage = require('./UploaderMessage');
 var proto;
 
 var Uploader = function(uploaderElement) {
+	// uploader elements
 	this.$uploaderElement = uploaderElement;
 	this.$formElement = uploaderElement.find('form');
 	this.$inputElement = uploaderElement.find('input');
 	this.$submitButton = uploaderElement.find('button');
-
-	this.uploaderMessage = new UploaderMessage();
-	this.$uploaderMessage = $('#uploader-message');
-
+	// error/success message manager
+	this.message = new UploaderMessage();
+	// word database
 	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
 	this.wordsArray = [];
 
@@ -57,22 +57,18 @@ proto._onFirebaseUpdate = function ( dataSnapshot ) {
 	});
 
 	this.wordsArray = updatedWordsArray;
-
-	console.log(this.wordsArray);
 };
 
 
 
 proto._onFocus = function( evt ) {
 	this.$uploaderElement.addClass('input-focused');
-	console.log('focused on input');
 };
 
 
 
 proto._onBlur = function( evt ) {
 	this.$uploaderElement.removeClass('input-focused');
-	console.log('focus left the input');
 };
 
 
@@ -81,7 +77,8 @@ proto._onValueChange = function( evt ) {
 	var inputValue = this.$inputElement.val();
 
 	// hide the error message is someone starts typing again
-	this.$uploaderElement.removeClass('show-message show-message-success show-message-error');
+	// this.$uploaderElement.removeClass('show-message show-message-success show-message-error');
+	this.message.hideMessage();
 
 	if (inputValue === '') {
 		this.$uploaderElement.removeClass('input-has-value');
@@ -111,8 +108,9 @@ proto._onSubmit = function ( evt ) {
 
 
 proto._onSuccess = function ( inputValue ) {
-	this.$uploaderElement.addClass('show-message show-message-success');
-	this.$uploaderMessage.append('<i class="icon-thumbs-up"></i> Great success! Uploaded: <strong>' + inputValue + '</strong>').fadeIn();
+	this.message.showMessage();
+	// this.$uploaderElement.addClass('show-message show-message-success');
+	// this.$uploaderMessage.append('<i class="icon-thumbs-up"></i> Great success! Uploaded: <strong>' + inputValue + '</strong>').fadeIn();
 	// reset input
 	this.$inputElement.val('');
 	this.$uploaderElement.removeClass('input-has-value');
@@ -122,15 +120,17 @@ proto._onSuccess = function ( inputValue ) {
 
 proto._isValidInput = function( inputValue ) {
 	if (this._isDuplicate(inputValue)) {
-		this.$uploaderElement.addClass('show-message show-message-error');
-		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i> Already exists, bish!').fadeIn();
+		this.message.showMessage();
+		// this.$uploaderElement.addClass('show-message show-message-error');
+		// this.$uploaderMessage.append('<i class="icon-thumbs-down"></i> Already exists, bish!').fadeIn();
 		console.log('duplicate value');
 		return false;
 	}
 
 	if (inputValue === '') {
-		this.$uploaderElement.addClass('show-message show-message-error');
-		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i> The input is empty, silly!').fadeIn();
+		this.message.showMessage();
+		// this.$uploaderElement.addClass('show-message show-message-error');
+		// this.$uploaderMessage.append('<i class="icon-thumbs-down"></i> The input is empty, silly!').fadeIn();
 		console.log('input is empty, silly');
 		return false;
 	}

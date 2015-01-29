@@ -5,23 +5,30 @@ var $ = require('../../../lib/jquery/jquery');
 var proto;
 
 var UploaderMessage = function ( ) {
-	this.$messageElement = $('#uploader-message');
+	this.$element = $('#uploader-message');
+	this.isHidden = true;
 };
 
 proto = UploaderMessage.prototype;
 
 
 proto.showMessage = function ( message ) {
+	this.isHidden = false;
 	console.log('show message');
 };
 
 
 proto.hideMessage = function () {
+	if (this.isHidden) {
+		return;
+	}
+
+	this.isHidden = true;
 	console.log('hide message');
 };
 
 
-proto.setMessage = function () {
+proto._setMessage = function () {
 
 };
 
