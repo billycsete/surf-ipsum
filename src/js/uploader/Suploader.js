@@ -10,6 +10,7 @@ var Suploader = function(uploaderElement) {
 	this.$formElement = uploaderElement.find('form');
 	this.$inputElement = uploaderElement.find('input');
 	this.$submitButton = uploaderElement.find('button');
+	this.$uploaderMessage = $('#uploader-message');
 
 	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
 	this.wordsArray = [];
@@ -76,6 +77,9 @@ proto._onBlur = function( evt ) {
 proto._onValueChange = function( evt ) {
 	var inputValue = this.$inputElement.val();
 
+	// hide the error message is someone starts typing again
+	this.$uploaderElement.removeClass('show-message show-message-success show-message-error');
+
 	if (inputValue === '') {
 		this.$uploaderElement.removeClass('input-has-value');
 		// console.log('input is empty');
@@ -98,17 +102,33 @@ proto._onSubmit = function ( evt ) {
 	}
 	// push the value from the input to firebase
 	this.firebase.push(inputValue);
+	this._onSuccess(inputValue);
 };
 
 
 
+proto._onSuccess = function ( inputValue ) {
+	this.$uploaderElement.addClass('show-message show-message-success');
+	this.$uploaderMessage.append('<i class="icon-thumbs-up"></i>Great success! Uploaded: <strong>' + inputValue + '</strong>').fadeIn();
+	// reset input
+	this.$inputElement.val('');
+	this.$uploaderElement.removeClass('input-has-value');
+};
+
+
+
+// <div class="error"><i class="icon-thumbs-down"></i>Already exists, bish!</div>
+// <div class="success"><i class="icon-thumbs-up"></i>Uhhh, theres nothing there.</div>
 proto._isValidInput = function( inputValue ) {
 	if (this._isDuplicate(inputValue)) {
+		this.$uploaderElement.addClass('show-message show-message-error');
 		console.log('duplicate value');
 		return false;
 	}
 
 	if (inputValue === '') {
+		this.$uploaderElement.addClass('show-message show-message-error');
+		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i>Already exists, bish!').fadeIn();
 		console.log('input is empty, silly');
 		return false;
 	}

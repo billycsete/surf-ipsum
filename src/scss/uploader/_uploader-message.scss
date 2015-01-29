@@ -7,7 +7,24 @@
 .uploader-message {
 	position: relative;
 	z-index: 1;
-	color: #aaa;
-	font-style: italic;
-	opacity: 0;
+	height: 0.2rem;
+	padding-left: 2rem;
+	overflow: hidden;
+	background: #ccc;
+	color: #eee;
+	font-size: 1.2rem;
+	line-height: 4rem;
+	@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.4s ease-in-out);
+
+	.show-message & {
+		height: 4rem;
+	}
+
+	.show-message-error & {
+		background: #cc6055;
+	}
+
+	.show-message-success & {
+		background: #62b989;
+	}
 }

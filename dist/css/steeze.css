@@ -560,6 +560,7 @@ figure.fluid {
 .uploader-element {
   position: relative;
   z-index: 1;
+  overflow: hidden;
   width: 80%;
   max-width: 1000px;
   margin: 100px auto 0; }
@@ -595,16 +596,43 @@ figure.fluid {
   padding: 1rem;
   border: none;
   background: #ddd;
-  color: #aaa; }
+  color: #aaa;
+  -webkit-transform: translate3d(100%, 0, 0);
+  -moz-transform: translate3d(100%, 0, 0);
+  -ms-transform: translate3d(100%, 0, 0);
+  -o-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  -moz-transition: -moz-transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
   .uploader-submit:hover {
     background: #ccc;
     color: #eee; }
+  .input-has-value .uploader-submit {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); }
 
 .uploader-message {
   position: relative;
   z-index: 1;
-  color: #aaa;
-  font-style: italic;
-  opacity: 0; }
+  height: 0.2rem;
+  padding-left: 2rem;
+  overflow: hidden;
+  background: #ccc;
+  color: #eee;
+  font-size: 1.2rem;
+  line-height: 4rem;
+  -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out;
+  -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out;
+  transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out; }
+  .show-message .uploader-message {
+    height: 4rem; }
+  .show-message-error .uploader-message {
+    background: #cc6055; }
+  .show-message-success .uploader-message {
+    background: #62b989; }
 
 /*# sourceMappingURL=steeze.css.map */
