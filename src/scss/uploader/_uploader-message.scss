@@ -12,12 +12,12 @@
 	overflow: hidden;
 	background: #ccc;
 	color: #eee;
-	font-size: 1.2rem;
-	line-height: 4rem;
+	font-size: 1.6rem;
+	line-height: 5rem;
 	@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.4s ease-in-out);
 
 	&.show-message{
-		height: 4rem;
+		height: 5rem;
 	}
 
 	&.show-message-error {
@@ -26,5 +26,9 @@
 
 	&.show-message-success {
 		background: #62b989;
+	}
+
+	i {
+		margin-right: 1rem;
 	}
 }

@@ -609,16 +609,18 @@ figure.fluid {
   overflow: hidden;
   background: #ccc;
   color: #eee;
-  font-size: 1.2rem;
-  line-height: 4rem;
+  font-size: 1.6rem;
+  line-height: 5rem;
   -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out;
   -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out;
   transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out; }
   .uploader-message.show-message {
-    height: 4rem; }
+    height: 5rem; }
   .uploader-message.show-message-error {
     background: #cc6055; }
   .uploader-message.show-message-success {
     background: #62b989; }
+  .uploader-message i {
+    margin-right: 1rem; }
 
 /*# sourceMappingURL=steeze.css.map */
