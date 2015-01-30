@@ -9468,10 +9468,9 @@ var proto;
  * @constructor
  * @param {element} uploaderElement - reference to the uploader element
  */
-var Uploader = function(uploaderElement) {
+var Uploader = function( uploaderElement ) {
 	// uploader elements
 	this.$uploaderElement = uploaderElement;
-	this.$formElement = uploaderElement.find('form');
 	this.$inputElement = uploaderElement.find('input');
 	this.$submitButton = uploaderElement.find('button');
 	// error/success message manager
@@ -9502,7 +9501,7 @@ proto.init = function() {
  */
 proto._attachEvents = function() {
 
-	this.firebase.on('value', function ( dataSnapshot ) {
+	this.firebase.on('value', function( dataSnapshot ) {
 		this._onFirebaseUpdate(dataSnapshot);
 	}.bind(this));
 
@@ -9517,7 +9516,7 @@ proto._attachEvents = function() {
  * Update the array of words whenever the firebase data changes
  * @param {object} dataSnapshot - firebase data object
  */
-proto._onFirebaseUpdate = function ( dataSnapshot ) {
+proto._onFirebaseUpdate = function( dataSnapshot ) {
 	var updatedWordsArray = [];
 
 	dataSnapshot.forEach(function(childSnapshot) {
@@ -9565,7 +9564,7 @@ proto._onValueChange = function( evt ) {
 /**
  * Called when the submit button is clicked
  */
-proto._onSubmit = function ( evt ) {
+proto._onSubmit = function( evt ) {
 	// stop submit event
 	evt.preventDefault();
 	// store input value
@@ -9584,7 +9583,7 @@ proto._onSubmit = function ( evt ) {
  * Called when a word was successfully uploaded to firebase
  * @param {string} inputValue - string that was uploaded to firebase
  */
-proto._onSuccess = function ( inputValue ) {
+proto._onSuccess = function( inputValue ) {
 	this.message.showSucessMessage('Great success! Uploaded: <strong>' + inputValue + '</strong>');
 	// reset input
 	this.$inputElement.val('');
@@ -9639,7 +9638,7 @@ var proto;
  * UploaderMessage
  * @constructor
  */
-var UploaderMessage = function ( ) {
+var UploaderMessage = function() {
 	this.$element = $('#uploader-message');
 	this.$messageText = $('#message-text');
 	this.isHidden = true;
@@ -9652,11 +9651,11 @@ proto = UploaderMessage.prototype;
  * Show an error message
  * @param {string} message - message to be displayed
  */
-proto.showErrorMessage = function ( message ) {
+proto.showErrorMessage = function( message ) {
 	this.isHidden = false;
 	// set message text
 	this.$messageText.html(message);
-	// show message
+	// animation in message container
 	this.$element.addClass('show-message show-message-error');
 	// fade in message text
 	this.$messageText.fadeIn();
@@ -9667,11 +9666,11 @@ proto.showErrorMessage = function ( message ) {
  * Show a success message
  * @param {string} message - message to be displayed
  */
-proto.showSucessMessage = function ( message ) {
+proto.showSucessMessage = function( message ) {
 	this.isHidden = false;
 	// set message text
 	this.$messageText.html(message);
-	// show message
+	// animation in message container
 	this.$element.addClass('show-message show-message-success');
 	// fade in message text
 	this.$messageText.fadeIn();
@@ -9681,7 +9680,7 @@ proto.showSucessMessage = function ( message ) {
 /**
  * Hide an active message if there is one
  */
-proto.hideMessage = function () {
+proto.hideMessage = function() {
 	// do nothing if the message is already hidden
 	if ( this.isHidden ) {
 		return;
