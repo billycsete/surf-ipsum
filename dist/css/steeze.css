@@ -378,7 +378,7 @@ th {
 
 html, body {
   font-size: 16px;
-  font-family: 'proxima-nova', 'Helvetica', 'sans-serif';
+  font-family: 'Open Sans', 'Helvetica', 'sans-serif';
   color: #272a2f;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased; }
@@ -390,27 +390,13 @@ h1 {
   font-weight: 300;
   font-size: 2rem;
   margin: 0 0 0.5rem 0; }
-  h1 span {
-    color: #ffffff;
-    background-color: #048ac9;
-    display: inline-block;
-    padding: 12px 25px; }
 
 h2 {
   font-weight: 300;
   font-size: 1.2rem;
-  margin: 0 0 1.5rem 0;
-  display: inline-block; }
-  h2 span {
-    color: #ffffff;
-    background-color: #048ac9;
-    display: inline-block;
-    padding: 3px 25px; }
-    h2 span.teal {
-      background-color: #0aa88f; }
+  margin: 0 0 1.5rem 0; }
 
 h3 {
-  font-weight: 700;
   font-size: 1rem;
   line-height: 1.4rem;
   margin: 0 0 1rem 0; }
@@ -568,11 +554,11 @@ figure.fluid {
 .uploader-form {
   position: relative;
   z-index: 1;
-  font-size: 4rem; }
+  font-size: 3.6rem; }
 
 .uploader-input {
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 1rem 9rem 1rem 2rem;
   border: none;
   background: #f5f5f5;
   color: #666; }
@@ -602,9 +588,9 @@ figure.fluid {
   -ms-transform: translate3d(100%, 0, 0);
   -o-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
-  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  -moz-transition: -moz-transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+  -webkit-transition: -webkit-transform 0.4s cubic-bezier(1, 0, 0, 1);
+  -moz-transition: -moz-transform 0.4s cubic-bezier(1, 0, 0, 1);
+  transition: transform 0.4s cubic-bezier(1, 0, 0, 1); }
   .uploader-submit:hover {
     background: #ccc;
     color: #eee; }
@@ -621,18 +607,20 @@ figure.fluid {
   height: 0.2rem;
   padding-left: 2rem;
   overflow: hidden;
-  background: #ccc;
+  background: #ddd;
   color: #eee;
-  font-size: 1.2rem;
-  line-height: 4rem;
+  font-size: 1.6rem;
+  line-height: 5rem;
   -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out;
   -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out;
   transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out; }
-  .show-message .uploader-message {
-    height: 4rem; }
-  .show-message-error .uploader-message {
+  .uploader-message.show-message {
+    height: 5rem; }
+  .uploader-message.show-message-error {
     background: #cc6055; }
-  .show-message-success .uploader-message {
+  .uploader-message.show-message-success {
     background: #62b989; }
+  .uploader-message .message-text {
+    opacity: 0; }
 
 /*# sourceMappingURL=steeze.css.map */

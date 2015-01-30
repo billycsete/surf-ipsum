@@ -2,7 +2,7 @@
 
 // Require statements
 var $         = require('../../../lib/jquery/jquery');
-var Suploader = require('./Suploader');
+var Uploader = require('./Uploader');
 
 var Main = {
 
@@ -11,7 +11,7 @@ var Main = {
 		this.$uploaderElement = $('#uploader-element');
 
 		// Make new uploader
-		var loader = new Suploader(this.$uploaderElement);
+		var loader = new Uploader(this.$uploaderElement);
 
 	}
 

@@ -9457,28 +9457,38 @@ module.exports = Firebase;
 },{}],3:[function(require,module,exports){
 'use strict';
 
-var $        = require('../../../lib/jquery/jquery');
-var Firebase = require('Firebase');
+var $               = require('../../../lib/jquery/jquery');
+var Firebase        = require('Firebase');
+var UploaderMessage = require('./UploaderMessage');
 
 var proto;
 
-var Suploader = function(uploaderElement) {
+/**
+ * Uploader
+ * @constructor
+ * @param {element} uploaderElement - reference to the uploader element
+ */
+var Uploader = function(uploaderElement) {
+	// uploader elements
 	this.$uploaderElement = uploaderElement;
 	this.$formElement = uploaderElement.find('form');
 	this.$inputElement = uploaderElement.find('input');
 	this.$submitButton = uploaderElement.find('button');
-	this.$uploaderMessage = $('#uploader-message');
-
+	// error/success message manager
+	this.message = new UploaderMessage();
+	// word database
 	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
 	this.wordsArray = [];
 
 	this.init();
 };
 
-proto = Suploader.prototype;
+proto = Uploader.prototype;
 
 
-
+/**
+ * Initialize uploader
+ */
 proto.init = function() {
 	// start with the input element focused
 	this.$inputElement.focus();
@@ -9487,7 +9497,9 @@ proto.init = function() {
 };
 
 
-
+/**
+ * Attach events
+ */
 proto._attachEvents = function() {
 
 	this.firebase.on('value', function ( dataSnapshot ) {
@@ -9501,7 +9513,10 @@ proto._attachEvents = function() {
 };
 
 
-
+/**
+ * Update the array of words whenever the firebase data changes
+ * @param {object} dataSnapshot - firebase data object
+ */
 proto._onFirebaseUpdate = function ( dataSnapshot ) {
 	var updatedWordsArray = [];
 
@@ -9511,50 +9526,52 @@ proto._onFirebaseUpdate = function ( dataSnapshot ) {
 	});
 
 	this.wordsArray = updatedWordsArray;
-
-	console.log(this.wordsArray);
 };
 
 
-
+/**
+ * Called when the uploader input is focused
+ */
 proto._onFocus = function( evt ) {
 	this.$uploaderElement.addClass('input-focused');
-	console.log('focused on input');
 };
 
 
-
+/**
+ * Called when the uploader input loses focus
+ */
 proto._onBlur = function( evt ) {
 	this.$uploaderElement.removeClass('input-focused');
-	console.log('focus left the input');
 };
 
 
-
+/**
+ * Called when the input value changes
+ */
 proto._onValueChange = function( evt ) {
 	var inputValue = this.$inputElement.val();
 
-	// hide the error message is someone starts typing again
-	this.$uploaderElement.removeClass('show-message show-message-success show-message-error');
+	// hide the error message if someone starts typing again
+	this.message.hideMessage();
 
-	if (inputValue === '') {
+	if ( inputValue === '' ) {
 		this.$uploaderElement.removeClass('input-has-value');
-		// console.log('input is empty');
 	} else {
 		this.$uploaderElement.addClass('input-has-value');
-		// console.log('value changed to: ' + inputValue);
 	}
 };
 
 
-
+/**
+ * Called when the submit button is clicked
+ */
 proto._onSubmit = function ( evt ) {
 	// stop submit event
 	evt.preventDefault();
 	// store input value
 	var inputValue = this.$inputElement.val();
 	// return if its not a valid input
-	if(!this._isValidInput(inputValue)) {
+	if( !this._isValidInput(inputValue) ) {
 		return;
 	}
 	// push the value from the input to firebase
@@ -9563,53 +9580,126 @@ proto._onSubmit = function ( evt ) {
 };
 
 
-
+/**
+ * Called when a word was successfully uploaded to firebase
+ * @param {string} inputValue - string that was uploaded to firebase
+ */
 proto._onSuccess = function ( inputValue ) {
-	this.$uploaderElement.addClass('show-message show-message-success');
-	this.$uploaderMessage.append('<i class="icon-thumbs-up"></i>Great success! Uploaded: <strong>' + inputValue + '</strong>').fadeIn();
+	this.message.showSucessMessage('Great success! Uploaded: <strong>' + inputValue + '</strong>');
 	// reset input
 	this.$inputElement.val('');
 	this.$uploaderElement.removeClass('input-has-value');
 };
 
 
-
-// <div class="error"><i class="icon-thumbs-down"></i>Already exists, bish!</div>
-// <div class="success"><i class="icon-thumbs-up"></i>Uhhh, theres nothing there.</div>
+/**
+ * Check to see if an input is a valid entry
+ * @param {string} inputValue - string to validate
+ * @return {boolean}
+ */
 proto._isValidInput = function( inputValue ) {
-	if (this._isDuplicate(inputValue)) {
-		this.$uploaderElement.addClass('show-message show-message-error');
-		console.log('duplicate value');
+	// check for duplicate value
+	if ( this._isDuplicate(inputValue) ) {
+		this.message.showErrorMessage('Already exists, bish!');
+		return false;
+	}
+	// check for empty input
+	if ( inputValue === '' ) {
+		this.message.showErrorMessage('The input is empty, silly!');
 		return false;
 	}
 
-	if (inputValue === '') {
-		this.$uploaderElement.addClass('show-message show-message-error');
-		this.$uploaderMessage.append('<i class="icon-thumbs-down"></i>Already exists, bish!').fadeIn();
-		console.log('input is empty, silly');
-		return false;
-	}
-
+	// return true if the input is a valid string entry
 	return true;
 };
 
 
-
+/**
+ * Check to see if a string already exists in the firebase database
+ * @param {string} string - string to test for duplicate
+ * @return {boolean}
+ */
 proto._isDuplicate = function( string ) {
 	return $.inArray(string, this.wordsArray) !== -1;
 };
 
 
 
-module.exports = Suploader;
+module.exports = Uploader;
 
 
-},{"../../../lib/jquery/jquery":1,"Firebase":2}],4:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"./UploaderMessage":4,"Firebase":2}],4:[function(require,module,exports){
+'use strict';
+
+var $ = require('../../../lib/jquery/jquery');
+
+var proto;
+
+/**
+ * UploaderMessage
+ * @constructor
+ */
+var UploaderMessage = function ( ) {
+	this.$element = $('#uploader-message');
+	this.$messageText = $('#message-text');
+	this.isHidden = true;
+};
+
+proto = UploaderMessage.prototype;
+
+
+/**
+ * Show an error message
+ * @param {string} message - message to be displayed
+ */
+proto.showErrorMessage = function ( message ) {
+	this.isHidden = false;
+	// set message text
+	this.$messageText.html(message);
+	// show message
+	this.$element.addClass('show-message show-message-error');
+	// fade in message text
+	this.$messageText.fadeIn();
+};
+
+
+/**
+ * Show a success message
+ * @param {string} message - message to be displayed
+ */
+proto.showSucessMessage = function ( message ) {
+	this.isHidden = false;
+	// set message text
+	this.$messageText.html(message);
+	// show message
+	this.$element.addClass('show-message show-message-success');
+	// fade in message text
+	this.$messageText.fadeIn();
+};
+
+
+/**
+ * Hide an active message if there is one
+ */
+proto.hideMessage = function () {
+	// do nothing if the message is already hidden
+	if ( this.isHidden ) {
+		return;
+	}
+
+	this.isHidden = true;
+	this.$element.removeClass('show-message show-message-error show-message-success');
+};
+
+
+module.exports = UploaderMessage;
+
+},{"../../../lib/jquery/jquery":1}],5:[function(require,module,exports){
 'use strict'
 
 // Require statements
 var $         = require('../../../lib/jquery/jquery');
-var Suploader = require('./Suploader');
+var Uploader = require('./Uploader');
 
 var Main = {
 
@@ -9618,7 +9708,7 @@ var Main = {
 		this.$uploaderElement = $('#uploader-element');
 
 		// Make new uploader
-		var loader = new Suploader(this.$uploaderElement);
+		var loader = new Uploader(this.$uploaderElement);
 
 	}
 
@@ -9626,4 +9716,4 @@ var Main = {
 
 Main.initialize();
 
-},{"../../../lib/jquery/jquery":1,"./Suploader":3}]},{},[4]);
+},{"../../../lib/jquery/jquery":1,"./Uploader":3}]},{},[5]);

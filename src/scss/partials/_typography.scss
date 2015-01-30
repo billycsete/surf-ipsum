@@ -9,8 +9,7 @@
 // =================================================
 
 $light: 300;
-$normal: 400;
-$bold: 700;
+$normal: 600;
 
 
 // =================================================
@@ -19,7 +18,7 @@ $bold: 700;
 
 html, body {
 	font-size: 16px;
-	font-family: 'proxima-nova', 'Helvetica', 'sans-serif';
+	font-family: 'Open Sans', 'Helvetica', 'sans-serif';
 	color: $grey;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -38,35 +37,15 @@ h1 {
 	font-weight: $light;
 	font-size: 2rem;
 	margin: 0 0 0.5rem 0;
-
-	span {
-		color: $white;
-		background-color: $blue;
-		display: inline-block;
-		padding: 12px 25px;
-	}
 }
 
 h2 {
 	font-weight: $light;
 	font-size: 1.2rem;
 	margin: 0 0 1.5rem 0;
-	display: inline-block;
-
-	span {
-		color: $white;
-		background-color: $blue;
-		display: inline-block;
-		padding: 3px 25px;
-
-		&.teal {
-			background-color: $teal;
-		}
-	}
 }
 
 h3 {
-	font-weight: $bold;
 	font-size: 1rem;
 	line-height: 1.4rem;
 	margin: 0 0 1rem 0;
@@ -110,6 +89,7 @@ ul.bullets {
 	}
 }
 
+
 // =================================================
 // Links
 // =================================================
@@ -117,3 +97,4 @@ ul.bullets {
 a {
 	font-size: 1rem;
 }
+

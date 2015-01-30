@@ -6,4 +6,6 @@
 
 html *, body * {
 	@include box-sizing(border-box);
+	font-family: 'Open Sans';
+	font-weight: 300;
 }
