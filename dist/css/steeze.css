@@ -620,7 +620,7 @@ figure.fluid {
     background: #cc6055; }
   .uploader-message.show-message-success {
     background: #62b989; }
-  .uploader-message i {
-    margin-right: 1rem; }
+  .uploader-message .message-text {
+    opacity: 0; }
 
 /*# sourceMappingURL=steeze.css.map */

@@ -4,9 +4,12 @@ var $ = require('../../../lib/jquery/jquery');
 
 var proto;
 
+/**
+ * UploaderMessage
+ * @constructor
+ */
 var UploaderMessage = function ( ) {
 	this.$element = $('#uploader-message');
-	this.$messageIcon = $('#message-icon');
 	this.$messageText = $('#message-text');
 	this.isHidden = true;
 };
@@ -14,28 +17,39 @@ var UploaderMessage = function ( ) {
 proto = UploaderMessage.prototype;
 
 
+/**
+ * Show an error message
+ * @param {string} message - message to be displayed
+ */
 proto.showErrorMessage = function ( message ) {
 	this.isHidden = false;
 	// set message text
 	this.$messageText.html(message);
-	// thumbs down icon for error message
-	this.$messageIcon[0].className = 'icon-thumbs-down';
 	// show message
 	this.$element.addClass('show-message show-message-error');
+	// fade in message text
+	this.$messageText.fadeIn()
 };
 
 
+/**
+ * Show a success message
+ * @param {string} message - message to be displayed
+ */
 proto.showSucessMessage = function ( message ) {
 	this.isHidden = false;
 	// set message text
 	this.$messageText.html(message);
-	// thumbs up icon for success message
-	this.$messageIcon[0].className = 'icon-thumbs-up';
 	// show message
 	this.$element.addClass('show-message show-message-success');
+	// fade in message text
+	this.$messageText.fadeIn()
 };
 
 
+/**
+ * Hide an active message if there is one
+ */
 proto.hideMessage = function () {
 	// do nothing if the message is already hidden
 	if ( this.isHidden ) {
