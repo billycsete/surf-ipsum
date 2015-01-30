@@ -22,6 +22,8 @@ var Uploader = function(uploaderElement) {
 	// word database
 	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
 	this.wordsArray = [];
+	this.maxCharacters = 30;
+	this.characterCount = 0;
 
 	this.init();
 };
@@ -94,16 +96,13 @@ proto._onBlur = function( evt ) {
 proto._onValueChange = function( evt ) {
 	var inputValue = this.$inputElement.val();
 
-	// hide the error message is someone starts typing again
-	// this.$uploaderElement.removeClass('show-message show-message-success show-message-error');
+	// hide the error message if someone starts typing again
 	this.message.hideMessage();
 
 	if ( inputValue === '' ) {
 		this.$uploaderElement.removeClass('input-has-value');
-		// console.log('input is empty');
 	} else {
 		this.$uploaderElement.addClass('input-has-value');
-		// console.log('value changed to: ' + inputValue);
 	}
 };
 
