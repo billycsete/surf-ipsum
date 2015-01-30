@@ -9551,16 +9551,13 @@ proto._onBlur = function( evt ) {
 proto._onValueChange = function( evt ) {
 	var inputValue = this.$inputElement.val();
 
-	// hide the error message is someone starts typing again
-	// this.$uploaderElement.removeClass('show-message show-message-success show-message-error');
+	// hide the error message if someone starts typing again
 	this.message.hideMessage();
 
 	if ( inputValue === '' ) {
 		this.$uploaderElement.removeClass('input-has-value');
-		// console.log('input is empty');
 	} else {
 		this.$uploaderElement.addClass('input-has-value');
-		// console.log('value changed to: ' + inputValue);
 	}
 };
 
@@ -9662,7 +9659,7 @@ proto.showErrorMessage = function ( message ) {
 	// show message
 	this.$element.addClass('show-message show-message-error');
 	// fade in message text
-	this.$messageText.fadeIn()
+	this.$messageText.fadeIn();
 };
 
 
@@ -9677,7 +9674,7 @@ proto.showSucessMessage = function ( message ) {
 	// show message
 	this.$element.addClass('show-message show-message-success');
 	// fade in message text
-	this.$messageText.fadeIn()
+	this.$messageText.fadeIn();
 };
 
 

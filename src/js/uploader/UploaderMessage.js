@@ -28,7 +28,7 @@ proto.showErrorMessage = function ( message ) {
 	// show message
 	this.$element.addClass('show-message show-message-error');
 	// fade in message text
-	this.$messageText.fadeIn()
+	this.$messageText.fadeIn();
 };
 
 
@@ -43,7 +43,7 @@ proto.showSucessMessage = function ( message ) {
 	// show message
 	this.$element.addClass('show-message show-message-success');
 	// fade in message text
-	this.$messageText.fadeIn()
+	this.$messageText.fadeIn();
 };
 
 

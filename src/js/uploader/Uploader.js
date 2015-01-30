@@ -22,8 +22,6 @@ var Uploader = function(uploaderElement) {
 	// word database
 	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
 	this.wordsArray = [];
-	this.maxCharacters = 30;
-	this.characterCount = 0;
 
 	this.init();
 };
