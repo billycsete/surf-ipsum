@@ -9,17 +9,41 @@
 	<link rel="stylesheet" href="css/steeze.css" type="text/css" />
 	<script src="js/head-min.js" type="text/javascript" charset="utf-8"></script>
 </head>
-<body>
-	<h1>SURFBOART</h1>
+<body class='page-generator'>
+	
+	<header class="header">
+		
+	</header>
 
-	<input type="range" min="0" max="100" step="5" id="paragraph-freq">
-	<input type="range" min="0" max="100" step="5" id="headline-freq">
+	<div class="ipsum">
+		<ul class="ipsum-list">
+			<li class="ipsum-item">
+				<button class="item-remove"><i class="icon-minus-circled"></i></button>
+				<div>
+					Shred me
+					<input class="item-number" type="text" name="number" placeholder="2">
+					gnarley
+					<select class="item-select">
+						<option value="paragraph" selected>paragraphs</option>
+						<option value="titles">titles</option>
+						<option value="lists">lists</option>
+						<option value="words">words</option>
+					</select>
+				</div>
+			</li>
+			<li class="ipsum-item">
+				<button class="ipsum-item-create"><i class="icon-plus-circled"></i></button>
+			</li>
+		</ul>
 
-	<input type="number">
-
-	<div id="output">
-
+		<button id="ipsum-submit" class="ipsum-submit" type="submit">Get Stoked! <i class="icon-thumbs-up"></i></button>
 	</div>
+
+
+	<div class="output">
+		
+	</div>
+
 
 	<script src="js/generator-min.js" type="text/javascript" charset="utf-8"></script>
 </body>

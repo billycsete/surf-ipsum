@@ -1,15 +1,17 @@
 'use strict'
 
 // Require statements
-var generator = require('./generator');
-var numberInput = require('./numberInput');
+var IpsumController = require('./IpsumController');
 
 var Main = {
 
 	initialize : function() {
-		// Initialize modules for page behavior here
+
+		var controller = new IpsumController();
 
 		return this;
 	}
 
 };
+
+Main.initialize();

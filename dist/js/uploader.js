@@ -9457,8 +9457,90 @@ module.exports = Firebase;
 },{}],3:[function(require,module,exports){
 'use strict';
 
+var $        = require('../../../lib/jquery/jquery');
+var Firebase = require('Firebase');
+
+var proto;
+
+/**
+ * FirebaseObject
+ * @constructor
+ */
+var FirebaseObject = function( ) {
+	// get link to the firebase database
+	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
+	// store the current array of words from the database
+	this.strings = [];
+	// update array when the database is changed
+	this.firebase.on('value', function( dataSnapshot ) {
+		this._onFirebaseUpdate(dataSnapshot);
+	}.bind(this));
+};
+
+proto = FirebaseObject.prototype;
+
+
+/**
+ * Update the array of words whenever the firebase data changes
+ * @param {object} dataSnapshot - firebase data object
+ */
+proto._onFirebaseUpdate = function( dataSnapshot ) {
+	var updatedStrings = [];
+
+	dataSnapshot.forEach(function(childSnapshot) {
+		var childData = childSnapshot.val();
+		updatedStrings.push(childData);
+	});
+
+	this.strings = updatedStrings;
+};
+
+
+/**
+ * Check to see if a string already exists in the firebase database
+ * @param {string} string - string to test for duplicate in firebase
+ * @return {boolean}
+ */
+proto.isDuplicate = function( string ) {
+	return $.inArray(string, this.strings) !== -1;
+};
+
+
+/**
+ * Return an array of random strings from the firebase database
+ * @param {number} numberOfItems - the number of random strings to be added to the array
+ * @return {array}
+ */
+proto.getRandomStrings = function( numberOfItems ) {
+	var stringsLength = this.strings.length;
+	var results = [];
+
+	for (var i = 0; i < numberOfItems; i++) {
+		var randomString = this.strings[Math.floor(Math.random() * stringsLength)];
+		results.push(randomString);
+	}
+
+	return results;
+};
+
+
+/**
+ * Push a string to the firebase database
+ * @param {string} string
+ */
+proto.addString = function( string ) {
+	this.firebase.push(string);
+};
+
+
+module.exports = FirebaseObject;
+
+
+},{"../../../lib/jquery/jquery":1,"Firebase":2}],4:[function(require,module,exports){
+'use strict';
+
 var $               = require('../../../lib/jquery/jquery');
-var Firebase        = require('Firebase');
+var FirebaseObject  = require('../shared/FirebaseObject');
 var UploaderMessage = require('./UploaderMessage');
 
 var proto;
@@ -9475,9 +9557,8 @@ var Uploader = function( uploaderElement ) {
 	this.$submitButton = uploaderElement.find('button');
 	// error/success message manager
 	this.message = new UploaderMessage();
-	// word database
-	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
-	this.wordsArray = [];
+	// access to database of words
+	this.firebaseObject = new FirebaseObject();
 
 	this.init();
 };
@@ -9491,7 +9572,7 @@ proto = Uploader.prototype;
 proto.init = function() {
 	// start with the input element focused
 	this.$inputElement.focus();
-	// attach events to input element and to firebase
+	// attach events to input/submit elements
 	this._attachEvents();
 };
 
@@ -9500,31 +9581,10 @@ proto.init = function() {
  * Attach events
  */
 proto._attachEvents = function() {
-
-	this.firebase.on('value', function( dataSnapshot ) {
-		this._onFirebaseUpdate(dataSnapshot);
-	}.bind(this));
-
 	this.$inputElement.on('focus', this._onFocus.bind(this));
 	this.$inputElement.on('blur', this._onBlur.bind(this));
 	this.$inputElement.on('input', this._onValueChange.bind(this));
 	this.$submitButton.on('click', this._onSubmit.bind(this));
-};
-
-
-/**
- * Update the array of words whenever the firebase data changes
- * @param {object} dataSnapshot - firebase data object
- */
-proto._onFirebaseUpdate = function( dataSnapshot ) {
-	var updatedWordsArray = [];
-
-	dataSnapshot.forEach(function(childSnapshot) {
-		var childData = childSnapshot.val();
-		updatedWordsArray.push(childData);
-	});
-
-	this.wordsArray = updatedWordsArray;
 };
 
 
@@ -9574,7 +9634,7 @@ proto._onSubmit = function( evt ) {
 		return;
 	}
 	// push the value from the input to firebase
-	this.firebase.push(inputValue);
+	this.firebaseObject.addString(inputValue);
 	this._onSuccess(inputValue);
 };
 
@@ -9598,7 +9658,7 @@ proto._onSuccess = function( inputValue ) {
  */
 proto._isValidInput = function( inputValue ) {
 	// check for duplicate value
-	if ( this._isDuplicate(inputValue) ) {
+	if ( this.firebaseObject.isDuplicate(inputValue) ) {
 		this.message.showErrorMessage('Already exists, bish!');
 		return false;
 	}
@@ -9613,21 +9673,10 @@ proto._isValidInput = function( inputValue ) {
 };
 
 
-/**
- * Check to see if a string already exists in the firebase database
- * @param {string} string - string to test for duplicate
- * @return {boolean}
- */
-proto._isDuplicate = function( string ) {
-	return $.inArray(string, this.wordsArray) !== -1;
-};
-
-
-
 module.exports = Uploader;
 
 
-},{"../../../lib/jquery/jquery":1,"./UploaderMessage":4,"Firebase":2}],4:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":3,"./UploaderMessage":5}],5:[function(require,module,exports){
 'use strict';
 
 var $ = require('../../../lib/jquery/jquery');
@@ -9693,7 +9742,7 @@ proto.hideMessage = function() {
 
 module.exports = UploaderMessage;
 
-},{"../../../lib/jquery/jquery":1}],5:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1}],6:[function(require,module,exports){
 'use strict'
 
 // Require statements
@@ -9715,4 +9764,4 @@ var Main = {
 
 Main.initialize();
 
-},{"../../../lib/jquery/jquery":1,"./Uploader":3}]},{},[5]);
+},{"../../../lib/jquery/jquery":1,"./Uploader":4}]},{},[6]);
