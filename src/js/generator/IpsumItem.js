@@ -21,17 +21,45 @@ proto = IpsumItem.prototype;
 
 
 proto.init = function( ) {
-	this.$removeButton = this.$itemElement.append( this._makeRemoveButton() );
+	// Append remove button
+	this.$removeButton = this._makeRemoveButton();
+	this.$itemElement.append( this.$removeButton );
+	// append text span
 	this._appendSpan('Shred me');
-	this.$inputElement = this.$itemElement.append( this._makeInputElement() );
+	// append input element
+	this.$inputElement = this._makeInputElement();
+	this.$itemElement.append( this.$inputElement );
+	// append text span
 	this._appendSpan('gnarley');
-	this.$selectElement = this.$itemElement.append( this._makeSelectElement() );
+	// append select element
+	this.$selectElement = this._makeSelectElement();
+	this.$itemElement.append( this.$selectElement );
+	// attach event listeners
+	this._attachEvents();
 };
 
 
 
 proto.getElement = function( ) {
 	return this.$itemElement;
+};
+
+
+
+proto.getInputValue = function( ) {
+	return this.$inputElement.val();
+};
+
+
+
+proto.getSelectValue = function( ) {
+	return this.$selectElement.val();
+};
+
+
+
+proto._attachEvents = function( ) {
+	this.$removeButton.on('click', this._fireRemoveEvent.bind(this));
 };
 
 
@@ -62,8 +90,16 @@ proto._appendSpan = function( text ) {
 	var span = $('<span>' + text + '</span>');
 	// append the span element to the list item
 	this.$itemElement.append(span);
-}
+};
 
+
+
+proto._fireRemoveEvent = function( ) {
+	$(document).trigger({
+		type : 'removeItem',
+		obj : this
+	});
+};
 
 
 module.exports = IpsumItem;
