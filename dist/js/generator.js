@@ -9457,9 +9457,8 @@ module.exports = Firebase;
 },{}],3:[function(require,module,exports){
 'use strict';
 
-var $              = require('../../../lib/jquery/jquery');
-var FirebaseObject = require('../shared/FirebaseObject');
-var IpsumOutput    = require('./IpsumOutput');
+var $           = require('../../../lib/jquery/jquery');
+var IpsumOutput = require('./IpsumOutput');
 
 var proto;
 
@@ -9468,8 +9467,6 @@ var proto;
 var IpsumController = function() {
 	// IpsumController elements
 	this.$submitButton = $('#ipsum-submit');
-	// access to database of words
-	this.firebaseObject = new FirebaseObject();
 	// create reference to our output object
 	this.output = new IpsumOutput();
 
@@ -9493,28 +9490,34 @@ proto._attachEvents = function() {
 
 
 proto._onSubmit = function() {
-	var strings = this.firebaseObject.getRandomStrings(10);
-
-	var output = $('#output');
-	var paragraph = '';
+	// output.printParagrahs(2);
+	// output.printWords(100);
 
 
-	// for (var i = 0; i < strings.length; i++) {
-	// 	paragraph += '' + strings[i] + ' ';
-	// };
+	// var output = $('#output');
+	// var paragraph = '';
 
 
-	$(strings).each(printToOutput);
+	// // for (var i = 0; i < strings.length; i++) {
+	// // 	paragraph += '' + strings[i] + ' ';
+	// // };
+
+
+	// $(strings).each(printToOutput);
 
 
 
-	function printToOutput( i, string ) {
-		paragraph += ('' + string + ' ');
-	}
+	// function printToOutput( i, string ) {
+	// 	paragraph += ('' + string + ' ');
+	// }
 
-	console.log(paragraph);
+	// console.log(paragraph);
 
-	output.html('<p>' + paragraph + '</p>');
+	// output.html('<p>' + paragraph + '</p>');
+	this.output.printHeadlines(1);
+	this.output.printParagraphs(2);
+	this.output.printHeadlines(1);
+	this.output.printWords(400);
 };
 
 
@@ -9522,10 +9525,11 @@ proto._onSubmit = function() {
 module.exports = IpsumController;
 
 
-},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":6,"./IpsumOutput":4}],4:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"./IpsumOutput":4}],4:[function(require,module,exports){
 'use strict';
 
-var $               = require('../../../lib/jquery/jquery');
+var $              = require('../../../lib/jquery/jquery');
+var FirebaseObject = require('../shared/FirebaseObject');
 
 var proto;
 
@@ -9534,6 +9538,8 @@ var proto;
 var IpsumOutput = function() {
 	// IpsumOutput elements
 	this.$outputElement = $('#output');
+	// access to database of words
+	this.firebaseObject = new FirebaseObject();
 
 	this.init();
 };
@@ -9547,17 +9553,58 @@ proto.init = function() {
 };
 
 
+proto.printParagraphs = function ( numberOfParagraphs ) {
 
-proto.addListItem = function() {
+	var paragraphLength;
+	var paragraph;
 
+	for (var i = 0; i < numberOfParagraphs; i++) {
+		paragraphLength = this._getRandomInt(40, 60);
+		// get strings from the firebase database
+		paragraph = this.firebaseObject.getRandomStrings(paragraphLength);
+		// replace commas with spaces
+		paragraph = paragraph.toString().replace(/,/g, ' ');
+
+		this.$outputElement.append('<p>' + paragraph + '</p>');
+	}
 };
 
+
+proto.printHeadlines = function ( numberOfHeadlines ) {
+	var headlineLength;
+	var headline;
+
+	for (var i = 0; i < numberOfHeadlines; i++) {
+		headlineLength = this._getRandomInt(4, 6);
+		// get strings from the firebase database
+		headline = this.firebaseObject.getRandomStrings(headlineLength);
+		// replace commas with spaces
+		headline = headline.toString().replace(/,/g, ' ');
+
+		this.$outputElement.append('<h1>' + headline + '</h1>');
+	}
+};
+
+
+proto.printWords = function ( numberOfWords ) {
+
+	var words = this.firebaseObject.getRandomStrings(numberOfWords);
+	// replace commas with spaces
+	words = words.toString().replace(/,/g, ' ');
+	// print words to output
+	this.$outputElement.append('<p>' + words + '</p>');
+};
+
+
+proto._getRandomInt = function( min, max ) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 
 module.exports = IpsumOutput;
 
 
-},{"../../../lib/jquery/jquery":1}],5:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":6}],5:[function(require,module,exports){
 'use strict'
 
 // Require statements
