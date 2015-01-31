@@ -9458,6 +9458,7 @@ module.exports = Firebase;
 'use strict';
 
 var $           = require('../../../lib/jquery/jquery');
+var IpsumList   = require('./IpsumList');
 var IpsumOutput = require('./IpsumOutput');
 
 var proto;
@@ -9466,9 +9467,13 @@ var proto;
 
 var IpsumController = function() {
 	// IpsumController elements
+	this.$inputList = $('#ipsum-list');
+	this.$outputElement = $('#output');
 	this.$submitButton = $('#ipsum-submit');
+	// create list of inputs
+	this.inputList = new IpsumList(this.$inputList);
 	// create reference to our output object
-	this.output = new IpsumOutput();
+	this.output = new IpsumOutput(this.$outputElement);
 
 	this.init();
 };
@@ -9490,32 +9495,9 @@ proto._attachEvents = function() {
 
 
 proto._onSubmit = function() {
-	// output.printParagrahs(2);
-	// output.printWords(100);
-
-
-	// var output = $('#output');
-	// var paragraph = '';
-
-
-	// // for (var i = 0; i < strings.length; i++) {
-	// // 	paragraph += '' + strings[i] + ' ';
-	// // };
-
-
-	// $(strings).each(printToOutput);
-
-
-
-	// function printToOutput( i, string ) {
-	// 	paragraph += ('' + string + ' ');
-	// }
-
-	// console.log(paragraph);
-
-	// output.html('<p>' + paragraph + '</p>');
 	this.output.printHeadlines(1);
 	this.output.printParagraphs(2);
+	this.output.printLists(2);
 	this.output.printHeadlines(1);
 	this.output.printWords(400);
 };
@@ -9525,7 +9507,85 @@ proto._onSubmit = function() {
 module.exports = IpsumController;
 
 
-},{"../../../lib/jquery/jquery":1,"./IpsumOutput":4}],4:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"./IpsumList":5,"./IpsumOutput":6}],4:[function(require,module,exports){
+'use strict';
+
+var $               = require('../../../lib/jquery/jquery');
+
+var proto;
+
+
+
+var IpsumItem = function() {
+	// IpsumItem elements
+	this.$numberInput;
+	this.$selectInput;
+
+	this.init();
+};
+
+proto = IpsumItem.prototype;
+
+
+
+proto.init = function() {
+	console.log('new ipsum item');
+};
+
+
+
+proto.generateNewItem = function() {
+
+};
+
+
+
+proto._attachEvents = function() {
+	// this.$inputElement.on('input', this._onValueChange.bind(this));
+};
+
+
+
+module.exports = IpsumItem;
+
+
+},{"../../../lib/jquery/jquery":1}],5:[function(require,module,exports){
+'use strict';
+
+var $               = require('../../../lib/jquery/jquery');
+var IpsumItem       = require('./IpsumItem');
+
+var proto;
+
+
+
+var IpsumList = function( listElement ) {
+	// IpsumList elements
+	this.$list = listElement;
+
+	this.init();
+};
+
+proto = IpsumList.prototype;
+
+
+
+proto.init = function() {
+	console.log('new ipsum list');
+};
+
+
+
+proto.addListItem = function() {
+
+};
+
+
+
+module.exports = IpsumList;
+
+
+},{"../../../lib/jquery/jquery":1,"./IpsumItem":4}],6:[function(require,module,exports){
 'use strict';
 
 var $              = require('../../../lib/jquery/jquery');
@@ -9535,22 +9595,14 @@ var proto;
 
 
 
-var IpsumOutput = function() {
+var IpsumOutput = function( outputContainer ) {
 	// IpsumOutput elements
-	this.$outputElement = $('#output');
+	this.$outputElement = outputContainer;
 	// access to database of words
 	this.firebaseObject = new FirebaseObject();
-
-	this.init();
 };
 
 proto = IpsumOutput.prototype;
-
-
-
-proto.init = function() {
-	console.log('new ipsum list');
-};
 
 
 proto.printParagraphs = function ( numberOfParagraphs ) {
@@ -9580,9 +9632,39 @@ proto.printHeadlines = function ( numberOfHeadlines ) {
 		headline = this.firebaseObject.getRandomStrings(headlineLength);
 		// replace commas with spaces
 		headline = headline.toString().replace(/,/g, ' ');
-
+		// print a new headline to the output element
 		this.$outputElement.append('<h1>' + headline + '</h1>');
 	}
+};
+
+
+proto.printLists = function ( numberOfLists ) {
+	var listItemTextLength;
+	var listItemText;
+	var listLength;
+	var listElement;
+	var listItem;
+
+	for (var i = 0; i < numberOfLists; i++) {
+		listLength = this._getRandomInt(4, 8);
+		listElement = document.createElement('ul');
+
+		for (var j = 0; j < listLength; j++) {
+			listItem = document.createElement('li');
+
+			listItemTextLength = this._getRandomInt(2, 4);
+			// get strings from the firebase database
+			listItemText = this.firebaseObject.getRandomStrings(listItemTextLength);
+			// replace commas with spaces
+			listItemText = listItemText.toString().replace(/,/g, ' ');
+			// add the random text to the new list item
+			$(listItem).html(listItemText);
+			// add the new list item element to the list element
+			$(listElement).append(listItem);
+		};
+
+		this.$outputElement.append(listElement);
+	};
 };
 
 
@@ -9591,7 +9673,7 @@ proto.printWords = function ( numberOfWords ) {
 	var words = this.firebaseObject.getRandomStrings(numberOfWords);
 	// replace commas with spaces
 	words = words.toString().replace(/,/g, ' ');
-	// print words to output
+	// print words to the output element
 	this.$outputElement.append('<p>' + words + '</p>');
 };
 
@@ -9604,7 +9686,7 @@ proto._getRandomInt = function( min, max ) {
 module.exports = IpsumOutput;
 
 
-},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":6}],5:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":8}],7:[function(require,module,exports){
 'use strict'
 
 // Require statements
@@ -9623,7 +9705,7 @@ var Main = {
 
 Main.initialize();
 
-},{"./IpsumController":3}],6:[function(require,module,exports){
+},{"./IpsumController":3}],8:[function(require,module,exports){
 'use strict';
 
 var $        = require('../../../lib/jquery/jquery');
@@ -9705,4 +9787,4 @@ proto.addString = function( string ) {
 module.exports = FirebaseObject;
 
 
-},{"../../../lib/jquery/jquery":1,"Firebase":2}]},{},[5]);
+},{"../../../lib/jquery/jquery":1,"Firebase":2}]},{},[7]);

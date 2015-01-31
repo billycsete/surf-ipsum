@@ -1,6 +1,7 @@
 'use strict';
 
 var $           = require('../../../lib/jquery/jquery');
+var IpsumList   = require('./IpsumList');
 var IpsumOutput = require('./IpsumOutput');
 
 var proto;
@@ -9,9 +10,13 @@ var proto;
 
 var IpsumController = function() {
 	// IpsumController elements
+	this.$inputList = $('#ipsum-list');
+	this.$outputElement = $('#output');
 	this.$submitButton = $('#ipsum-submit');
+	// create list of inputs
+	this.inputList = new IpsumList(this.$inputList);
 	// create reference to our output object
-	this.output = new IpsumOutput();
+	this.output = new IpsumOutput(this.$outputElement);
 
 	this.init();
 };
@@ -33,32 +38,9 @@ proto._attachEvents = function() {
 
 
 proto._onSubmit = function() {
-	// output.printParagrahs(2);
-	// output.printWords(100);
-
-
-	// var output = $('#output');
-	// var paragraph = '';
-
-
-	// // for (var i = 0; i < strings.length; i++) {
-	// // 	paragraph += '' + strings[i] + ' ';
-	// // };
-
-
-	// $(strings).each(printToOutput);
-
-
-
-	// function printToOutput( i, string ) {
-	// 	paragraph += ('' + string + ' ');
-	// }
-
-	// console.log(paragraph);
-
-	// output.html('<p>' + paragraph + '</p>');
 	this.output.printHeadlines(1);
 	this.output.printParagraphs(2);
+	this.output.printLists(2);
 	this.output.printHeadlines(1);
 	this.output.printWords(400);
 };
