@@ -41,7 +41,7 @@ proto._onSubmit = function() {
 	this.output.printHeadlines(1);
 	this.output.printParagraphs(2);
 	this.output.printLists(2);
-	this.output.printHeadlines(1);
+	this.output.printHeadlines(2);
 	this.output.printWords(400);
 };
 

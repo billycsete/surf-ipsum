@@ -39,7 +39,7 @@ proto.printHeadlines = function ( numberOfHeadlines ) {
 	var headline;
 
 	for (var i = 0; i < numberOfHeadlines; i++) {
-		headlineLength = this._getRandomInt(4, 6);
+		headlineLength = this._getRandomInt(2, 4);
 		// get strings from the firebase database
 		headline = this.firebaseObject.getRandomStrings(headlineLength);
 		// replace commas with spaces
