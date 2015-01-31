@@ -2,6 +2,7 @@
 
 var $              = require('../../../lib/jquery/jquery');
 var FirebaseObject = require('../shared/FirebaseObject');
+var IpsumOutput    = require('./IpsumOutput');
 
 var proto;
 
@@ -10,9 +11,10 @@ var proto;
 var IpsumController = function() {
 	// IpsumController elements
 	this.$submitButton = $('#ipsum-submit');
-	this.$numberInput;
 	// access to database of words
 	this.firebaseObject = new FirebaseObject();
+	// create reference to our output object
+	this.output = new IpsumOutput();
 
 	this.init();
 };
@@ -34,7 +36,28 @@ proto._attachEvents = function() {
 
 
 proto._onSubmit = function() {
-	this.firebaseObject.getRandomStrings(4);
+	var strings = this.firebaseObject.getRandomStrings(10);
+
+	var output = $('#output');
+	var paragraph = '';
+
+
+	// for (var i = 0; i < strings.length; i++) {
+	// 	paragraph += '' + strings[i] + ' ';
+	// };
+
+
+	$(strings).each(printToOutput);
+
+
+
+	function printToOutput( i, string ) {
+		paragraph += ('' + string + ' ');
+	}
+
+	console.log(paragraph);
+
+	output.html('<p>' + paragraph + '</p>');
 };
 
 

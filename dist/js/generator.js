@@ -9459,6 +9459,7 @@ module.exports = Firebase;
 
 var $              = require('../../../lib/jquery/jquery');
 var FirebaseObject = require('../shared/FirebaseObject');
+var IpsumOutput    = require('./IpsumOutput');
 
 var proto;
 
@@ -9467,9 +9468,10 @@ var proto;
 var IpsumController = function() {
 	// IpsumController elements
 	this.$submitButton = $('#ipsum-submit');
-	this.$numberInput;
 	// access to database of words
 	this.firebaseObject = new FirebaseObject();
+	// create reference to our output object
+	this.output = new IpsumOutput();
 
 	this.init();
 };
@@ -9491,7 +9493,28 @@ proto._attachEvents = function() {
 
 
 proto._onSubmit = function() {
-	this.firebaseObject.getRandomStrings(4);
+	var strings = this.firebaseObject.getRandomStrings(10);
+
+	var output = $('#output');
+	var paragraph = '';
+
+
+	// for (var i = 0; i < strings.length; i++) {
+	// 	paragraph += '' + strings[i] + ' ';
+	// };
+
+
+	$(strings).each(printToOutput);
+
+
+
+	function printToOutput( i, string ) {
+		paragraph += ('' + string + ' ');
+	}
+
+	console.log(paragraph);
+
+	output.html('<p>' + paragraph + '</p>');
 };
 
 
@@ -9499,7 +9522,42 @@ proto._onSubmit = function() {
 module.exports = IpsumController;
 
 
-},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":5}],4:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":6,"./IpsumOutput":4}],4:[function(require,module,exports){
+'use strict';
+
+var $               = require('../../../lib/jquery/jquery');
+
+var proto;
+
+
+
+var IpsumOutput = function() {
+	// IpsumOutput elements
+	this.$outputElement = $('#output');
+
+	this.init();
+};
+
+proto = IpsumOutput.prototype;
+
+
+
+proto.init = function() {
+	console.log('new ipsum list');
+};
+
+
+
+proto.addListItem = function() {
+
+};
+
+
+
+module.exports = IpsumOutput;
+
+
+},{"../../../lib/jquery/jquery":1}],5:[function(require,module,exports){
 'use strict'
 
 // Require statements
@@ -9518,7 +9576,7 @@ var Main = {
 
 Main.initialize();
 
-},{"./IpsumController":3}],5:[function(require,module,exports){
+},{"./IpsumController":3}],6:[function(require,module,exports){
 'use strict';
 
 var $        = require('../../../lib/jquery/jquery');
@@ -9530,7 +9588,7 @@ var proto;
  * FirebaseObject
  * @constructor
  */
-var FirebaseObject = function( ) {
+var FirebaseObject = function() {
 	// get link to the firebase database
 	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
 	// store the current array of words from the database
@@ -9600,4 +9658,4 @@ proto.addString = function( string ) {
 module.exports = FirebaseObject;
 
 
-},{"../../../lib/jquery/jquery":1,"Firebase":2}]},{},[4]);
+},{"../../../lib/jquery/jquery":1,"Firebase":2}]},{},[5]);

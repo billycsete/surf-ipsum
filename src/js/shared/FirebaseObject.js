@@ -9,7 +9,7 @@ var proto;
  * FirebaseObject
  * @constructor
  */
-var FirebaseObject = function( ) {
+var FirebaseObject = function() {
 	// get link to the firebase database
 	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
 	// store the current array of words from the database
