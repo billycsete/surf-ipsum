@@ -9465,13 +9465,13 @@ var proto;
 
 
 
-var IpsumController = function() {
+var IpsumController = function( ) {
 	// IpsumController elements
-	this.$inputList = $('#ipsum-list');
+	this.$listElement = $('#ipsum-list');
 	this.$outputElement = $('#output');
 	this.$submitButton = $('#ipsum-submit');
 	// create list of inputs
-	this.inputList = new IpsumList(this.$inputList);
+	this.list = new IpsumList(this.$listElement);
 	// create reference to our output object
 	this.output = new IpsumOutput(this.$outputElement);
 
@@ -9482,19 +9482,19 @@ proto = IpsumController.prototype;
 
 
 
-proto.init = function() {
+proto.init = function( ) {
 	this._attachEvents();
 };
 
 
 
-proto._attachEvents = function() {
+proto._attachEvents = function( ) {
 	this.$submitButton.on('click', this._onSubmit.bind(this));
 };
 
 
 
-proto._onSubmit = function() {
+proto._onSubmit = function( ) {
 	this.output.printHeadlines(1);
 	this.output.printParagraphs(2);
 	this.output.printLists(2);
@@ -9516,10 +9516,12 @@ var proto;
 
 
 
-var IpsumItem = function() {
+var IpsumItem = function( ) {
 	// IpsumItem elements
-	this.$numberInput;
-	this.$selectInput;
+	this.$itemElement = $('<li></li>');
+	this.$removeButton;
+	this.$inputElement;
+	this.$selectElement;
 
 	this.init();
 };
@@ -9528,26 +9530,53 @@ proto = IpsumItem.prototype;
 
 
 
-proto.init = function() {
-	console.log('new ipsum item');
+proto.init = function( ) {
+	this.$removeButton = this.$itemElement.append( this._makeRemoveButton() );
+	this._appendSpan('Shred me');
+	this.$inputElement = this.$itemElement.append( this._makeInputElement() );
+	this._appendSpan('gnarley');
+	this.$selectElement = this.$itemElement.append( this._makeSelectElement() );
 };
 
 
 
-proto.generateNewItem = function() {
-
+proto.getElement = function( ) {
+	return this.$itemElement;
 };
 
 
 
-proto._attachEvents = function() {
-	// this.$inputElement.on('input', this._onValueChange.bind(this));
+proto._makeRemoveButton = function( ) {
+	// create new close button
+	return $('<button class="item-remove"><i class="icon-minus-circled"></i></button>');
 };
+
+
+
+proto._makeInputElement = function( ) {
+	// create new input element
+	return $('<input class="item-number" type="text" name="number" placeholder="2">');
+};
+
+
+
+proto._makeSelectElement = function( ) {
+	// create new select element
+	return $('<select class="item-select"><option value="paragraph" selected>paragraphs</option><option value="titles">titles</option><option value="lists">lists</option><option value="words">words</option></select>');
+};
+
+
+
+proto._appendSpan = function( text ) {
+	// create a new span element with text inside
+	var span = $('<span>' + text + '</span>');
+	// append the span element to the list item
+	this.$itemElement.append(span);
+}
 
 
 
 module.exports = IpsumItem;
-
 
 },{"../../../lib/jquery/jquery":1}],5:[function(require,module,exports){
 'use strict';
@@ -9562,6 +9591,9 @@ var proto;
 var IpsumList = function( listElement ) {
 	// IpsumList elements
 	this.$list = listElement;
+	this.$addItemButton = $('#ipsum-add-item');
+
+	this.listItems = [];
 
 	this.init();
 };
@@ -9570,14 +9602,28 @@ proto = IpsumList.prototype;
 
 
 
-proto.init = function() {
-	console.log('new ipsum list');
+proto.init = function( ) {
+	this.addListItem();
+	this._attachEvents();
 };
 
 
 
-proto.addListItem = function() {
+proto._attachEvents = function( ) {
+	this.$addItemButton.on('click', this.addListItem.bind(this));
+};
 
+
+
+proto.addListItem = function( ) {
+	// create a new item object
+	var ipsumItem = new IpsumItem();
+	// add the new item object to the array of list items
+	this.listItems.push(listItem);
+	// get the list item element
+	var listItem = ipsumItem.getElement();
+
+	this.$list.append(listItem);
 };
 
 
@@ -9607,13 +9653,10 @@ proto = IpsumOutput.prototype;
 
 proto.printParagraphs = function ( numberOfParagraphs ) {
 
-	var paragraphLength;
-	var paragraph;
-
 	for (var i = 0; i < numberOfParagraphs; i++) {
-		paragraphLength = this._getRandomInt(40, 60);
+		var paragraphLength = this._getRandomInt(40, 60);
 		// get strings from the firebase database
-		paragraph = this.firebaseObject.getRandomStrings(paragraphLength);
+		var paragraph = this.firebaseObject.getRandomStrings(paragraphLength);
 		// replace commas with spaces
 		paragraph = paragraph.toString().replace(/,/g, ' ');
 
@@ -9623,13 +9666,11 @@ proto.printParagraphs = function ( numberOfParagraphs ) {
 
 
 proto.printHeadlines = function ( numberOfHeadlines ) {
-	var headlineLength;
-	var headline;
 
 	for (var i = 0; i < numberOfHeadlines; i++) {
-		headlineLength = this._getRandomInt(2, 4);
+		var headlineLength = this._getRandomInt(2, 4);
 		// get strings from the firebase database
-		headline = this.firebaseObject.getRandomStrings(headlineLength);
+		var headline = this.firebaseObject.getRandomStrings(headlineLength);
 		// replace commas with spaces
 		headline = headline.toString().replace(/,/g, ' ');
 		// print a new headline to the output element
@@ -9639,22 +9680,17 @@ proto.printHeadlines = function ( numberOfHeadlines ) {
 
 
 proto.printLists = function ( numberOfLists ) {
-	var listItemTextLength;
-	var listItemText;
-	var listLength;
-	var listElement;
-	var listItem;
 
 	for (var i = 0; i < numberOfLists; i++) {
-		listLength = this._getRandomInt(4, 8);
-		listElement = document.createElement('ul');
+		var listLength = this._getRandomInt(4, 8);
+		var listElement = document.createElement('ul');
 
 		for (var j = 0; j < listLength; j++) {
-			listItem = document.createElement('li');
+			var listItem = document.createElement('li');
 
-			listItemTextLength = this._getRandomInt(2, 4);
+			var listItemTextLength = this._getRandomInt(2, 4);
 			// get strings from the firebase database
-			listItemText = this.firebaseObject.getRandomStrings(listItemTextLength);
+			var listItemText = this.firebaseObject.getRandomStrings(listItemTextLength);
 			// replace commas with spaces
 			listItemText = listItemText.toString().replace(/,/g, ' ');
 			// add the random text to the new list item
@@ -9669,7 +9705,7 @@ proto.printLists = function ( numberOfLists ) {
 
 
 proto.printWords = function ( numberOfWords ) {
-
+	// get strings from the firebase database
 	var words = this.firebaseObject.getRandomStrings(numberOfWords);
 	// replace commas with spaces
 	words = words.toString().replace(/,/g, ' ');

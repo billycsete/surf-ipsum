@@ -8,13 +8,13 @@ var proto;
 
 
 
-var IpsumController = function() {
+var IpsumController = function( ) {
 	// IpsumController elements
-	this.$inputList = $('#ipsum-list');
+	this.$listElement = $('#ipsum-list');
 	this.$outputElement = $('#output');
 	this.$submitButton = $('#ipsum-submit');
 	// create list of inputs
-	this.inputList = new IpsumList(this.$inputList);
+	this.list = new IpsumList(this.$listElement);
 	// create reference to our output object
 	this.output = new IpsumOutput(this.$outputElement);
 
@@ -25,19 +25,19 @@ proto = IpsumController.prototype;
 
 
 
-proto.init = function() {
+proto.init = function( ) {
 	this._attachEvents();
 };
 
 
 
-proto._attachEvents = function() {
+proto._attachEvents = function( ) {
 	this.$submitButton.on('click', this._onSubmit.bind(this));
 };
 
 
 
-proto._onSubmit = function() {
+proto._onSubmit = function( ) {
 	this.output.printHeadlines(1);
 	this.output.printParagraphs(2);
 	this.output.printLists(2);

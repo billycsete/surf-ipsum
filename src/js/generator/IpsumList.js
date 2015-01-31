@@ -10,6 +10,9 @@ var proto;
 var IpsumList = function( listElement ) {
 	// IpsumList elements
 	this.$list = listElement;
+	this.$addItemButton = $('#ipsum-add-item');
+
+	this.listItems = [];
 
 	this.init();
 };
@@ -18,14 +21,28 @@ proto = IpsumList.prototype;
 
 
 
-proto.init = function() {
-	console.log('new ipsum list');
+proto.init = function( ) {
+	this.addListItem();
+	this._attachEvents();
 };
 
 
 
-proto.addListItem = function() {
+proto._attachEvents = function( ) {
+	this.$addItemButton.on('click', this.addListItem.bind(this));
+};
 
+
+
+proto.addListItem = function( ) {
+	// create a new item object
+	var ipsumItem = new IpsumItem();
+	// add the new item object to the array of list items
+	this.listItems.push(listItem);
+	// get the list item element
+	var listItem = ipsumItem.getElement();
+
+	this.$list.append(listItem);
 };
 
 

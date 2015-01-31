@@ -19,13 +19,10 @@ proto = IpsumOutput.prototype;
 
 proto.printParagraphs = function ( numberOfParagraphs ) {
 
-	var paragraphLength;
-	var paragraph;
-
 	for (var i = 0; i < numberOfParagraphs; i++) {
-		paragraphLength = this._getRandomInt(40, 60);
+		var paragraphLength = this._getRandomInt(40, 60);
 		// get strings from the firebase database
-		paragraph = this.firebaseObject.getRandomStrings(paragraphLength);
+		var paragraph = this.firebaseObject.getRandomStrings(paragraphLength);
 		// replace commas with spaces
 		paragraph = paragraph.toString().replace(/,/g, ' ');
 
@@ -35,13 +32,11 @@ proto.printParagraphs = function ( numberOfParagraphs ) {
 
 
 proto.printHeadlines = function ( numberOfHeadlines ) {
-	var headlineLength;
-	var headline;
 
 	for (var i = 0; i < numberOfHeadlines; i++) {
-		headlineLength = this._getRandomInt(2, 4);
+		var headlineLength = this._getRandomInt(2, 4);
 		// get strings from the firebase database
-		headline = this.firebaseObject.getRandomStrings(headlineLength);
+		var headline = this.firebaseObject.getRandomStrings(headlineLength);
 		// replace commas with spaces
 		headline = headline.toString().replace(/,/g, ' ');
 		// print a new headline to the output element
@@ -51,22 +46,17 @@ proto.printHeadlines = function ( numberOfHeadlines ) {
 
 
 proto.printLists = function ( numberOfLists ) {
-	var listItemTextLength;
-	var listItemText;
-	var listLength;
-	var listElement;
-	var listItem;
 
 	for (var i = 0; i < numberOfLists; i++) {
-		listLength = this._getRandomInt(4, 8);
-		listElement = document.createElement('ul');
+		var listLength = this._getRandomInt(4, 8);
+		var listElement = document.createElement('ul');
 
 		for (var j = 0; j < listLength; j++) {
-			listItem = document.createElement('li');
+			var listItem = document.createElement('li');
 
-			listItemTextLength = this._getRandomInt(2, 4);
+			var listItemTextLength = this._getRandomInt(2, 4);
 			// get strings from the firebase database
-			listItemText = this.firebaseObject.getRandomStrings(listItemTextLength);
+			var listItemText = this.firebaseObject.getRandomStrings(listItemTextLength);
 			// replace commas with spaces
 			listItemText = listItemText.toString().replace(/,/g, ' ');
 			// add the random text to the new list item
@@ -81,7 +71,7 @@ proto.printLists = function ( numberOfLists ) {
 
 
 proto.printWords = function ( numberOfWords ) {
-
+	// get strings from the firebase database
 	var words = this.firebaseObject.getRandomStrings(numberOfWords);
 	// replace commas with spaces
 	words = words.toString().replace(/,/g, ' ');
