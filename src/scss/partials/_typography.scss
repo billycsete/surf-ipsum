@@ -8,8 +8,8 @@
 // Weights
 // =================================================
 
-$light: 300;
-$normal: 600;
+$normal: 400;
+$bold: 600;
 
 
 // =================================================
@@ -34,13 +34,13 @@ html, body {
 // =================================================
 
 h1 {
-	font-weight: $light;
+	font-weight: $normal;
 	font-size: 2rem;
 	margin: 0 0 0.5rem 0;
 }
 
 h2 {
-	font-weight: $light;
+	font-weight: $normal;
 	font-size: 1.2rem;
 	margin: 0 0 1.5rem 0;
 }
@@ -57,7 +57,7 @@ h3 {
 // =================================================
 
 p {
-	font-weight: $light;
+	font-weight: $normal;
 	font-size: 1rem;
 	line-height: 1.4rem;
 	margin: 0 0 1rem 0;

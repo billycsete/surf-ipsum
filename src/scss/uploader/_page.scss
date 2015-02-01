@@ -4,6 +4,19 @@
 //
 // =================================================
 
-.page-uploader {
+$light-blue: #3da1ce;
+$blue: #2492c5;
+$dark-blue: #177aa8;
 
+$red: #ee5456;
+$green: #6ec972;
+$light-grey: #ededed;
+$dark-grey: #444;
+$white: #fff;
+
+.page-uploader {
+	background-image: url(../images/craig-background.jpg);
+	background-size: 100% auto;
+	background-position: center bottom;
+	background-repeat: no-repeat;
 }

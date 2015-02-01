@@ -7,25 +7,26 @@
 .uploader-message {
 	position: relative;
 	z-index: 1;
-	height: 0.2rem;
-	padding-left: 2rem;
+	height: 6px;
+	padding-left: rem(36px);
 	overflow: hidden;
-	background: #ddd;
-	color: #eee;
-	font-size: 1.6rem;
-	line-height: 5rem;
-	@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.4s ease-in-out);
+	background: $dark-blue;
+	font-size: rem(24px);
+	@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0.2s ease-in-out);
 
 	&.show-message{
 		height: 5rem;
+		@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0s ease-in-out);
 	}
 
 	&.show-message-error {
-		background: #cc6055;
+		background: $red;
+		color: $white;
 	}
 
 	&.show-message-success {
-		background: #62b989;
+		background: $light-grey;
+		color: $dark-grey;
 	}
 
 	.message-text {

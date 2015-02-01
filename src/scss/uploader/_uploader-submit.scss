@@ -8,16 +8,16 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	padding: 1rem;
+	padding: rem(20px) rem(24px);
 	border: none;
-	background: #ddd;
-	color: #aaa;
+	background: $dark-blue;
+	font-size: rem(40px);
+	color: rgba(0,0,0, 0.3);
 	@include transform(translate3d(100%, 0, 0));
 	@include transition(transform 0.4s cubic-bezier(1.000, 0.000, 0.000, 1.000));
 
 	&:hover {
-		background: #ccc;
-		color: #eee;
+		// background: #ccc;
 	}
 
 	.input-has-value & {

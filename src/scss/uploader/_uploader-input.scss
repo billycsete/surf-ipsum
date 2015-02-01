@@ -4,26 +4,31 @@
 //
 // =================================================
 
+
 .uploader-input {
 	width: 100%;
-	padding: 1rem 9rem 1rem 2rem;
+	padding: rem(20px) rem(110px) rem(20px) rem(36px);
 	border: none;
-	background: #f5f5f5;
-	color: #666;
+	background-color: $blue;
+	color: #fff;
+	font-size: rem(40px);
+	font-weight: $normal;
 
 	&:focus {
 		outline: none;
+		// background-color: $blue;
 	}
+
 	&::-webkit-input-placeholder {
-		color: #ddd;
+		color: $dark-blue;
 	}
 	&:-moz-placeholder { /* Firefox 18- */
-		color: #ddd;
+		color: $dark-blue;
 	}
 	&::-moz-placeholder {  /* Firefox 19+ */
-		color: #ddd;
+		color: $dark-blue;
 	}
 	&:-ms-input-placeholder {
-		color: #ddd;
+		color: $dark-blue;
 	}
 }

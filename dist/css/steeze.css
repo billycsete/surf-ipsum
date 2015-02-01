@@ -377,6 +377,14 @@ th {
   padding: 0; }
 
 html, body {
+  min-height: 100%; }
+
+html *, body * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html, body {
   font-size: 16px;
   font-family: 'Open Sans', 'Helvetica', 'sans-serif';
   color: #272a2f;
@@ -387,12 +395,12 @@ html, body {
       font-size: 18px; } }
 
 h1 {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 2rem;
   margin: 0 0 0.5rem 0; }
 
 h2 {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.2rem;
   margin: 0 0 1.5rem 0; }
 
@@ -402,7 +410,7 @@ h3 {
   margin: 0 0 1rem 0; }
 
 p {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1rem;
   line-height: 1.4rem;
   margin: 0 0 1rem 0; }
@@ -535,46 +543,54 @@ figure.fluid {
 .section {
   padding: 40px 25px; }
 
+.page-uploader {
+  background-image: url(../images/craig-background.jpg);
+  background-size: 100% auto;
+  background-position: center bottom;
+  background-repeat: no-repeat; }
+
 .uploader-element {
   position: relative;
   z-index: 1;
   overflow: hidden;
   width: 80%;
   max-width: 1000px;
-  margin: 100px auto 0; }
+  margin: 6.25rem auto 0; }
 
 .uploader-form {
   position: relative;
-  z-index: 1;
-  font-size: 3.6rem; }
+  z-index: 1; }
 
 .uploader-input {
   width: 100%;
-  padding: 1rem 9rem 1rem 2rem;
+  padding: 1.25rem 6.875rem 1.25rem 2.25rem;
   border: none;
-  background: #f5f5f5;
-  color: #666; }
+  background-color: #2492c5;
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 400; }
   .uploader-input:focus {
     outline: none; }
   .uploader-input::-webkit-input-placeholder {
-    color: #ddd; }
+    color: #177aa8; }
   .uploader-input:-moz-placeholder {
     /* Firefox 18- */
-    color: #ddd; }
+    color: #177aa8; }
   .uploader-input::-moz-placeholder {
     /* Firefox 19+ */
-    color: #ddd; }
+    color: #177aa8; }
   .uploader-input:-ms-input-placeholder {
-    color: #ddd; }
+    color: #177aa8; }
 
 .uploader-submit {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 1rem;
+  padding: 1.25rem 1.5rem;
   border: none;
-  background: #ddd;
-  color: #aaa;
+  background: #177aa8;
+  font-size: 2.5rem;
+  color: rgba(0, 0, 0, 0.3);
   -webkit-transform: translate3d(100%, 0, 0);
   -moz-transform: translate3d(100%, 0, 0);
   -ms-transform: translate3d(100%, 0, 0);
@@ -583,9 +599,6 @@ figure.fluid {
   -webkit-transition: -webkit-transform 0.4s cubic-bezier(1, 0, 0, 1);
   -moz-transition: -moz-transform 0.4s cubic-bezier(1, 0, 0, 1);
   transition: transform 0.4s cubic-bezier(1, 0, 0, 1); }
-  .uploader-submit:hover {
-    background: #ccc;
-    color: #eee; }
   .input-has-value .uploader-submit {
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
@@ -596,22 +609,25 @@ figure.fluid {
 .uploader-message {
   position: relative;
   z-index: 1;
-  height: 0.2rem;
-  padding-left: 2rem;
+  height: 6px;
+  padding-left: 2.25rem;
   overflow: hidden;
-  background: #ddd;
-  color: #eee;
-  font-size: 1.6rem;
-  line-height: 5rem;
-  -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out;
-  -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out;
-  transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.4s ease-in-out; }
+  background: #177aa8;
+  font-size: 1.5rem;
+  -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0.2s ease-in-out;
+  -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0.2s ease-in-out;
+  transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0.2s ease-in-out; }
   .uploader-message.show-message {
-    height: 5rem; }
+    height: 5rem;
+    -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out;
+    -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out;
+    transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out; }
   .uploader-message.show-message-error {
-    background: #cc6055; }
+    background: #ee5456;
+    color: #fff; }
   .uploader-message.show-message-success {
-    background: #62b989; }
+    background: #ededed;
+    color: #444; }
   .uploader-message .message-text {
     opacity: 0; }
 
