@@ -13,36 +13,21 @@
 
 
 // =================================================
-// Settings
+// Shared
 // =================================================
 
-@import 'settings/settings';
-@import 'settings/breakpoints';
+@import 'shared/settings';
+@import 'shared/normalize';
+@import 'shared/icons';
+@import 'shared/typography';
 
-
-// =================================================
-// Vendor
-// =================================================
-
-@import 'vendor/normalize';
-
-
-// =================================================
-// Partials
-// =================================================
-
-@import 'partials/body';
-@import 'partials/typography';
-@import 'partials/icons';
-@import 'partials/images';
-@import 'partials/section';
+@import 'shared/layout/base';
 
 
 // =================================================
 // Page Specific
 // =================================================
 
-// Uploader
 @import 'uploader/page';
 @import 'uploader/uploader-element';
 @import 'uploader/uploader-form';
@@ -50,6 +35,5 @@
 @import 'uploader/uploader-submit';
 @import 'uploader/uploader-message';
 
-// Generator
 @import 'generator/page';
 @import 'generator/header';
