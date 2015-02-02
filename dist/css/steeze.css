@@ -377,6 +377,7 @@ th {
   padding: 0; }
 
 html, body {
+  height: 100%;
   min-height: 100%; }
 
 html *, body * {
@@ -385,11 +386,17 @@ html *, body * {
   box-sizing: border-box; }
 
 html, body {
-  font-size: 16px;
+  font-size: 12px;
   font-family: 'Open Sans', 'Helvetica', 'sans-serif';
   color: #272a2f;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased; }
+  @media screen and (min-width: 480px) {
+    html, body {
+      font-size: 14px; } }
+  @media screen and (min-width: 760px) {
+    html, body {
+      font-size: 16px; } }
   @media screen and (min-width: 1200px) {
     html, body {
       font-size: 18px; } }
@@ -553,17 +560,26 @@ figure.fluid {
 
 .page-uploader {
   background-image: url(../images/craig-background.jpg);
-  background-size: 100% auto;
+  background-size: 800px auto;
   background-position: center bottom;
   background-repeat: no-repeat; }
+  @media screen and (min-width: 480px) {
+    .page-uploader {
+      background-size: 1200px auto; } }
+  @media screen and (min-width: 760px) {
+    .page-uploader {
+      background-size: 100% auto; } }
 
 .uploader-element {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  width: 80%;
+  width: 90%;
   max-width: 1000px;
   margin: 6.25rem auto 0; }
+  @media screen and (min-width: 760px) {
+    .uploader-element {
+      width: 80%; } }
 
 .uploader-form {
   position: relative;
@@ -571,26 +587,28 @@ figure.fluid {
 
 .uploader-input {
   width: 100%;
-  padding: 1rem 6.875rem 1rem 2.25rem;
+  padding: 1rem 6.25rem 1rem 1.875rem;
   border: none;
+  border-radius: 0;
   background-color: #3da1ce;
   color: #fff;
-  font-size: 2.5rem;
   font-weight: 400;
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
   -o-transform: translateZ(0);
-  transform: translateZ(0); }
+  transform: translateZ(0);
+  font-size: 1.875rem; }
+  @media screen and (min-width: 480px) {
+    .uploader-input {
+      font-size: 2.5rem; } }
   .uploader-input:focus {
     outline: none; }
   .uploader-input::-webkit-input-placeholder {
     color: #177aa8; }
   .uploader-input:-moz-placeholder {
-    /* Firefox 18- */
     color: #177aa8; }
   .uploader-input::-moz-placeholder {
-    /* Firefox 19+ */
     color: #177aa8; }
   .uploader-input:-ms-input-placeholder {
     color: #177aa8; }
@@ -602,7 +620,7 @@ figure.fluid {
   padding: 1.25rem 1.5rem;
   border: none;
   background-color: #177aa8;
-  font-size: 2.5rem;
+  font-size: 1.875rem;
   color: rgba(0, 0, 0, 0.3);
   -webkit-transform: translate3d(100%, 0, 0);
   -moz-transform: translate3d(100%, 0, 0);
@@ -612,6 +630,9 @@ figure.fluid {
   -webkit-transition: -webkit-transform 0.4s cubic-bezier(1, 0, 0, 1);
   -moz-transition: -moz-transform 0.4s cubic-bezier(1, 0, 0, 1);
   transition: transform 0.4s cubic-bezier(1, 0, 0, 1); }
+  @media screen and (min-width: 480px) {
+    .uploader-submit {
+      font-size: 2.5rem; } }
   .uploader-submit:hover, .uploader-submit:focus {
     background-color: transparent;
     color: #fff; }
@@ -626,7 +647,7 @@ figure.fluid {
   position: relative;
   z-index: 1;
   height: 6px;
-  padding-left: 2.25rem;
+  padding-left: 1.375rem;
   overflow: hidden;
   background: #177aa8;
   color: #888;
@@ -646,9 +667,6 @@ figure.fluid {
     -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out;
     transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out; }
   .uploader-message .message-text {
-    position: relative;
-    z-index: 1;
-    margin-left: -0.5rem;
     padding-top: 0.75rem; }
     .uploader-message .message-text:after {
       content: "";

@@ -11,10 +11,14 @@
 	padding: rem(20px) rem(24px);
 	border: none;
 	background-color: $dark-blue;
-	font-size: rem(40px);
+	font-size: rem(30px);
 	color: rgba(0,0,0, 0.3);
 	@include transform(translate3d(100%, 0, 0));
 	@include transition(transform 0.4s cubic-bezier(1.000, 0.000, 0.000, 1.000));
+
+	@include media($small) {
+		font-size: rem(40px);
+	}
 
 	&:hover,
 	&:focus {

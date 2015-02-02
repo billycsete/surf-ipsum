@@ -8,7 +8,7 @@
 	position: relative;
 	z-index: 1;
 	height: 6px;
-	padding-left: rem(36px);
+	padding-left: rem(22px);
 	overflow: hidden;
 	background: $dark-blue;
 	color: $dark-grey;
@@ -23,10 +23,7 @@
 	}
 
 	.message-text {
-		position: relative;
-		z-index: 1;
 		@include clearfix();
-		margin-left: rem(-8px);
 		padding-top: rem(12px);
 	}
 

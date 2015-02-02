@@ -16,7 +16,17 @@ $white: #fff;
 
 .page-uploader {
 	background-image: url(../images/craig-background.jpg);
-	background-size: 100% auto;
+	background-size: 800px auto;
 	background-position: center bottom;
 	background-repeat: no-repeat;
+
+	@include media($small) {
+		background-size: 1200px auto;
+	}
+
+	@include media($medium) {
+		background-size: 100% auto;
+	}
 }
+
+
