@@ -9520,6 +9520,9 @@ proto.getRandomStrings = function( numberOfItems ) {
 		results.push(randomString);
 	}
 
+	// turn results array into one long string and remove commas
+	results = results.toString().replace(/,/g, ' ');
+
 	return results;
 };
 

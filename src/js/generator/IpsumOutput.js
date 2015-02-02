@@ -17,15 +17,32 @@ var IpsumOutput = function( outputContainer ) {
 proto = IpsumOutput.prototype;
 
 
+proto.printSentence = function ( ) {
+	var sentenceLength = this._getRandomInt(5, 10);
+	// get strings from the firebase database
+	var sentence = this.firebaseObject.getRandomStrings(sentenceLength);
+	// replace commas with spaces
+	sentence = sentence.toString().replace(/,/g, ' ');
+	// capitalize sentence and add a period
+	sentence = this._capitalizeString(sentence) + '.';
+
+	return sentence;
+};
+
+
 proto.printParagraphs = function ( numberOfParagraphs ) {
 
 	for (var i = 0; i < numberOfParagraphs; i++) {
-		var paragraphLength = this._getRandomInt(40, 60);
-		// get strings from the firebase database
-		var paragraph = this.firebaseObject.getRandomStrings(paragraphLength);
-		// replace commas with spaces
-		paragraph = paragraph.toString().replace(/,/g, ' ');
+		var sentencesPerParagraph = this._getRandomInt(5, 8);
+		var paragraph = '';
 
+		for (var j = 0; j < sentencesPerParagraph; j++) {
+			paragraph += this.printSentence() + ' ';
+		};
+
+		// trim off the trailing space on the last sentence
+		paragraph = paragraph.slice(0, - 1);
+		// print paragraph to the output element
 		this.$outputElement.append('<p>' + paragraph + '</p>');
 	}
 };
@@ -37,8 +54,8 @@ proto.printHeadlines = function ( numberOfHeadlines ) {
 		var headlineLength = this._getRandomInt(2, 4);
 		// get strings from the firebase database
 		var headline = this.firebaseObject.getRandomStrings(headlineLength);
-		// replace commas with spaces
-		headline = headline.toString().replace(/,/g, ' ');
+		// capitalize headline
+		headline = this._capitalizeString(headline);
 		// print a new headline to the output element
 		this.$outputElement.append('<h1>' + headline + '</h1>');
 	}
@@ -57,8 +74,6 @@ proto.printLists = function ( numberOfLists ) {
 			var listItemTextLength = this._getRandomInt(2, 4);
 			// get strings from the firebase database
 			var listItemText = this.firebaseObject.getRandomStrings(listItemTextLength);
-			// replace commas with spaces
-			listItemText = listItemText.toString().replace(/,/g, ' ');
 			// add the random text to the new list item
 			$(listItem).html(listItemText);
 			// add the new list item element to the list element
@@ -73,8 +88,6 @@ proto.printLists = function ( numberOfLists ) {
 proto.printWords = function ( numberOfWords ) {
 	// get strings from the firebase database
 	var words = this.firebaseObject.getRandomStrings(numberOfWords);
-	// replace commas with spaces
-	words = words.toString().replace(/,/g, ' ');
 	// print words to the output element
 	this.$outputElement.append('<p>' + words + '</p>');
 };
@@ -85,5 +98,9 @@ proto._getRandomInt = function( min, max ) {
 };
 
 
-module.exports = IpsumOutput;
+proto._capitalizeString = function( string ) {
+	return string.substring(0, 1).toUpperCase() + string.substring(1);
+};
 
+
+module.exports = IpsumOutput;
