@@ -53,15 +53,22 @@ proto._attachEvents = function( ) {
 	// add a new list item when the plus button is clicked
 	this.$addItemButton.on('click', this.addListItem.bind(this));
 	// remove list items when close button is clicked
-	$(document).on('removeItem', this._removeListItem);
+	$(document).on('removeItem', this._removeListItem.bind(this));
 };
 
 
 
 proto._removeListItem = function( evt ) {
 	var itemObject = evt.obj;
+	var itemIndex = $.inArray(itemObject, this.ipsumItems);
 
-	console.log($.inArray(itemObject, this.ipsumItems));
+	// if the itemObject exists in our array, lets remove it
+	if( itemIndex >= 0 ) {
+		// remove the html element
+		itemObject.$itemElement.remove();
+		// remove the ipsumItem from our array
+		this.ipsumItems.splice(itemIndex, 1);
+	}
 };
 
 
