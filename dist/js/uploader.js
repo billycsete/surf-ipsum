@@ -9725,6 +9725,8 @@ proto.showSucessMessage = function( message ) {
 	this.$element.addClass('show-message show-message-success');
 	// fade in message text
 	this.$messageText.fadeIn();
+	// hide the success message after a delay
+	window.setTimeout( this.hideMessage.bind(this), 3000);
 };
 
 
