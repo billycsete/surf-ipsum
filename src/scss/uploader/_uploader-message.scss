@@ -13,6 +13,7 @@
 	background: $dark-blue;
 	color: $dark-grey;
 	font-size: rem(20px);
+	@include transform(translateZ(0));
 	@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0.2s ease-in-out);
 
 	&.show-message{
@@ -21,15 +22,9 @@
 		@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0s ease-in-out);
 	}
 
-	&.show-message-error {
-
-	}
-
-	&.show-message-success {
-
-	}
-
 	.message-text {
+		position: relative;
+		z-index: 1;
 		@include clearfix();
 		margin-left: rem(-8px);
 		padding-top: rem(12px);
@@ -60,13 +55,4 @@
 		font-size: rem(28px);
 	}
 
-
-	.icon-thumbs-down-alt {
-		color: $red;
-		font-size: rem(28px);
-	}
-	.icon-thumbs-up-alt {
-		color: $green;
-		font-size: rem(28px);
-	}
 }

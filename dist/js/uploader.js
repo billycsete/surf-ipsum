@@ -9615,8 +9615,10 @@ proto._onValueChange = function( evt ) {
 
 	if ( inputValue === '' ) {
 		this.$uploaderElement.removeClass('input-has-value');
+		this.$submitButton.attr('tabindex', -1);
 	} else {
 		this.$uploaderElement.addClass('input-has-value');
+		this.$submitButton.attr('tabindex', 0);
 	}
 };
 

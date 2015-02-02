@@ -10,14 +10,16 @@
 	right: 0;
 	padding: rem(20px) rem(24px);
 	border: none;
-	background: $dark-blue;
+	background-color: $dark-blue;
 	font-size: rem(40px);
 	color: rgba(0,0,0, 0.3);
 	@include transform(translate3d(100%, 0, 0));
 	@include transition(transform 0.4s cubic-bezier(1.000, 0.000, 0.000, 1.000));
 
-	&:hover {
-		// background: #ccc;
+	&:hover,
+	&:focus {
+		background-color: transparent;
+		color: $white;
 	}
 
 	.input-has-value & {
