@@ -42,6 +42,7 @@
 // Page Specific
 // =================================================
 
+// Uploader
 @import 'uploader/page';
 @import 'uploader/uploader-element';
 @import 'uploader/uploader-form';
@@ -49,5 +50,6 @@
 @import 'uploader/uploader-submit';
 @import 'uploader/uploader-message';
 
+// Generator
 @import 'generator/page';
 @import 'generator/header';

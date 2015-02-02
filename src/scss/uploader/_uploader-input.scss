@@ -17,17 +17,19 @@
 	background-color: $light-blue;
 	color: #fff;
 	font-weight: $normal;
-	@include transform(translateZ(0));
 	font-size: rem(30px);
+	@include transform(translateZ(0));
 
 	@include media($small) {
 		font-size: rem(40px);
 	}
 
+	// focus
 	&:focus {
 		outline: none;
 	}
 
+	// style placeholder text
 	&::-webkit-input-placeholder {
 		color: $dark-blue;
 	}
