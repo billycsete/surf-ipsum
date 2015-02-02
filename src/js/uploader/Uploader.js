@@ -122,12 +122,12 @@ proto._onSuccess = function( inputValue ) {
 proto._isValidInput = function( inputValue ) {
 	// check for duplicate value
 	if ( this.firebaseObject.isDuplicate(inputValue) ) {
-		this.message.showErrorMessage('<i class="icon-cancel"></i><span>The input is empty, silly!</span>');
+		this.message.showErrorMessage('<i class="icon-cancel"></i><span>Duplicate entry.</span>');
 		return false;
 	}
 	// check for empty input
 	if ( inputValue === '' ) {
-		this.message.showErrorMessage('<i class="icon-cancel"></i><span>The input is empty, silly!</span>');
+		this.message.showErrorMessage('<i class="icon-cancel"></i><span>Yah kook, the input is empty!</span>');
 		return false;
 	}
 
