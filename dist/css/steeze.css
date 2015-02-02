@@ -425,8 +425,8 @@ a {
 
 @font-face {
   font-family: 'icons';
-  src: url("../fonts/icons.eot?41326293");
-  src: url("../fonts/icons.eot?41326293#iefix") format("embedded-opentype"), url("../fonts/icons.woff?41326293") format("woff"), url("../fonts/icons.ttf?41326293") format("truetype"), url("../fonts/icons.svg?41326293#fontello") format("svg");
+  src: url("../fonts/icons.eot?26494785");
+  src: url("../fonts/icons.eot?26494785#iefix") format("embedded-opentype"), url("../fonts/icons.woff?26494785") format("woff"), url("../fonts/icons.ttf?26494785") format("truetype"), url("../fonts/icons.svg?26494785#icons") format("svg");
   font-weight: normal;
   font-style: normal; }
 [class^="icon-"]:before, [class*=" icon-"]:before {
@@ -448,90 +448,98 @@ a {
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */ }
 
-.icon-upload-cloud:before {
+.icon-thumbs-up:before {
   content: '\e800'; }
 
 /* '' */
-.icon-right-open-big:before {
+.icon-thumbs-down:before {
   content: '\e801'; }
 
 /* '' */
-.icon-check:before {
+.icon-thumbs-up-alt:before {
   content: '\e802'; }
 
 /* '' */
-.icon-cancel:before {
+.icon-thumbs-down-alt:before {
   content: '\e803'; }
 
 /* '' */
-.icon-cancel-circled:before {
+.icon-upload:before {
   content: '\e804'; }
 
 /* '' */
-.icon-cancel-squared:before {
+.icon-upload-cloud:before {
   content: '\e805'; }
 
 /* '' */
-.icon-left-open-big:before {
+.icon-ok:before {
   content: '\e806'; }
 
 /* '' */
-.icon-plus:before {
+.icon-ok-circled:before {
   content: '\e807'; }
 
 /* '' */
-.icon-plus-circled:before {
+.icon-ok-circled2:before {
   content: '\e808'; }
 
 /* '' */
-.icon-menu:before {
+.icon-ok-squared:before {
   content: '\e809'; }
 
 /* '' */
-.icon-plus-squared:before {
+.icon-cancel:before {
   content: '\e80a'; }
 
 /* '' */
-.icon-minus:before {
+.icon-cancel-circled:before {
   content: '\e80b'; }
 
 /* '' */
-.icon-minus-circled:before {
+.icon-cancel-circled2:before {
   content: '\e80c'; }
 
 /* '' */
-.icon-minus-squared:before {
+.icon-plus:before {
   content: '\e80d'; }
 
 /* '' */
-.icon-help:before {
+.icon-plus-circled:before {
   content: '\e80e'; }
 
 /* '' */
-.icon-help-circled:before {
+.icon-plus-squared:before {
   content: '\e80f'; }
 
 /* '' */
-.icon-info:before {
+.icon-minus-squared:before {
   content: '\e810'; }
 
 /* '' */
-.icon-upload:before {
+.icon-minus-circled:before {
   content: '\e811'; }
 
 /* '' */
-.icon-thumbs-up:before {
+.icon-minus:before {
   content: '\e812'; }
 
 /* '' */
-.icon-thumbs-down:before {
+.icon-down-open:before {
   content: '\e813'; }
 
 /* '' */
-.icon-info-circled:before {
+.icon-left-open:before {
   content: '\e814'; }
 
 /* '' */
+.icon-right-open:before {
+  content: '\e815'; }
+
+/* '' */
+.icon-up-open:before {
+  content: '\e816'; }
+
+/* '' */
 figure.fluid {
   margin: 0;
   padding: 0; }
@@ -613,22 +621,45 @@ figure.fluid {
   padding-left: 2.25rem;
   overflow: hidden;
   background: #177aa8;
-  font-size: 1.5rem;
+  color: #888;
+  font-size: 1.25rem;
   -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0.2s ease-in-out;
   -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0.2s ease-in-out;
   transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0.2s ease-in-out; }
   .uploader-message.show-message {
-    height: 5rem;
+    height: 4rem;
+    background: #ededed;
     -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out;
     -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out;
     transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out; }
-  .uploader-message.show-message-error {
-    background: #ee5456;
-    color: #fff; }
-  .uploader-message.show-message-success {
-    background: #ededed;
-    color: #444; }
   .uploader-message .message-text {
-    opacity: 0; }
+    margin-left: -0.5rem;
+    padding-top: 0.75rem; }
+    .uploader-message .message-text:after {
+      content: "";
+      display: table;
+      clear: both; }
+  .uploader-message span, .uploader-message i {
+    display: block;
+    float: left; }
+  .uploader-message span {
+    margin-top: 0.125rem;
+    padding: 0.3125rem 0.625rem; }
+    .uploader-message span.green {
+      color: #fff;
+      background: #6ec972;
+      margin-left: 0.625rem; }
+  .uploader-message .icon-cancel {
+    color: #ee5456;
+    font-size: 1.75rem; }
+  .uploader-message .icon-ok {
+    color: #6ec972;
+    font-size: 1.75rem; }
+  .uploader-message .icon-thumbs-down-alt {
+    color: #ee5456;
+    font-size: 1.75rem; }
+  .uploader-message .icon-thumbs-up-alt {
+    color: #6ec972;
+    font-size: 1.75rem; }
 
 /*# sourceMappingURL=steeze.css.map */

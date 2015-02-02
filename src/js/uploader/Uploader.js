@@ -105,7 +105,7 @@ proto._onSubmit = function( evt ) {
  * @param {string} inputValue - string that was uploaded to firebase
  */
 proto._onSuccess = function( inputValue ) {
-	this.message.showSucessMessage('Great success! Uploaded: <strong>' + inputValue + '</strong>');
+	this.message.showSucessMessage('<i class="icon-ok"></i><span>Uploaded</span><span class="green">' + inputValue + '</span>');
 	// reset input
 	this.$inputElement.val('');
 	this.$uploaderElement.removeClass('input-has-value');
@@ -120,12 +120,12 @@ proto._onSuccess = function( inputValue ) {
 proto._isValidInput = function( inputValue ) {
 	// check for duplicate value
 	if ( this.firebaseObject.isDuplicate(inputValue) ) {
-		this.message.showErrorMessage('Already exists, bish!');
+		this.message.showErrorMessage('<i class="icon-cancel"></i><span>The input is empty, silly!</span>');
 		return false;
 	}
 	// check for empty input
 	if ( inputValue === '' ) {
-		this.message.showErrorMessage('The input is empty, silly!');
+		this.message.showErrorMessage('<i class="icon-cancel"></i><span>The input is empty, silly!</span>');
 		return false;
 	}
 

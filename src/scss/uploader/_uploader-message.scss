@@ -11,25 +11,62 @@
 	padding-left: rem(36px);
 	overflow: hidden;
 	background: $dark-blue;
-	font-size: rem(24px);
+	color: $dark-grey;
+	font-size: rem(20px);
 	@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0.2s ease-in-out);
 
 	&.show-message{
-		height: 5rem;
+		height: rem(64px);
+		background: $light-grey;
 		@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0s ease-in-out);
 	}
 
 	&.show-message-error {
-		background: $red;
-		color: $white;
+
 	}
 
 	&.show-message-success {
-		background: $light-grey;
-		color: $dark-grey;
+
 	}
 
 	.message-text {
-		opacity: 0;
+		@include clearfix();
+		margin-left: rem(-8px);
+		padding-top: rem(12px);
+	}
+
+	span, i {
+		display: block;
+		float: left;
+	}
+
+	span {
+		margin-top: rem(2px);
+		padding: rem(5px) rem(10px);
+
+		&.green {
+			color: $white;
+			background: $green;
+			margin-left: rem(10px);
+		}
+	}
+
+	.icon-cancel {
+		color: $red;
+		font-size: rem(28px);
+	}
+	.icon-ok {
+		color: $green;
+		font-size: rem(28px);
+	}
+
+
+	.icon-thumbs-down-alt {
+		color: $red;
+		font-size: rem(28px);
+	}
+	.icon-thumbs-up-alt {
+		color: $green;
+		font-size: rem(28px);
 	}
 }
