@@ -1,7 +1,7 @@
 'use strict';
 
-var $               = require('../../../lib/jquery/jquery');
-
+var $             = require('../../../lib/jquery/jquery');
+var SelectElement = require('../shared/SelectElement');
 var proto;
 
 
@@ -79,6 +79,8 @@ proto._makeInputElement = function( ) {
 
 
 proto._makeSelectElement = function( ) {
+	var select = new SelectElement();
+	console.log(select);
 	// create new select element
 	return $('<select class="item-select"><option value="paragraph" selected>paragraphs</option><option value="titles">titles</option><option value="lists">lists</option><option value="words">words</option></select>');
 };
