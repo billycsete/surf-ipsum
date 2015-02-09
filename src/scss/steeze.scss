@@ -18,10 +18,9 @@
 
 @import 'shared/settings';
 @import 'shared/normalize';
+@import 'shared/base';
 @import 'shared/icons';
 @import 'shared/typography';
-
-@import 'shared/layout/base';
 
 
 // =================================================
@@ -37,3 +36,10 @@
 
 @import 'generator/page';
 @import 'generator/header';
+@import 'generator/ipsum-list';
+@import 'generator/ipsum-item';
+@import 'generator/ipsum-item-add';
+@import 'generator/ipsum-item-input';
+@import 'generator/select-element';
+@import 'generator/select-value';
+@import 'generator/select-list';

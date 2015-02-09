@@ -20,6 +20,7 @@ var SelectElement = function( ) {
 	this.$element = $('<div class="select-element"></div>');
 	this.$selectValue = $('<span class="select-value">paragraphs</span>');
 	this.$optionsList = $('<ul class="select-list" tabindex="0"></ul>');
+	this.$options;
 	this.selectOptions = [ 'paragraphs', 'titles', 'lists', 'words' ];
 
 	this._init();
@@ -40,13 +41,31 @@ proto._init = function( ) {
 
 
 proto._attachEvents = function( ) {
-	this.$selectValue.on( 'click', this._openOptions.bind(this) );
+	this.$selectValue.on( 'click', this._toggleSelect.bind(this) );
+
+	// TODO: if the select element is focused, toggle some stuffs
+
+	// TODO: keyboard events
+
+
+	// do sutffs when the select options are clicked
+	this.$options.each( function( index ) {
+		$(this).on('click', function( evt ) {
+			console.log(evt);
+
+			// change the $select value to what was clicked
+
+			// toggle select closed
+
+		});
+	});
+
 };
 
 
 
-proto._openOptions = function( evt ) {
-	this.$element.addClass('focused');
+proto._toggleSelect = function( evt ) {
+	this.$element.toggleClass('focused');
 	console.log('open up!');
 };
 
@@ -64,8 +83,27 @@ proto._buildSelectElement = function( ) {
 	// make the first li in the options list selected
 	$('li:first', this.$optionsList).addClass('selected');
 
+	// save the select options to use later
+	this.$options = $('li', this.$optionsList);
+
+	// TODO: need a way to find the curently selected option
+	// this.currentOption = this.options.indexOf( $('li.selected') );
+	// console.log(this.currentOption);
+
 	// add the list of options to the select element
 	this.$element.append(this.$optionsList);
+};
+
+
+
+proto._getCurrentValue = function( ) {
+	var currentOption = 
+};
+
+
+
+proto._isOpen = function( ) {
+	return this.$element.hasClass('focused');
 };
 
 

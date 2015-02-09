@@ -1,0 +1,41 @@
+// =================================================
+//
+// Ipsum Item Input
+//
+// =================================================
+
+
+.ipsum-input {
+	width: 100%;
+	padding: rem(16px) rem(100px) rem(16px) rem(30px);
+	border: none;
+	border-radius: 0; // 1
+	background-color: $light-blue;
+	color: #fff;
+	font-weight: $normal;
+	font-size: rem(30px);
+
+	@include media($small) {
+		font-size: rem(40px);
+	}
+
+	// focus
+	&:focus {
+		outline: none;
+	}
+
+	// style placeholder text
+	&::-webkit-input-placeholder {
+		color: $dark-blue;
+	}
+	&:-moz-placeholder { // 2
+		color: $dark-blue;
+	}
+	&::-moz-placeholder { // 3
+		color: $dark-blue;
+	}
+	&:-ms-input-placeholder {
+		color: $dark-blue;
+	}
+}
+

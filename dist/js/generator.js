@@ -9473,16 +9473,17 @@ var IpsumController = function( ) {
 	// create list of inputs
 	this.list = new IpsumList(this.$listElement);
 	// create reference to our output object
-	this.output = new IpsumOutput(this.$outputElement);
+	// this.output = new IpsumOutput(this.$outputElement);
+	this.output = {};
 
-	this.init();
+	this._init();
 };
 
 proto = IpsumController.prototype;
 
 
 
-proto.init = function( ) {
+proto._init = function( ) {
 	this._attachEvents();
 };
 
@@ -9526,41 +9527,67 @@ module.exports = IpsumController;
 'use strict';
 
 var $             = require('../../../lib/jquery/jquery');
-var SelectElement = require('../shared/SelectElement');
+var SelectElement = require('./SelectElement');
 var proto;
 
 
 
 var IpsumItem = function( ) {
-	// IpsumItem elements
-	this.$itemElement = $('<li></li>');
-	this.$removeButton;
-	this.$inputElement;
-	this.$selectElement;
+	// TODO: organize class names up top
+	this.classNames = {
+		itemElement : 'ipsum-item',
+		removeButton : 'ipsum-item-remove',
+		inputElement : 'ipsum-item-input'
+	};
 
-	this.init();
+	this._buildItemElement();
+
+	this._attachEvents();
 };
 
 proto = IpsumItem.prototype;
 
 
 
-proto.init = function( ) {
+proto._buildItemElement = function( ) {
+	// Create item element
+	this.$itemElement = $('<li class="' + this.classNames.itemElement + '"></li>');
 	// Append remove button
-	this.$removeButton = this._makeRemoveButton();
+	this.$removeButton = $('<button class="' + this.classNames.removeButton + '"><i class="icon-minus-circled"></i></button>');
 	this.$itemElement.append( this.$removeButton );
 	// append text span
 	this._appendSpan('Shred me');
 	// append input element
-	this.$inputElement = this._makeInputElement();
+	this.$inputElement = $('<input class="' + this.classNames.inputElement + '" type="text" name="number" placeholder="2">');
 	this.$itemElement.append( this.$inputElement );
 	// append text span
 	this._appendSpan('gnarley');
 	// append select element
-	this.$selectElement = this._makeSelectElement();
+	this.$selectElement = new SelectElement();
 	this.$itemElement.append( this.$selectElement );
-	// attach event listeners
-	this._attachEvents();
+}
+
+
+proto._attachEvents = function( ) {
+	this.$removeButton.on('click', this._fireRemoveEvent.bind(this));
+};
+
+
+
+proto._appendSpan = function( text ) {
+	// create a new span element with text inside
+	var span = $('<span>' + text + '</span>');
+	// append the span element to the list item
+	this.$itemElement.append(span);
+};
+
+
+
+proto._fireRemoveEvent = function( ) {
+	$(document).trigger({
+		type : 'removeItem',
+		obj : this
+	});
 };
 
 
@@ -9583,55 +9610,9 @@ proto.getSelectValue = function( ) {
 
 
 
-proto._attachEvents = function( ) {
-	this.$removeButton.on('click', this._fireRemoveEvent.bind(this));
-};
-
-
-
-proto._makeRemoveButton = function( ) {
-	// create new close button
-	return $('<button class="item-remove"><i class="icon-minus-circled"></i></button>');
-};
-
-
-
-proto._makeInputElement = function( ) {
-	// create new input element
-	return $('<input class="item-number" type="text" name="number" placeholder="2">');
-};
-
-
-
-proto._makeSelectElement = function( ) {
-	var select = new SelectElement();
-	console.log(select);
-	// create new select element
-	return $('<select class="item-select"><option value="paragraph" selected>paragraphs</option><option value="titles">titles</option><option value="lists">lists</option><option value="words">words</option></select>');
-};
-
-
-
-proto._appendSpan = function( text ) {
-	// create a new span element with text inside
-	var span = $('<span>' + text + '</span>');
-	// append the span element to the list item
-	this.$itemElement.append(span);
-};
-
-
-
-proto._fireRemoveEvent = function( ) {
-	$(document).trigger({
-		type : 'removeItem',
-		obj : this
-	});
-};
-
-
 module.exports = IpsumItem;
 
-},{"../../../lib/jquery/jquery":1,"../shared/SelectElement":9}],5:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"./SelectElement":7}],5:[function(require,module,exports){
 'use strict';
 
 var $               = require('../../../lib/jquery/jquery');
@@ -9644,41 +9625,22 @@ var proto;
 var IpsumList = function( listElement ) {
 	// IpsumList elements
 	this.$list = listElement;
-	this.$addItemButton = $('#ipsum-add-item');
+	this.$addItemButton = $('#ipsum-item-add');
 
 	this.ipsumItems = [];
 
-	this.init();
+	this._init();
 };
 
 proto = IpsumList.prototype;
 
 
 
-proto.init = function( ) {
+proto._init = function( ) {
 	// add the initial list item
 	this.addListItem();
 	// attach event listeners
 	this._attachEvents();
-};
-
-
-
-proto.addListItem = function( ) {
-	// create a new item object
-	var ipsumItem = new IpsumItem();
-	// add the new item object to the array of list items
-	this.ipsumItems.push(ipsumItem);
-	// get the list item element
-	var listItem = ipsumItem.getElement();
-	// append the new list item to the list
-	this.$list.append(listItem);
-};
-
-
-
-proto.getIpsumItems = function( ) {
-	return this.ipsumItems;
 };
 
 
@@ -9703,6 +9665,25 @@ proto._removeListItem = function( evt ) {
 		// remove the ipsumItem from our array
 		this.ipsumItems.splice(itemIndex, 1);
 	}
+};
+
+
+
+proto.addListItem = function( ) {
+	// create a new item object
+	var ipsumItem = new IpsumItem();
+	// add the new item object to the array of list items
+	this.ipsumItems.push(ipsumItem);
+	// get the list item element
+	var listItem = ipsumItem.getElement();
+	// append the new list item to the list
+	this.$list.append(listItem);
+};
+
+
+
+proto.getIpsumItems = function( ) {
+	return this.ipsumItems;
 };
 
 
@@ -9818,7 +9799,115 @@ proto._capitalizeString = function( string ) {
 
 module.exports = IpsumOutput;
 
-},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":8}],7:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":9}],7:[function(require,module,exports){
+'use strict';
+
+var $               = require('../../../lib/jquery/jquery');
+
+var proto;
+
+// Markup for generated select element:
+// 
+// <div class="select-element">
+//   <span class="select-value">paragraphs</span>
+//   <ul class="select-list">
+//     <li class="select-option selected">paragraphs</li>
+//     <li class="select-option">titles</li>
+//     <li class="select-option">lists</li>
+//     <li class="select-option">words</li>
+//   </ul>
+// </div>
+
+var SelectElement = function( ) {
+	this.$element = $('<div class="select-element"></div>');
+	this.$selectValue = $('<span class="select-value">paragraphs</span>');
+	this.$optionsList = $('<ul class="select-list" tabindex="0"></ul>');
+	this.$options;
+	this.selectOptions = [ 'paragraphs', 'titles', 'lists', 'words' ];
+
+	this._init();
+
+	return this.$element;
+};
+
+proto = SelectElement.prototype;
+
+
+
+proto._init = function( ) {
+	this._buildSelectElement();
+
+	this._attachEvents();
+};
+
+
+
+proto._attachEvents = function( ) {
+	this.$selectValue.on( 'click', this._toggleSelect.bind(this) );
+
+	// TODO: if the select element is focused, toggle some stuffs
+
+	// TODO: keyboard events
+
+
+	// do sutffs when the select options are clicked
+	this.$options.each( function( index ) {
+		$(this).on('click', function( evt ) {
+			console.log(evt);
+
+			// change the $select value to what was clicked
+
+			// toggle select closed
+
+		});
+	});
+
+};
+
+
+
+proto._toggleSelect = function( evt ) {
+	this.$element.toggleClass('focused');
+	console.log('open up!');
+};
+
+
+
+proto._buildSelectElement = function( ) {
+	// add span for the currently selected item
+	this.$element.append(this.$selectValue);
+
+	// add an option to the list for each item in this.selectOptions
+	for (var i = 0; i < this.selectOptions.length; i++) {
+		this.$optionsList.append($('<li class="select-option">' + this.selectOptions[i] + '</li>'));
+	};
+
+	// make the first li in the options list selected
+	$('li:first', this.$optionsList).addClass('selected');
+
+	// save the select options to an array
+	// maybe do this in the init?
+	this.$options = $('li', this.$optionsList);
+
+	// TODO: need a way to find the curently selected option
+	// this.currentOption = this.options.indexOf( $('li.selected') );
+	// console.log(this.currentOption);
+
+	// add the list of options to the select element
+	this.$element.append(this.$optionsList);
+};
+
+
+
+proto._isOpen = function( ) {
+	return this.$element.hasClass('focused');
+};
+
+
+
+module.exports = SelectElement;
+
+},{"../../../lib/jquery/jquery":1}],8:[function(require,module,exports){
 'use strict'
 
 // Require statements
@@ -9837,7 +9926,7 @@ var Main = {
 
 Main.initialize();
 
-},{"./IpsumController":3}],8:[function(require,module,exports){
+},{"./IpsumController":3}],9:[function(require,module,exports){
 'use strict';
 
 var $        = require('../../../lib/jquery/jquery');
@@ -9922,77 +10011,4 @@ proto.addString = function( string ) {
 module.exports = FirebaseObject;
 
 
-},{"../../../lib/jquery/jquery":1,"Firebase":2}],9:[function(require,module,exports){
-'use strict';
-
-var $               = require('../../../lib/jquery/jquery');
-
-var proto;
-
-// <select class="item-select">
-// 	<option value="paragraph" selected>paragraphs</option>
-// 	<option value="titles">titles</option>
-// 	<option value="lists">lists</option>
-// 	<option value="words">words</option>
-// </select>
-
-
-// <div class="select-element">
-//   <span class="select-selected">paragraphs</span>
-//   <ul class="select-list">
-//     <li class="select-option selected">paragraphs</li>
-//     <li class="select-option">titles</li>
-//     <li class="select-option">lists</li>
-//     <li class="select-option">words</li>
-//   </ul>
-// </div>
-
-var SelectElement = function( ) {
-	this.$element = $('<div class="select-element"></div>');
-	this.selectOptions = [ 'paragraphs', 'titles', 'lists', 'words' ];
-
-	this.init();
-
-	return this.$element;
-};
-
-proto = SelectElement.prototype;
-
-
-
-proto.init = function( ) {
-	this._buildSelectElement();
-
-	this._attachEvents();
-};
-
-
-
-proto._attachEvents = function( ) {
-
-};
-
-
-
-proto._buildSelectElement = function( ) {
-	// add span for the currently selected item
-	this.$element.append($('<span class="select-selected">paragraphs</span>'));
-
-	// create the options list element
-	var optionsList = document.createElement( 'ul' );
-	optionsList.className = 'select-list';
-	optionsList.tabIndex = 0;
-
-	// add an option to the list for each item in this.selectOptions
-	for (var i = 0; i < this.selectOptions.length; i++) {
-		$(optionsList).append($('<li class="select-option">' + this.selectOptions[i] + '</li>'));
-	};
-
-	this.$element.append(optionsList);
-};
-
-
-
-module.exports = SelectElement;
-
-},{"../../../lib/jquery/jquery":1}]},{},[7]);
+},{"../../../lib/jquery/jquery":1,"Firebase":2}]},{},[8]);

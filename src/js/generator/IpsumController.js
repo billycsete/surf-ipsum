@@ -16,16 +16,17 @@ var IpsumController = function( ) {
 	// create list of inputs
 	this.list = new IpsumList(this.$listElement);
 	// create reference to our output object
-	this.output = new IpsumOutput(this.$outputElement);
+	// this.output = new IpsumOutput(this.$outputElement);
+	this.output = {};
 
-	this.init();
+	this._init();
 };
 
 proto = IpsumController.prototype;
 
 
 
-proto.init = function( ) {
+proto._init = function( ) {
 	this._attachEvents();
 };
 
