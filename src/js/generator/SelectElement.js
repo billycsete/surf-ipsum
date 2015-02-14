@@ -28,11 +28,9 @@ var SelectElement = function( ) {
 	this.$selectValue = $('<span class="select-value" tabindex="0">paragraphs</span>');
 	this.$optionsList = $('<ul class="select-list"></ul>');
 	this.$optionElements = [ ];
-	this.selectOptions = [ 'paragraphs', 'titles', 'lists', 'words' ];
+	this.selectOptions = [ 'paragraphs', 'headlines', 'lists', 'words' ];
 
 	this._init();
-
-	return this.$element;
 };
 
 proto = SelectElement.prototype;
@@ -142,6 +140,17 @@ proto._isOpen = function( ) {
 
 proto._setSelectValue = function( value ) {
 	this.$selectValue.html( value );
+};
+
+
+
+proto.getElement = function( ) {
+	return this.$element;
+};
+
+
+proto.getValue = function( ) {
+	return this.$selectValue.html();
 };
 
 

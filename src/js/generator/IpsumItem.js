@@ -37,8 +37,8 @@ proto._buildItemElement = function( ) {
 	// append text span
 	this._appendSpan('gnarley');
 	// append select element
-	this.$selectElement = new SelectElement();
-	this.$itemElement.append( this.$selectElement );
+	this.selectElement = new SelectElement();
+	this.$itemElement.append( this.selectElement.getElement() );
 }
 
 
@@ -79,7 +79,7 @@ proto.getInputValue = function( ) {
 
 
 proto.getSelectValue = function( ) {
-	return this.$selectElement.val();
+	return this.selectElement.getValue();
 };
 
 

@@ -14,10 +14,9 @@ var IpsumController = function( ) {
 	this.$outputElement = $('#output');
 	this.$submitButton = $('#ipsum-submit');
 	// create list of inputs
-	this.list = new IpsumList(this.$listElement);
+	this.list = new IpsumList( this.$listElement );
 	// create reference to our output object
-	// this.output = new IpsumOutput(this.$outputElement);
-	this.output = {};
+	this.output = new IpsumOutput( this.$outputElement );
 
 	this._init();
 };
@@ -34,7 +33,7 @@ proto._init = function( ) {
 
 proto._attachEvents = function( ) {
 	// when the submit button is clicked, generate ipsum
-	this.$submitButton.on('click', this._onSubmit.bind(this));
+	this.$submitButton.on( 'click', this._onSubmit.bind(this) );
 };
 
 
@@ -42,23 +41,39 @@ proto._attachEvents = function( ) {
 proto._onSubmit = function( ) {
 	var listItemObjects = this.list.getIpsumItems();
 
-	listItemObjects.forEach(this._generateIpsum.bind(this));
-
-	// TEST
-	this.output.printHeadlines(1);
-	this.output.printParagraphs(2);
-	this.output.printLists(2);
-	this.output.printHeadlines(2);
-	this.output.printWords(400);
+	listItemObjects.forEach( function( item ) {
+		this._generateIpsum( item );
+	}.bind(this));
 };
 
 
 
 proto._generateIpsum = function( listItemObject ) {
-	var inputValue = listItemObject.getInputValue();
 	var selectValue = listItemObject.getSelectValue();
+	var inputValue = listItemObject.getInputValue();
 
-	console.log(inputValue, selectValue);
+
+	switch ( selectValue ) {
+
+		case 'paragraphs':
+			this.output.printParagraphs( inputValue );
+			break;
+
+		case 'headlines':
+			this.output.printHeadlines( inputValue );
+			break;
+
+		case 'lists':
+			this.output.printLists( inputValue );
+			break;
+
+		case 'words':
+			this.output.printWords( inputValue );
+			break;
+
+	}
+
+	console.log('val: ', selectValue, inputValue);
 }
 
 
