@@ -9802,12 +9802,14 @@ module.exports = IpsumOutput;
 },{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":9}],7:[function(require,module,exports){
 'use strict';
 
-var $               = require('../../../lib/jquery/jquery');
+var $     = require('../../../lib/jquery/jquery');
+var utils = require('../shared/utils');
 
-var proto;
 
+// ======================================================
 // Markup for generated select element:
-// 
+// ------------------------------------------------------
+//
 // <div class="select-element">
 //   <span class="select-value">paragraphs</span>
 //   <ul class="select-list">
@@ -9817,12 +9819,17 @@ var proto;
 //     <li class="select-option">words</li>
 //   </ul>
 // </div>
+//
+// ======================================================
+
+
+var proto;
 
 var SelectElement = function( ) {
 	this.$element = $('<div class="select-element"></div>');
-	this.$selectValue = $('<span class="select-value">paragraphs</span>');
-	this.$optionsList = $('<ul class="select-list" tabindex="0"></ul>');
-	this.$options;
+	this.$selectValue = $('<span class="select-value" tabindex="0">paragraphs</span>');
+	this.$optionsList = $('<ul class="select-list"></ul>');
+	this.$optionElements = [ ];
 	this.selectOptions = [ 'paragraphs', 'titles', 'lists', 'words' ];
 
 	this._init();
@@ -9836,28 +9843,30 @@ proto = SelectElement.prototype;
 
 proto._init = function( ) {
 	this._buildSelectElement();
-
 	this._attachEvents();
 };
 
 
 
 proto._attachEvents = function( ) {
-	this.$selectValue.on( 'click', this._toggleSelect.bind(this) );
+	var self = this;
 
-	// TODO: if the select element is focused, toggle some stuffs
+	this.$selectValue.on( 'click', this._openSelect.bind(this) );
+	this.$selectValue.on( 'focus', this._openSelect.bind(this) );
+	this.$selectValue.on( 'blur', this._closeSelect.bind(this) );
+	$(document).on( 'click', this._closeOnClickOutsideSelect.bind(this) );
 
 	// TODO: keyboard events
 
+	// update selected when an option is clicked
+	this.$optionElements.each( function( index ) {
+		$(this).on( 'click', function( evt ) {
+			// grab innerHTML from the option that was clicked
+			var newValue = $(this).html();
 
-	// do sutffs when the select options are clicked
-	this.$options.each( function( index ) {
-		$(this).on('click', function( evt ) {
-			console.log(evt);
-
-			// change the $select value to what was clicked
-
-			// toggle select closed
+			// update the selected value and close
+			self._setSelectValue( newValue );
+			self._closeSelect();
 
 		});
 	});
@@ -9866,48 +9875,82 @@ proto._attachEvents = function( ) {
 
 
 
-proto._toggleSelect = function( evt ) {
-	this.$element.toggleClass('focused');
-	console.log('open up!');
+proto._buildSelectElement = function( ) {
+	// add span for the currently selected item
+	this.$element.append( this.$selectValue );
+
+	// add an option to the list for each item in this.selectOptions
+	for ( var i = 0; i < this.selectOptions.length; i++ ) {
+		this.$optionsList.append( $('<li class="select-option">' + this.selectOptions[i] + '</li>') );
+	};
+
+	// make the first li in the options list selected
+	$('li:first', this.$optionsList).addClass( 'selected' );
+
+	// save the select options to use later
+	this.$optionElements = $('li', this.$optionsList);
+
+	// add the list of options to the select element
+	this.$element.append( this.$optionsList );
 };
 
 
 
-proto._buildSelectElement = function( ) {
-	// add span for the currently selected item
-	this.$element.append(this.$selectValue);
+proto._closeOnClickOutsideSelect = function( evt ) {
+	var targetElement = evt.target;
 
-	// add an option to the list for each item in this.selectOptions
-	for (var i = 0; i < this.selectOptions.length; i++) {
-		this.$optionsList.append($('<li class="select-option">' + this.selectOptions[i] + '</li>'));
-	};
+	if( this._isOpen() && !this._selectClicked( targetElement ) ) {
+		this._closeSelect();
+	}
+};
 
-	// make the first li in the options list selected
-	$('li:first', this.$optionsList).addClass('selected');
 
-	// save the select options to an array
-	// maybe do this in the init?
-	this.$options = $('li', this.$optionsList);
 
-	// TODO: need a way to find the curently selected option
-	// this.currentOption = this.options.indexOf( $('li.selected') );
-	// console.log(this.currentOption);
+proto._selectClicked = function( targetElement ) {
+	var selectElement = this.$element[0];
+	// ensure the select element wasn't clicked
+	var isSelectElement = targetElement === selectElement;
+	// ensure none of the children of the select element were clicked
+	var isChildofSelectElement = utils.hasParent( targetElement, selectElement );
 
-	// add the list of options to the select element
-	this.$element.append(this.$optionsList);
+	return isSelectElement || isChildofSelectElement;
+}
+
+
+
+proto._openSelect = function( evt ) {
+	if( this._isOpen() ) {
+		return;
+	}
+
+	this.$element.addClass( 'focused' );
+};
+
+
+
+proto._closeSelect = function( evt ) {
+	if( this._isOpen() ) {
+		this.$element.removeClass( 'focused' );
+	}
 };
 
 
 
 proto._isOpen = function( ) {
-	return this.$element.hasClass('focused');
+	return this.$element.hasClass( 'focused' );
+};
+
+
+
+proto._setSelectValue = function( value ) {
+	this.$selectValue.html( value );
 };
 
 
 
 module.exports = SelectElement;
 
-},{"../../../lib/jquery/jquery":1}],8:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/utils":10}],8:[function(require,module,exports){
 'use strict'
 
 // Require statements
@@ -10011,4 +10054,21 @@ proto.addString = function( string ) {
 module.exports = FirebaseObject;
 
 
-},{"../../../lib/jquery/jquery":1,"Firebase":2}]},{},[8]);
+},{"../../../lib/jquery/jquery":1,"Firebase":2}],10:[function(require,module,exports){
+'use strict';
+
+/**
+ * based on from https://github.com/inuyaksa/jquery.nicescroll/blob/master/jquery.nicescroll.js
+ */
+var hasParent = function( e, p ) {
+	if (!e) return false;
+	var el = e.target||e.srcElement||e||false;
+	while (el && el != p) {
+		el = el.parentNode||false;
+	}
+	return (el!==false);
+};
+
+module.exports.hasParent = hasParent;
+
+},{}]},{},[8]);
