@@ -9509,9 +9509,7 @@ proto._generateIpsum = function( listItemObject ) {
 	var selectValue = listItemObject.getSelectValue();
 	var inputValue = listItemObject.getInputValue();
 
-
 	switch ( selectValue ) {
-
 		case 'paragraphs':
 			this.output.printParagraphs( inputValue );
 			break;
@@ -9527,10 +9525,7 @@ proto._generateIpsum = function( listItemObject ) {
 		case 'words':
 			this.output.printWords( inputValue );
 			break;
-
 	}
-
-	console.log('val: ', selectValue, inputValue);
 }
 
 
@@ -9642,7 +9637,7 @@ var IpsumList = function( listElement ) {
 	this.$list = listElement;
 	this.$addItemButton = $('#ipsum-item-add');
 
-	this.ipsumItems = [];
+	this.ipsumItems = [ ];
 
 	this._init();
 };
@@ -9662,23 +9657,23 @@ proto._init = function( ) {
 
 proto._attachEvents = function( ) {
 	// add a new list item when the plus button is clicked
-	this.$addItemButton.on('click', this.addListItem.bind(this));
+	this.$addItemButton.on( 'click', this.addListItem.bind(this) );
 	// remove list items when close button is clicked
-	$(document).on('removeItem', this._removeListItem.bind(this));
+	$(document).on( 'removeItem', this._removeListItem.bind(this) );
 };
 
 
 
 proto._removeListItem = function( evt ) {
 	var itemObject = evt.obj;
-	var itemIndex = $.inArray(itemObject, this.ipsumItems);
+	var itemIndex = $.inArray( itemObject, this.ipsumItems );
 
 	// if the itemObject exists in our array, lets remove it
 	if( itemIndex >= 0 ) {
 		// remove the html element
 		itemObject.$itemElement.remove();
 		// remove the ipsumItem from our array
-		this.ipsumItems.splice(itemIndex, 1);
+		this.ipsumItems.splice( itemIndex, 1 );
 	}
 };
 
@@ -9692,7 +9687,7 @@ proto.addListItem = function( ) {
 	// get the list item element
 	var listItem = ipsumItem.getElement();
 	// append the new list item to the list
-	this.$list.append(listItem);
+	this.$list.append( listItem );
 };
 
 
@@ -9727,13 +9722,13 @@ proto = IpsumOutput.prototype;
 
 
 proto.printSentence = function ( ) {
-	var sentenceLength = this._getRandomInt(5, 10);
+	var sentenceLength = this._getRandomInt( 5, 10 );
 	// get strings from the firebase database
-	var sentence = this.firebaseObject.getRandomStrings(sentenceLength);
+	var sentence = this.firebaseObject.getRandomStrings( sentenceLength );
 	// replace commas with spaces
-	sentence = sentence.toString().replace(/,/g, ' ');
+	sentence = sentence.toString().replace( /,/g, ' ' );
 	// capitalize sentence and add a period
-	sentence = this._capitalizeString(sentence) + '.';
+	sentence = this._capitalizeString( sentence ) + '.';
 
 	return sentence;
 };
@@ -9742,68 +9737,68 @@ proto.printSentence = function ( ) {
 proto.printParagraphs = function ( numberOfParagraphs ) {
 
 	for (var i = 0; i < numberOfParagraphs; i++) {
-		var sentencesPerParagraph = this._getRandomInt(5, 8);
+		var sentencesPerParagraph = this._getRandomInt( 5, 8 );
 		var paragraph = '';
 
-		for (var j = 0; j < sentencesPerParagraph; j++) {
+		for ( var j = 0; j < sentencesPerParagraph; j++ ) {
 			paragraph += this.printSentence() + ' ';
 		};
 
 		// trim off the trailing space on the last sentence
-		paragraph = paragraph.slice(0, - 1);
+		paragraph = paragraph.slice( 0, - 1 );
 		// print paragraph to the output element
-		this.$outputElement.append('<p>' + paragraph + '</p>');
+		this.$outputElement.append( '<p>' + paragraph + '</p>' );
 	}
 };
 
 
 proto.printHeadlines = function ( numberOfHeadlines ) {
 
-	for (var i = 0; i < numberOfHeadlines; i++) {
-		var headlineLength = this._getRandomInt(2, 4);
+	for ( var i = 0; i < numberOfHeadlines; i++ ) {
+		var headlineLength = this._getRandomInt( 2, 4 );
 		// get strings from the firebase database
-		var headline = this.firebaseObject.getRandomStrings(headlineLength);
+		var headline = this.firebaseObject.getRandomStrings( headlineLength );
 		// capitalize headline
-		headline = this._capitalizeString(headline);
+		headline = this._capitalizeString( headline );
 		// print a new headline to the output element
-		this.$outputElement.append('<h1>' + headline + '</h1>');
+		this.$outputElement.append( '<h1>' + headline + '</h1>' );
 	}
 };
 
 
 proto.printLists = function ( numberOfLists ) {
 
-	for (var i = 0; i < numberOfLists; i++) {
-		var listLength = this._getRandomInt(4, 8);
-		var listElement = document.createElement('ul');
+	for ( var i = 0; i < numberOfLists; i++ ) {
+		var listLength = this._getRandomInt( 4, 8 );
+		var listElement = document.createElement( 'ul' );
 
 		for (var j = 0; j < listLength; j++) {
-			var listItem = document.createElement('li');
+			var listItem = document.createElement( 'li' );
 
-			var listItemTextLength = this._getRandomInt(2, 4);
+			var listItemTextLength = this._getRandomInt( 2, 4 );
 			// get strings from the firebase database
-			var listItemText = this.firebaseObject.getRandomStrings(listItemTextLength);
+			var listItemText = this.firebaseObject.getRandomStrings( listItemTextLength );
 			// add the random text to the new list item
-			$(listItem).html(listItemText);
+			$(listItem).html( listItemText );
 			// add the new list item element to the list element
-			$(listElement).append(listItem);
+			$(listElement).append( listItem );
 		};
 
-		this.$outputElement.append(listElement);
+		this.$outputElement.append( listElement );
 	};
 };
 
 
 proto.printWords = function ( numberOfWords ) {
 	// get strings from the firebase database
-	var words = this.firebaseObject.getRandomStrings(numberOfWords);
+	var words = this.firebaseObject.getRandomStrings( numberOfWords );
 	// print words to the output element
-	this.$outputElement.append('<p>' + words + '</p>');
+	this.$outputElement.append( '<p>' + words + '</p>' );
 };
 
 
 proto._getRandomInt = function( min, max ) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
+	return Math.floor( Math.random() * (max - min + 1) ) + min;
 };
 
 
@@ -10007,12 +10002,12 @@ var proto;
  */
 var FirebaseObject = function() {
 	// get link to the firebase database
-	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
+	this.firebase = new Firebase( 'https://surf-ipsum.firebaseio.com/surf-strings' );
 	// store the current array of words from the database
 	this.strings = [];
 	// update array when the database is changed
 	this.firebase.on('value', function( dataSnapshot ) {
-		this._onFirebaseUpdate(dataSnapshot);
+		this._onFirebaseUpdate( dataSnapshot );
 	}.bind(this));
 };
 
@@ -10026,9 +10021,9 @@ proto = FirebaseObject.prototype;
 proto._onFirebaseUpdate = function( dataSnapshot ) {
 	var updatedStrings = [];
 
-	dataSnapshot.forEach(function(childSnapshot) {
+	dataSnapshot.forEach( function( childSnapshot ) {
 		var childData = childSnapshot.val();
-		updatedStrings.push(childData);
+		updatedStrings.push( childData );
 	});
 
 	this.strings = updatedStrings;
@@ -10041,7 +10036,7 @@ proto._onFirebaseUpdate = function( dataSnapshot ) {
  * @return {boolean}
  */
 proto.isDuplicate = function( string ) {
-	return $.inArray(string, this.strings) !== -1;
+	return $.inArray( string, this.strings ) !== -1;
 };
 
 
@@ -10055,12 +10050,12 @@ proto.getRandomStrings = function( numberOfItems ) {
 	var results = [];
 
 	for (var i = 0; i < numberOfItems; i++) {
-		var randomString = this.strings[Math.floor(Math.random() * stringsLength)];
-		results.push(randomString);
+		var randomString = this.strings[ Math.floor( Math.random() * stringsLength ) ];
+		results.push( randomString );
 	}
 
 	// turn results array into one long string and remove commas
-	results = results.toString().replace(/,/g, ' ');
+	results = results.toString().replace( /,/g, ' ' );
 
 	return results;
 };
@@ -10071,7 +10066,7 @@ proto.getRandomStrings = function( numberOfItems ) {
  * @param {string} string
  */
 proto.addString = function( string ) {
-	this.firebase.push(string);
+	this.firebase.push( string );
 };
 
 
@@ -10085,12 +10080,12 @@ module.exports = FirebaseObject;
  * based on from https://github.com/inuyaksa/jquery.nicescroll/blob/master/jquery.nicescroll.js
  */
 var hasParent = function( e, p ) {
-	if (!e) return false;
+	if ( !e ) return false;
 	var el = e.target||e.srcElement||e||false;
-	while (el && el != p) {
+	while ( el && el != p ) {
 		el = el.parentNode||false;
 	}
-	return (el!==false);
+	return ( el!==false );
 };
 
 module.exports.hasParent = hasParent;

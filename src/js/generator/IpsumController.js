@@ -52,9 +52,7 @@ proto._generateIpsum = function( listItemObject ) {
 	var selectValue = listItemObject.getSelectValue();
 	var inputValue = listItemObject.getInputValue();
 
-
 	switch ( selectValue ) {
-
 		case 'paragraphs':
 			this.output.printParagraphs( inputValue );
 			break;
@@ -70,10 +68,7 @@ proto._generateIpsum = function( listItemObject ) {
 		case 'words':
 			this.output.printWords( inputValue );
 			break;
-
 	}
-
-	console.log('val: ', selectValue, inputValue);
 }
 
 

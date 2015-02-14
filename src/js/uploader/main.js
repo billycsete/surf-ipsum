@@ -11,7 +11,7 @@ var Main = {
 		this.$uploaderElement = $('#uploader-element');
 
 		// Make new uploader
-		var loader = new Uploader(this.$uploaderElement);
+		var loader = new Uploader( this.$uploaderElement );
 
 	}
 

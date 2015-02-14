@@ -675,36 +675,28 @@ a {
 
 .ipsum-list {
   padding: 0;
-  margin: 0; }
+  margin: 0 0 40px; }
   .ipsum-list .ipsum-item {
     margin: 0;
     padding: 1rem;
     background: #f5f5f5; }
+    .ipsum-list .ipsum-item * {
+      margin-right: 0.625rem; }
     .ipsum-list .ipsum-item:hover {
       background: #eee; }
 
-.ipsum-input {
-  width: 100%;
-  padding: 1rem 6.25rem 1rem 1.875rem;
-  border: none;
-  border-radius: 0;
-  background-color: #3da1ce;
-  color: #fff;
-  font-weight: 400;
-  font-size: 1.875rem; }
-  @media screen and (min-width: 480px) {
-    .ipsum-input {
-      font-size: 2.5rem; } }
-  .ipsum-input:focus {
+.ipsum-item-input {
+  width: 6.25rem; }
+  .ipsum-item-input:focus {
     outline: none; }
-  .ipsum-input::-webkit-input-placeholder {
-    color: #177aa8; }
-  .ipsum-input:-moz-placeholder {
-    color: #177aa8; }
-  .ipsum-input::-moz-placeholder {
-    color: #177aa8; }
-  .ipsum-input:-ms-input-placeholder {
-    color: #177aa8; }
+  .ipsum-item-input::-webkit-input-placeholder {
+    color: #e8e8e8; }
+  .ipsum-item-input:-moz-placeholder {
+    color: #e8e8e8; }
+  .ipsum-item-input::-moz-placeholder {
+    color: #e8e8e8; }
+  .ipsum-item-input:-ms-input-placeholder {
+    color: #e8e8e8; }
 
 .select-element {
   position: relative;
@@ -713,23 +705,28 @@ a {
   width: 18.75rem; }
 
 .select-value {
-  position: relative;
-  z-index: 100;
   display: block;
   background: #3da1ce;
-  color: #fff; }
+  color: #fff;
+  padding: 5px;
+  cursor: pointer; }
 
 .select-list {
   opacity: 0;
   position: absolute;
-  z-index: 10;
+  z-index: 1000;
   top: 100%;
   left: 0;
+  width: 100%;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  background: #f5f5f5; }
   .select-list li.select-option {
-    padding: 0;
-    list-style-type: none; }
+    padding: 5px;
+    list-style-type: none;
+    cursor: pointer; }
+    .select-list li.select-option:hover {
+      background: #eee; }
   .focused .select-list {
     opacity: 1; }
 

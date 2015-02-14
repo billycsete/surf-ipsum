@@ -14,8 +14,8 @@ var proto;
 var Uploader = function( uploaderElement ) {
 	// uploader elements
 	this.$uploaderElement = uploaderElement;
-	this.$inputElement = uploaderElement.find('input');
-	this.$submitButton = uploaderElement.find('button');
+	this.$inputElement = uploaderElement.find( 'input' );
+	this.$submitButton = uploaderElement.find( 'button' );
 	// error/success message manager
 	this.message = new UploaderMessage();
 	// access to database of words
@@ -42,10 +42,10 @@ proto.init = function() {
  * Attach events
  */
 proto._attachEvents = function() {
-	this.$inputElement.on('focus', this._onFocus.bind(this));
-	this.$inputElement.on('blur', this._onBlur.bind(this));
-	this.$inputElement.on('input', this._onValueChange.bind(this));
-	this.$submitButton.on('click', this._onSubmit.bind(this));
+	this.$inputElement.on( 'focus', this._onFocus.bind(this) );
+	this.$inputElement.on( 'blur', this._onBlur.bind(this) );
+	this.$inputElement.on( 'input', this._onValueChange.bind(this) );
+	this.$submitButton.on( 'click', this._onSubmit.bind(this) );
 };
 
 
@@ -53,7 +53,7 @@ proto._attachEvents = function() {
  * Called when the uploader input is focused
  */
 proto._onFocus = function( evt ) {
-	this.$uploaderElement.addClass('input-focused');
+	this.$uploaderElement.addClass( 'input-focused' );
 };
 
 
@@ -61,7 +61,7 @@ proto._onFocus = function( evt ) {
  * Called when the uploader input loses focus
  */
 proto._onBlur = function( evt ) {
-	this.$uploaderElement.removeClass('input-focused');
+	this.$uploaderElement.removeClass( 'input-focused' );
 };
 
 
@@ -75,11 +75,11 @@ proto._onValueChange = function( evt ) {
 	this.message.hideMessage();
 
 	if ( inputValue === '' ) {
-		this.$uploaderElement.removeClass('input-has-value');
-		this.$submitButton.attr('tabindex', -1);
+		this.$uploaderElement.removeClass( 'input-has-value' );
+		this.$submitButton.attr( 'tabindex', -1 );
 	} else {
-		this.$uploaderElement.addClass('input-has-value');
-		this.$submitButton.attr('tabindex', 0);
+		this.$uploaderElement.addClass( 'input-has-value' );
+		this.$submitButton.attr( 'tabindex', 0 );
 	}
 };
 
@@ -93,12 +93,12 @@ proto._onSubmit = function( evt ) {
 	// store input value
 	var inputValue = this.$inputElement.val();
 	// return if its not a valid input
-	if( !this._isValidInput(inputValue) ) {
+	if( !this._isValidInput( inputValue ) ) {
 		return;
 	}
 	// push the value from the input to firebase
-	this.firebaseObject.addString(inputValue);
-	this._onSuccess(inputValue);
+	this.firebaseObject.addString( inputValue );
+	this._onSuccess( inputValue );
 };
 
 
@@ -107,10 +107,10 @@ proto._onSubmit = function( evt ) {
  * @param {string} inputValue - string that was uploaded to firebase
  */
 proto._onSuccess = function( inputValue ) {
-	this.message.showSucessMessage('<i class="icon-ok"></i><span>Uploaded</span><span class="green">' + inputValue + '</span>');
+	this.message.showSucessMessage( '<i class="icon-ok"></i><span>Uploaded</span><span class="green">' + inputValue + '</span>' );
 	// reset input
-	this.$inputElement.val('');
-	this.$uploaderElement.removeClass('input-has-value');
+	this.$inputElement.val( '' );
+	this.$uploaderElement.removeClass( 'input-has-value' );
 };
 
 
@@ -121,13 +121,13 @@ proto._onSuccess = function( inputValue ) {
  */
 proto._isValidInput = function( inputValue ) {
 	// check for duplicate value
-	if ( this.firebaseObject.isDuplicate(inputValue) ) {
-		this.message.showErrorMessage('<i class="icon-cancel"></i><span>Duplicate entry.</span>');
+	if ( this.firebaseObject.isDuplicate( inputValue ) ) {
+		this.message.showErrorMessage( '<i class="icon-cancel"></i><span>Duplicate entry.</span>' );
 		return false;
 	}
 	// check for empty input
 	if ( inputValue === '' ) {
-		this.message.showErrorMessage('<i class="icon-cancel"></i><span>Yah kook, the input is empty!</span>');
+		this.message.showErrorMessage( '<i class="icon-cancel"></i><span>Yah kook, the input is empty!</span>' );
 		return false;
 	}
 

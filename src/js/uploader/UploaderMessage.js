@@ -24,9 +24,9 @@ proto = UploaderMessage.prototype;
 proto.showErrorMessage = function( message ) {
 	this.isHidden = false;
 	// set message text
-	this.$messageText.html(message);
+	this.$messageText.html( message );
 	// animation in message container
-	this.$element.addClass('show-message show-message-error');
+	this.$element.addClass( 'show-message show-message-error' );
 	// fade in message text
 	this.$messageText.fadeIn();
 };
@@ -39,13 +39,13 @@ proto.showErrorMessage = function( message ) {
 proto.showSucessMessage = function( message ) {
 	this.isHidden = false;
 	// set message text
-	this.$messageText.html(message);
+	this.$messageText.html( message );
 	// animation in message container
-	this.$element.addClass('show-message show-message-success');
+	this.$element.addClass( 'show-message show-message-success' );
 	// fade in message text
 	this.$messageText.fadeIn();
 	// hide the success message after a delay
-	window.setTimeout( this.hideMessage.bind(this), 3000);
+	window.setTimeout( this.hideMessage.bind(this), 3000 );
 };
 
 
@@ -59,7 +59,7 @@ proto.hideMessage = function() {
 	}
 
 	this.isHidden = true;
-	this.$element.removeClass('show-message show-message-error show-message-success');
+	this.$element.removeClass( 'show-message show-message-error show-message-success' );
 };
 
 

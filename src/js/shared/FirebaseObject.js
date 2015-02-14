@@ -11,12 +11,12 @@ var proto;
  */
 var FirebaseObject = function() {
 	// get link to the firebase database
-	this.firebase = new Firebase('https://surf-ipsum.firebaseio.com/surf-strings');
+	this.firebase = new Firebase( 'https://surf-ipsum.firebaseio.com/surf-strings' );
 	// store the current array of words from the database
 	this.strings = [];
 	// update array when the database is changed
 	this.firebase.on('value', function( dataSnapshot ) {
-		this._onFirebaseUpdate(dataSnapshot);
+		this._onFirebaseUpdate( dataSnapshot );
 	}.bind(this));
 };
 
@@ -30,9 +30,9 @@ proto = FirebaseObject.prototype;
 proto._onFirebaseUpdate = function( dataSnapshot ) {
 	var updatedStrings = [];
 
-	dataSnapshot.forEach(function(childSnapshot) {
+	dataSnapshot.forEach( function( childSnapshot ) {
 		var childData = childSnapshot.val();
-		updatedStrings.push(childData);
+		updatedStrings.push( childData );
 	});
 
 	this.strings = updatedStrings;
@@ -45,7 +45,7 @@ proto._onFirebaseUpdate = function( dataSnapshot ) {
  * @return {boolean}
  */
 proto.isDuplicate = function( string ) {
-	return $.inArray(string, this.strings) !== -1;
+	return $.inArray( string, this.strings ) !== -1;
 };
 
 
@@ -59,12 +59,12 @@ proto.getRandomStrings = function( numberOfItems ) {
 	var results = [];
 
 	for (var i = 0; i < numberOfItems; i++) {
-		var randomString = this.strings[Math.floor(Math.random() * stringsLength)];
-		results.push(randomString);
+		var randomString = this.strings[ Math.floor( Math.random() * stringsLength ) ];
+		results.push( randomString );
 	}
 
 	// turn results array into one long string and remove commas
-	results = results.toString().replace(/,/g, ' ');
+	results = results.toString().replace( /,/g, ' ' );
 
 	return results;
 };
@@ -75,7 +75,7 @@ proto.getRandomStrings = function( numberOfItems ) {
  * @param {string} string
  */
 proto.addString = function( string ) {
-	this.firebase.push(string);
+	this.firebase.push( string );
 };
 
 
