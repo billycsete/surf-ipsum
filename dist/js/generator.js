@@ -9546,7 +9546,7 @@ var IpsumItem = function( ) {
 	// TODO: organize class names up top
 	this.classNames = {
 		itemElement : 'ipsum-item',
-		removeButton : 'ipsum-item-remove',
+		removeButton : 'ipsum-item-button remove-item',
 		inputElement : 'ipsum-item-input'
 	};
 
@@ -9563,12 +9563,12 @@ proto._buildItemElement = function( ) {
 	// Create item element
 	this.$itemElement = $('<li class="' + this.classNames.itemElement + '"></li>');
 	// Append remove button
-	this.$removeButton = $('<button class="' + this.classNames.removeButton + '"><i class="icon-minus-circled"></i></button>');
+	this.$removeButton = $('<button class="' + this.classNames.removeButton + '"><i class="icon-minus"></i></button>');
 	this.$itemElement.append( this.$removeButton );
 	// append text span
 	this._appendSpan('Shred me');
 	// append input element
-	this.$inputElement = $('<input class="' + this.classNames.inputElement + '" type="text" name="number" placeholder="2">');
+	this.$inputElement = $('<input class="' + this.classNames.inputElement + '" type="text" name="number" value="2" max="9999">');
 	this.$itemElement.append( this.$inputElement );
 	// append text span
 	this._appendSpan('gnarley');
@@ -9636,6 +9636,7 @@ var IpsumList = function( listElement ) {
 	// IpsumList elements
 	this.$list = listElement;
 	this.$addItemButton = $('#ipsum-item-add');
+	this.maxItems = 100;
 
 	this.ipsumItems = [ ];
 
@@ -9680,12 +9681,19 @@ proto._removeListItem = function( evt ) {
 
 
 proto.addListItem = function( ) {
+	// Stop creating list items after maximum is reached
+	// TODO: show error message when it is reached
+	if ( this.ipsumItems.length >= this.maxLength ) {
+		return;
+	}
+
 	// create a new item object
 	var ipsumItem = new IpsumItem();
 	// add the new item object to the array of list items
 	this.ipsumItems.push(ipsumItem);
 	// get the list item element
 	var listItem = ipsumItem.getElement();
+	listItem.css( 'z-index', this.maxItems - this.ipsumItems.length );
 	// append the new list item to the list
 	this.$list.append( listItem );
 };
@@ -9837,6 +9845,7 @@ var proto;
 
 var SelectElement = function( ) {
 	this.$element = $('<div class="select-element"></div>');
+	this.$downIcon = $('<i class="icon-down-open"></i>');
 	this.$selectValue = $('<span class="select-value" tabindex="0">paragraphs</span>');
 	this.$optionsList = $('<ul class="select-list"></ul>');
 	this.$optionElements = [ ];
@@ -9859,9 +9868,10 @@ proto._init = function( ) {
 proto._attachEvents = function( ) {
 	var self = this;
 
+	this.$downIcon.on( 'click', this._openSelect.bind(this) );
 	this.$selectValue.on( 'click', this._openSelect.bind(this) );
-	this.$selectValue.on( 'focus', this._openSelect.bind(this) );
-	this.$selectValue.on( 'blur', this._closeSelect.bind(this) );
+	// this.$selectValue.on( 'focus', this._openSelect.bind(this) );
+	// this.$selectValue.on( 'blur', this._closeSelect.bind(this) ); // was causing the click event not to be fired
 	$(document).on( 'click', this._closeOnClickOutsideSelect.bind(this) );
 
 	// TODO: keyboard events
@@ -9871,7 +9881,6 @@ proto._attachEvents = function( ) {
 		$(this).on( 'click', function( evt ) {
 			// grab innerHTML from the option that was clicked
 			var newValue = $(this).html();
-
 			// update the selected value and close
 			self._setSelectValue( newValue );
 			self._closeSelect();
@@ -9884,6 +9893,8 @@ proto._attachEvents = function( ) {
 
 
 proto._buildSelectElement = function( ) {
+	// add down icon
+	this.$element.append( this.$downIcon );
 	// add span for the currently selected item
 	this.$element.append( this.$selectValue );
 
@@ -9906,6 +9917,8 @@ proto._buildSelectElement = function( ) {
 
 proto._closeOnClickOutsideSelect = function( evt ) {
 	var targetElement = evt.target;
+
+	console.log(targetElement);
 
 	if( this._isOpen() && !this._selectClicked( targetElement ) ) {
 		this._closeSelect();

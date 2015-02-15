@@ -25,6 +25,7 @@ var proto;
 
 var SelectElement = function( ) {
 	this.$element = $('<div class="select-element"></div>');
+	this.$downIcon = $('<i class="icon-down-open"></i>');
 	this.$selectValue = $('<span class="select-value" tabindex="0">paragraphs</span>');
 	this.$optionsList = $('<ul class="select-list"></ul>');
 	this.$optionElements = [ ];
@@ -47,9 +48,10 @@ proto._init = function( ) {
 proto._attachEvents = function( ) {
 	var self = this;
 
+	this.$downIcon.on( 'click', this._openSelect.bind(this) );
 	this.$selectValue.on( 'click', this._openSelect.bind(this) );
-	this.$selectValue.on( 'focus', this._openSelect.bind(this) );
-	this.$selectValue.on( 'blur', this._closeSelect.bind(this) );
+	// this.$selectValue.on( 'focus', this._openSelect.bind(this) );
+	// this.$selectValue.on( 'blur', this._closeSelect.bind(this) ); // was causing the click event not to be fired
 	$(document).on( 'click', this._closeOnClickOutsideSelect.bind(this) );
 
 	// TODO: keyboard events
@@ -59,7 +61,6 @@ proto._attachEvents = function( ) {
 		$(this).on( 'click', function( evt ) {
 			// grab innerHTML from the option that was clicked
 			var newValue = $(this).html();
-
 			// update the selected value and close
 			self._setSelectValue( newValue );
 			self._closeSelect();
@@ -72,6 +73,8 @@ proto._attachEvents = function( ) {
 
 
 proto._buildSelectElement = function( ) {
+	// add down icon
+	this.$element.append( this.$downIcon );
 	// add span for the currently selected item
 	this.$element.append( this.$selectValue );
 
@@ -94,6 +97,8 @@ proto._buildSelectElement = function( ) {
 
 proto._closeOnClickOutsideSelect = function( evt ) {
 	var targetElement = evt.target;
+
+	console.log(targetElement);
 
 	if( this._isOpen() && !this._selectClicked( targetElement ) ) {
 		this._closeSelect();

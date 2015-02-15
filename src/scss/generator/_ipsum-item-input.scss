@@ -7,25 +7,12 @@
 
 .ipsum-item-input {
 
-	width: rem(100px);
+	width: rem(60px);
+	padding: rem(8px);
+	border: none;
 
-	// focus
 	&:focus {
 		outline: none;
-	}
-
-	// style placeholder text
-	&::-webkit-input-placeholder {
-		color: #e8e8e8;
-	}
-	&:-moz-placeholder { // 2
-		color: #e8e8e8;
-	}
-	&::-moz-placeholder { // 3
-		color: #e8e8e8;
-	}
-	&:-ms-input-placeholder {
-		color: #e8e8e8;
 	}
 }
 

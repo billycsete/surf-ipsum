@@ -12,7 +12,12 @@
 <body class='page-generator'>
 
 	<header class="header">
-
+		<div class="section-pad">
+			<h1>Surf Ipsum</h1>
+			<div class="intro">
+				<p class='intro-text'>A random surf word generator.</p>
+			</div>
+		</div>
 	</header>
 
 	<div class="ipsum">
@@ -20,19 +25,24 @@
 
 		</ul>
 
-		<button id="ipsum-item-add" class="ipsum-item-add"><i class="icon-plus-circled"></i></button>
+		<button id="ipsum-item-add" class="ipsum-item-button add-item"><i class="icon-plus"></i></button>
 
 		<br />
 		<br />
 		<br />
-
-		<button id="ipsum-submit" class="ipsum-submit" type="submit">Get Stoked! <i class="icon-thumbs-up"></i></button>
 	</div>
 
+	<section class="section-submit section-pad">
+		<button id="ipsum-submit" class="ipsum-submit" type="submit">
+			<span>Get Stoked!</span>
+			<i class="icon-thumbs-up-alt"></i>
+		</button>
+	</section>
 
-	<div id="output" class="output">
 
-	</div>
+	<section id="output" class="section-output section-pad">
+
+	</section>
 
 	<script src="js/generator.js" type="text/javascript" charset="utf-8"></script>
 </body>

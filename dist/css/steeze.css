@@ -673,61 +673,128 @@ a {
     color: #6ec972;
     font-size: 1.75rem; }
 
+.section-pad {
+  box-sizing: border-box;
+  padding: 0 4.375rem; }
+
+.header {
+  box-sizing: border-box;
+  height: 400px;
+  padding-top: 4.375rem;
+  background-image: url(../images/header-background.jpg);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 2000px 400px; }
+  .header h1 {
+    display: inline-block;
+    background: #fff;
+    color: #09dffc;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0.3125rem 1.25rem; }
+  .header p.intro-text {
+    display: inline-block;
+    background: #fff;
+    color: #09dffc;
+    padding: 0.3125rem 1.25rem; }
+
+.section-submit {
+  margin-bottom: 4.38125rem; }
+  .section-submit .ipsum-submit {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    background: #086aec;
+    color: #fff;
+    font-size: 1.375rem; }
+    .section-submit .ipsum-submit:hover {
+      background: #0655bd; }
+    .section-submit .ipsum-submit span {
+      display: inline-block;
+      padding: 0.625rem 1.25rem; }
+    .section-submit .ipsum-submit i {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.625rem; }
+
 .ipsum-list {
   padding: 0;
-  margin: 0 0 40px; }
+  margin: 0; }
   .ipsum-list .ipsum-item {
-    margin: 0;
-    padding: 1rem;
-    background: #f5f5f5; }
-    .ipsum-list .ipsum-item * {
-      margin-right: 0.625rem; }
-    .ipsum-list .ipsum-item:hover {
-      background: #eee; }
+    position: relative;
+    z-index: 1;
+    background: #f5f5f5;
+    font-size: 1.25rem; }
+    .ipsum-list .ipsum-item > * {
+      display: inline-block;
+      margin-right: 1.875rem; }
+
+.ipsum-item-button {
+  background: none;
+  border: none;
+  box-shadow: none;
+  background: #c4c4c4;
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+  padding: 1.25rem; }
+  .ipsum-item-button i {
+    margin: 0; }
+  .ipsum-item-button.remove-item:hover {
+    background: #fd702b; }
+  .ipsum-item-button.add-item {
+    background: #15d445; }
 
 .ipsum-item-input {
-  width: 6.25rem; }
+  width: 3.75rem;
+  padding: 0.5rem;
+  border: none; }
   .ipsum-item-input:focus {
     outline: none; }
-  .ipsum-item-input::-webkit-input-placeholder {
-    color: #e8e8e8; }
-  .ipsum-item-input:-moz-placeholder {
-    color: #e8e8e8; }
-  .ipsum-item-input::-moz-placeholder {
-    color: #e8e8e8; }
-  .ipsum-item-input:-ms-input-placeholder {
-    color: #e8e8e8; }
 
 .select-element {
   position: relative;
   z-index: 1;
-  display: inline-block;
-  width: 18.75rem; }
-
-.select-value {
-  display: block;
-  background: #3da1ce;
-  color: #fff;
-  padding: 5px;
-  cursor: pointer; }
-
-.select-list {
-  opacity: 0;
-  position: absolute;
-  z-index: 1000;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  background: #f5f5f5; }
-  .select-list li.select-option {
-    padding: 5px;
-    list-style-type: none;
+  width: 11.25rem; }
+  .select-element:hover .icon-down-open {
+    background: #9c9c9c; }
+  .select-element .icon-down-open {
+    padding: 0.5rem 0.25rem;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    background: #c4c4c4;
+    color: #fff; }
+  .select-element .select-value {
+    display: block;
+    padding: 0.5rem;
+    background: #fff;
     cursor: pointer; }
-    .select-list li.select-option:hover {
-      background: #eee; }
-  .focused .select-list {
-    opacity: 1; }
+    .select-element .select-value:focus {
+      outline: none; }
+  .select-element .select-list {
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #c4c4c4; }
+    .select-element .select-list li.select-option {
+      padding: 0.5rem;
+      list-style-type: none;
+      cursor: pointer; }
+      .select-element .select-list li.select-option:hover {
+        background: #eee; }
+  .select-element.focused .select-list {
+    opacity: 1;
+    height: auto; }
 
 /*# sourceMappingURL=steeze.css.map */

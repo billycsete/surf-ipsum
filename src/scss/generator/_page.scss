@@ -1,0 +1,112 @@
+// =================================================
+//
+// Page - Uploader
+//
+// =================================================
+
+
+// =================================================
+// Colors
+// =================================================
+
+$blue:         #086aec;
+$dark-blue:    #0655bd;
+
+$green:        #15d445;
+$orange:       #fd702b;
+$teal:         #09dffc;
+
+$light-grey:   #f5f5f5;
+$grey:         #c4c4c4;
+$darkish-grey: #9c9c9c;
+
+
+
+// =================================================
+// Layout
+// =================================================
+
+.section-pad {
+	box-sizing: border-box;
+	padding: 0 rem(70px);
+}
+
+
+
+// =================================================
+// Header Section
+// =================================================
+
+.header {
+	box-sizing: border-box;
+	height: 400px;
+	padding-top: rem(70px);
+	background-image: url(../images/header-background.jpg);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-size: 2000px 400px;
+
+	h1 {
+		display: inline-block;
+		background: $white;
+		color: $teal;
+		text-transform: uppercase;
+		font-weight: bold;
+		padding: rem(5px) rem(20px);
+	}
+
+	p.intro-text {
+		display: inline-block;
+		background: $white;
+		color: $teal;
+		padding: rem(5px) rem(20px);
+	}
+}
+
+
+
+// =================================================
+// Submit Section
+// =================================================
+
+.section-submit {
+	margin-bottom: rem(70.1px);
+
+	.ipsum-submit {
+	background: none;
+	border: none;
+	box-shadow: none;
+	padding: 0;
+	background: $blue;
+	color: $white;
+	font-size: rem(22px);
+
+	&:hover {
+		background: $dark-blue;
+	}
+
+	span {
+		display: inline-block;
+		padding: rem(10px) rem(20px);
+	}
+
+	i {
+		display: inline-block;
+		background: rgba(0,0,0,0.2);
+		padding: rem(10px);
+	}
+
+}
+}
+
+
+
+// =================================================
+// Submit Section
+// =================================================
+
+.section-output {
+
+}
+
+

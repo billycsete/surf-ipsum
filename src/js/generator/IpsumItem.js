@@ -10,7 +10,7 @@ var IpsumItem = function( ) {
 	// TODO: organize class names up top
 	this.classNames = {
 		itemElement : 'ipsum-item',
-		removeButton : 'ipsum-item-remove',
+		removeButton : 'ipsum-item-button remove-item',
 		inputElement : 'ipsum-item-input'
 	};
 
@@ -27,12 +27,12 @@ proto._buildItemElement = function( ) {
 	// Create item element
 	this.$itemElement = $('<li class="' + this.classNames.itemElement + '"></li>');
 	// Append remove button
-	this.$removeButton = $('<button class="' + this.classNames.removeButton + '"><i class="icon-minus-circled"></i></button>');
+	this.$removeButton = $('<button class="' + this.classNames.removeButton + '"><i class="icon-minus"></i></button>');
 	this.$itemElement.append( this.$removeButton );
 	// append text span
 	this._appendSpan('Shred me');
 	// append input element
-	this.$inputElement = $('<input class="' + this.classNames.inputElement + '" type="text" name="number" placeholder="2">');
+	this.$inputElement = $('<input class="' + this.classNames.inputElement + '" type="text" name="number" value="2" max="9999">');
 	this.$itemElement.append( this.$inputElement );
 	// append text span
 	this._appendSpan('gnarley');

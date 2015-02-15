@@ -11,6 +11,7 @@ var IpsumList = function( listElement ) {
 	// IpsumList elements
 	this.$list = listElement;
 	this.$addItemButton = $('#ipsum-item-add');
+	this.maxItems = 100;
 
 	this.ipsumItems = [ ];
 
@@ -55,12 +56,19 @@ proto._removeListItem = function( evt ) {
 
 
 proto.addListItem = function( ) {
+	// Stop creating list items after maximum is reached
+	// TODO: show error message when it is reached
+	if ( this.ipsumItems.length >= this.maxLength ) {
+		return;
+	}
+
 	// create a new item object
 	var ipsumItem = new IpsumItem();
 	// add the new item object to the array of list items
 	this.ipsumItems.push(ipsumItem);
 	// get the list item element
 	var listItem = ipsumItem.getElement();
+	listItem.css( 'z-index', this.maxItems - this.ipsumItems.length );
 	// append the new list item to the list
 	this.$list.append( listItem );
 };
