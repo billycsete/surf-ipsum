@@ -9458,7 +9458,7 @@ module.exports = Firebase;
 'use strict';
 
 var $           = require('../../../lib/jquery/jquery');
-var IpsumList   = require('./IpsumList');
+var IpsumInput = require('./IpsumInput');
 var IpsumOutput = require('./IpsumOutput');
 
 var proto;
@@ -9467,11 +9467,10 @@ var proto;
 
 var IpsumController = function( ) {
 	// IpsumController elements
-	this.$listElement = $('#ipsum-list');
-	this.$outputElement = $('#output');
-	this.$submitButton = $('#ipsum-submit');
-	// create list of inputs
-	this.list = new IpsumList( this.$listElement );
+	this.$inputElement = $('#ipsum-input');
+	this.$outputElement = $('#ipsum-output');
+	// create input controls
+	this.input = new IpsumInput( this.$inputElement );
 	// create reference to our output object
 	this.output = new IpsumOutput( this.$outputElement );
 
@@ -9490,24 +9489,14 @@ proto._init = function( ) {
 
 proto._attachEvents = function( ) {
 	// when the submit button is clicked, generate ipsum
-	this.$submitButton.on( 'click', this._onSubmit.bind(this) );
-};
-
-
-
-proto._onSubmit = function( ) {
-	var listItemObjects = this.list.getIpsumItems();
-
-	listItemObjects.forEach( function( item ) {
-		this._generateIpsum( item );
-	}.bind(this));
+	$(document).on( 'generateIpsum', this._generateIpsum.bind(this) );
 };
 
 
 
 proto._generateIpsum = function( listItemObject ) {
-	var selectValue = listItemObject.getSelectValue();
-	var inputValue = listItemObject.getInputValue();
+	var selectValue = this.input.getSelectValue();
+	var inputValue = this.input.getInputValue();
 
 	switch ( selectValue ) {
 		case 'paragraphs':
@@ -9533,54 +9522,62 @@ proto._generateIpsum = function( listItemObject ) {
 module.exports = IpsumController;
 
 
-},{"../../../lib/jquery/jquery":1,"./IpsumList":5,"./IpsumOutput":6}],4:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"./IpsumInput":4,"./IpsumOutput":5}],4:[function(require,module,exports){
 'use strict';
 
 var $             = require('../../../lib/jquery/jquery');
 var SelectElement = require('./SelectElement');
+
 var proto;
 
 
 
-var IpsumItem = function( ) {
-	// TODO: organize class names up top
+var IpsumInput = function( wrapperElement ) {
+	this.$inputWrapper = wrapperElement;
+
 	this.classNames = {
-		itemElement : 'ipsum-item',
-		removeButton : 'ipsum-item-button remove-item',
-		inputElement : 'ipsum-item-input'
+		inputElement : 'ipsum-input-element',
+		submitButton : 'ipsum-generate'
 	};
 
-	this._buildItemElement();
-
+	this._buildIpusmInput();
 	this._attachEvents();
 };
 
-proto = IpsumItem.prototype;
+proto = IpsumInput.prototype;
 
 
 
-proto._buildItemElement = function( ) {
-	// Create item element
-	this.$itemElement = $('<li class="' + this.classNames.itemElement + '"></li>');
-	// Append remove button
-	this.$removeButton = $('<button class="' + this.classNames.removeButton + '"><i class="icon-minus"></i></button>');
-	this.$itemElement.append( this.$removeButton );
+proto._buildIpusmInput = function( ) {
 	// append text span
 	this._appendSpan('Shred me');
 	// append input element
 	this.$inputElement = $('<input class="' + this.classNames.inputElement + '" type="text" name="number" value="2" max="9999">');
-	this.$itemElement.append( this.$inputElement );
+	this.$inputWrapper.append( this.$inputElement );
 	// append text span
 	this._appendSpan('gnarley');
 	// append select element
 	this.selectElement = new SelectElement();
-	this.$itemElement.append( this.selectElement.getElement() );
+	this.$inputWrapper.append( this.selectElement.getElement() );
+	// append submit button
+	this.$generateButton = $('<button class="' + this.classNames.submitButton + '" type="submit"><span>Get Stoked!</span><i class="icon-thumbs-up-alt"></i></button>');
+	this.$inputWrapper.append( this.$generateButton );
 }
 
 
+
 proto._attachEvents = function( ) {
-	this.$removeButton.on('click', this._fireRemoveEvent.bind(this));
+	this.$generateButton.on('click', this._fireSubmitEvent.bind(this));
 };
+
+
+
+proto._fireSubmitEvent = function( ) {
+	$(document).trigger({
+		type : 'generateIpsum',
+		obj : this
+	});
+}
 
 
 
@@ -9588,22 +9585,7 @@ proto._appendSpan = function( text ) {
 	// create a new span element with text inside
 	var span = $('<span>' + text + '</span>');
 	// append the span element to the list item
-	this.$itemElement.append(span);
-};
-
-
-
-proto._fireRemoveEvent = function( ) {
-	$(document).trigger({
-		type : 'removeItem',
-		obj : this
-	});
-};
-
-
-
-proto.getElement = function( ) {
-	return this.$itemElement;
+	this.$inputWrapper.append(span);
 };
 
 
@@ -9620,96 +9602,9 @@ proto.getSelectValue = function( ) {
 
 
 
-module.exports = IpsumItem;
+module.exports = IpsumInput;
 
-},{"../../../lib/jquery/jquery":1,"./SelectElement":7}],5:[function(require,module,exports){
-'use strict';
-
-var $               = require('../../../lib/jquery/jquery');
-var IpsumItem       = require('./IpsumItem');
-
-var proto;
-
-
-
-var IpsumList = function( listElement ) {
-	// IpsumList elements
-	this.$list = listElement;
-	this.$addItemButton = $('#ipsum-item-add');
-	this.maxItems = 100;
-
-	this.ipsumItems = [ ];
-
-	this._init();
-};
-
-proto = IpsumList.prototype;
-
-
-
-proto._init = function( ) {
-	// add the initial list item
-	this.addListItem();
-	// attach event listeners
-	this._attachEvents();
-};
-
-
-
-proto._attachEvents = function( ) {
-	// add a new list item when the plus button is clicked
-	this.$addItemButton.on( 'click', this.addListItem.bind(this) );
-	// remove list items when close button is clicked
-	$(document).on( 'removeItem', this._removeListItem.bind(this) );
-};
-
-
-
-proto._removeListItem = function( evt ) {
-	var itemObject = evt.obj;
-	var itemIndex = $.inArray( itemObject, this.ipsumItems );
-
-	// if the itemObject exists in our array, lets remove it
-	if( itemIndex >= 0 ) {
-		// remove the html element
-		itemObject.$itemElement.remove();
-		// remove the ipsumItem from our array
-		this.ipsumItems.splice( itemIndex, 1 );
-	}
-};
-
-
-
-proto.addListItem = function( ) {
-	// Stop creating list items after maximum is reached
-	// TODO: show error message when it is reached
-	if ( this.ipsumItems.length >= this.maxLength ) {
-		return;
-	}
-
-	// create a new item object
-	var ipsumItem = new IpsumItem();
-	// add the new item object to the array of list items
-	this.ipsumItems.push(ipsumItem);
-	// get the list item element
-	var listItem = ipsumItem.getElement();
-	listItem.css( 'z-index', this.maxItems - this.ipsumItems.length );
-	// append the new list item to the list
-	this.$list.append( listItem );
-};
-
-
-
-proto.getIpsumItems = function( ) {
-	return this.ipsumItems;
-};
-
-
-
-module.exports = IpsumList;
-
-
-},{"../../../lib/jquery/jquery":1,"./IpsumItem":4}],6:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"./SelectElement":6}],5:[function(require,module,exports){
 'use strict';
 
 var $              = require('../../../lib/jquery/jquery');
@@ -9817,7 +9712,7 @@ proto._capitalizeString = function( string ) {
 
 module.exports = IpsumOutput;
 
-},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":9}],7:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":8}],6:[function(require,module,exports){
 'use strict';
 
 var $     = require('../../../lib/jquery/jquery');
@@ -9918,7 +9813,7 @@ proto._buildSelectElement = function( ) {
 proto._closeOnClickOutsideSelect = function( evt ) {
 	var targetElement = evt.target;
 
-	console.log(targetElement);
+	// console.log(targetElement);
 
 	if( this._isOpen() && !this._selectClicked( targetElement ) ) {
 		this._closeSelect();
@@ -9982,7 +9877,7 @@ proto.getValue = function( ) {
 
 module.exports = SelectElement;
 
-},{"../../../lib/jquery/jquery":1,"../shared/utils":10}],8:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/utils":9}],7:[function(require,module,exports){
 'use strict'
 
 // Require statements
@@ -10001,7 +9896,7 @@ var Main = {
 
 Main.initialize();
 
-},{"./IpsumController":3}],9:[function(require,module,exports){
+},{"./IpsumController":3}],8:[function(require,module,exports){
 'use strict';
 
 var $        = require('../../../lib/jquery/jquery');
@@ -10086,7 +9981,7 @@ proto.addString = function( string ) {
 module.exports = FirebaseObject;
 
 
-},{"../../../lib/jquery/jquery":1,"Firebase":2}],10:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"Firebase":2}],9:[function(require,module,exports){
 'use strict';
 
 /**
@@ -10103,4 +9998,4 @@ var hasParent = function( e, p ) {
 
 module.exports.hasParent = hasParent;
 
-},{}]},{},[8]);
+},{}]},{},[7]);

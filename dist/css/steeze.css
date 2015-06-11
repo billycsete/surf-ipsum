@@ -519,8 +519,11 @@ html, body {
       font-size: 18px; } }
 
 h1 {
-  font-weight: 400;
+  font-family: 'Open Sans Condensed', 'Helvetica', 'sans-serif';
+  font-weight: 700;
+  color: #fff;
   font-size: 2rem;
+  text-transform: uppercase;
   margin: 0 0 0.5rem 0; }
 
 h2 {
@@ -541,6 +544,9 @@ ol, ul {
 
 a {
   font-size: 1rem; }
+
+strong {
+  font-weight: 600; }
 
 .page-uploader {
   background-image: url(../images/craig-background.jpg);
@@ -673,33 +679,18 @@ a {
     color: #6ec972;
     font-size: 1.75rem; }
 
-.section-pad {
-  box-sizing: border-box;
-  padding: 0 4.375rem; }
-
-.header {
-  box-sizing: border-box;
-  height: 400px;
-  padding-top: 4.375rem;
-  background-image: url(../images/header-background.jpg);
+body {
+  background-color: #3da1ce;
+  background-image: url(../images/surfer-background.png);
   background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: 2000px 400px; }
-  .header h1 {
-    display: inline-block;
-    background: #fff;
-    color: #09dffc;
-    text-transform: uppercase;
-    font-weight: bold;
-    padding: 0.3125rem 1.25rem; }
-  .header p.intro-text {
-    display: inline-block;
-    background: #fff;
-    color: #09dffc;
-    padding: 0.3125rem 1.25rem; }
+  background-size: cover;
+  background-position: left center; }
+
+.header p {
+  color: #fff; }
 
 .section-submit {
-  margin-bottom: 4.38125rem; }
+  margin-bottom: 4.375rem; }
   .section-submit .ipsum-submit {
     background: none;
     border: none;
@@ -718,17 +709,14 @@ a {
       background: rgba(0, 0, 0, 0.2);
       padding: 0.625rem; }
 
-.ipsum-list {
-  padding: 0;
-  margin: 0; }
-  .ipsum-list .ipsum-item {
-    position: relative;
-    z-index: 1;
-    background: #f5f5f5;
-    font-size: 1.25rem; }
-    .ipsum-list .ipsum-item > * {
-      display: inline-block;
-      margin-right: 1.875rem; }
+.ipsum-item {
+  position: relative;
+  z-index: 1;
+  background: #f5f5f5;
+  font-size: 1.25rem; }
+  .ipsum-item > * {
+    display: inline-block;
+    margin-right: 1.875rem; }
 
 .ipsum-item-button {
   background: none;

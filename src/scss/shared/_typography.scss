@@ -8,8 +8,9 @@
 // Weights
 // =================================================
 
-$normal: 400;
-$bold: 600;
+$normal   : 400;
+$semibold : 600;
+$bold     : 700;
 
 
 // =================================================
@@ -42,8 +43,11 @@ html, body {
 // =================================================
 
 h1 {
-	font-weight: $normal;
+	font-family: 'Open Sans Condensed', 'Helvetica', 'sans-serif';
+	font-weight: $bold;
+	color: $white;
 	font-size: 2rem;
+	text-transform: uppercase;
 	margin: 0 0 0.5rem 0;
 }
 
@@ -86,3 +90,11 @@ a {
 	font-size: 1rem;
 }
 
+
+// =================================================
+// Bold
+// =================================================
+
+strong {
+	font-weight: $semibold;
+}

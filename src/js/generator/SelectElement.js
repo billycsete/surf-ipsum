@@ -98,7 +98,7 @@ proto._buildSelectElement = function( ) {
 proto._closeOnClickOutsideSelect = function( evt ) {
 	var targetElement = evt.target;
 
-	console.log(targetElement);
+	// console.log(targetElement);
 
 	if( this._isOpen() && !this._selectClicked( targetElement ) ) {
 		this._closeSelect();

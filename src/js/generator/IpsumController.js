@@ -1,7 +1,7 @@
 'use strict';
 
 var $           = require('../../../lib/jquery/jquery');
-var IpsumList   = require('./IpsumList');
+var IpsumInput = require('./IpsumInput');
 var IpsumOutput = require('./IpsumOutput');
 
 var proto;
@@ -10,11 +10,10 @@ var proto;
 
 var IpsumController = function( ) {
 	// IpsumController elements
-	this.$listElement = $('#ipsum-list');
-	this.$outputElement = $('#output');
-	this.$submitButton = $('#ipsum-submit');
-	// create list of inputs
-	this.list = new IpsumList( this.$listElement );
+	this.$inputElement = $('#ipsum-input');
+	this.$outputElement = $('#ipsum-output');
+	// create input controls
+	this.input = new IpsumInput( this.$inputElement );
 	// create reference to our output object
 	this.output = new IpsumOutput( this.$outputElement );
 
@@ -33,24 +32,14 @@ proto._init = function( ) {
 
 proto._attachEvents = function( ) {
 	// when the submit button is clicked, generate ipsum
-	this.$submitButton.on( 'click', this._onSubmit.bind(this) );
-};
-
-
-
-proto._onSubmit = function( ) {
-	var listItemObjects = this.list.getIpsumItems();
-
-	listItemObjects.forEach( function( item ) {
-		this._generateIpsum( item );
-	}.bind(this));
+	$(document).on( 'generateIpsum', this._generateIpsum.bind(this) );
 };
 
 
 
 proto._generateIpsum = function( listItemObject ) {
-	var selectValue = listItemObject.getSelectValue();
-	var inputValue = listItemObject.getInputValue();
+	var selectValue = this.input.getSelectValue();
+	var inputValue = this.input.getInputValue();
 
 	switch ( selectValue ) {
 		case 'paragraphs':

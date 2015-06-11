@@ -4,20 +4,15 @@
 //
 // =================================================
 
-.ipsum-list {
-	padding: 0;
-	margin: 0;
+.ipsum-item {
+	position: relative;
+	z-index: 1;
+	background: #f5f5f5;
+	font-size: rem(20px);
 
-	.ipsum-item {
-		position: relative;
-		z-index: 1;
-		background: #f5f5f5;
-		font-size: rem(20px);
-
-		& > * {
-			display: inline-block;
-			margin-right: rem(30px);
-		}
+	& > * {
+		display: inline-block;
+		margin-right: rem(30px);
 	}
 }
 
