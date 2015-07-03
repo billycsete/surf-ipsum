@@ -9560,7 +9560,7 @@ proto._buildIpusmInput = function( ) {
 	this.selectElement = new SelectElement();
 	this.$inputWrapper.append( this.selectElement.getElement() );
 	// append submit button
-	this.$generateButton = $('<button class="' + this.classNames.submitButton + '" type="submit"><span>Get Stoked!</span><i class="icon-thumbs-up-alt"></i></button>');
+	this.$generateButton = $('<button class="' + this.classNames.submitButton + '" type="submit"><i class="input-shaka"></i></button>');
 	this.$inputWrapper.append( this.$generateButton );
 }
 
