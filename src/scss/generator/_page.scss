@@ -12,6 +12,9 @@
 $blue:         #086aec;
 $dark-blue:    #0655bd;
 
+$green:        #48d573;
+$green-alt:    #48d573;
+
 $light-grey:   #f5f5f5;
 $grey:         #c4c4c4;
 $darkish-grey: #9c9c9c;
@@ -37,6 +40,28 @@ body {
 // =================================================
 
 .header {
+
+	width: 600px;
+	padding-top: 10vh;
+	margin: 0 auto;
+
+	h1 {
+		position: relative;
+		z-index: 1;
+		color: $white;
+		margin-bottom: 32px;
+
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			z-index: 1;
+			bottom: -15px;
+			height: 2px;
+			width: 150px;
+			background: $dark-blue;
+		}
+	}
 
 	p {
 		color: $white;

@@ -1,7 +1,7 @@
 'use strict';
 
 var $     = require('../../../lib/jquery/jquery');
-var utils = require('../shared/utils');
+var Utils = require('../shared/Utils').Utils;
 
 
 // ======================================================
@@ -12,7 +12,7 @@ var utils = require('../shared/utils');
 //   <span class="select-value">paragraphs</span>
 //   <ul class="select-list">
 //     <li class="select-option selected">paragraphs</li>
-//     <li class="select-option">titles</li>
+//     <li class="select-option">headlines</li>
 //     <li class="select-option">lists</li>
 //     <li class="select-option">words</li>
 //   </ul>
@@ -24,7 +24,7 @@ var utils = require('../shared/utils');
 var proto;
 
 var SelectElement = function( ) {
-	this.$element = $('<div class="select-element"></div>');
+	this.$element = $('#select-element');
 	this.$downIcon = $('<i class="icon-down-open"></i>');
 	this.$selectValue = $('<span class="select-value" tabindex="0">paragraphs</span>');
 	this.$optionsList = $('<ul class="select-list"></ul>');
@@ -112,7 +112,7 @@ proto._selectClicked = function( targetElement ) {
 	// ensure the select element wasn't clicked
 	var isSelectElement = targetElement === selectElement;
 	// ensure none of the children of the select element were clicked
-	var isChildofSelectElement = utils.hasParent( targetElement, selectElement );
+	var isChildofSelectElement = Utils.hasParent( targetElement, selectElement );
 
 	return isSelectElement || isChildofSelectElement;
 }

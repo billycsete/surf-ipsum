@@ -17,24 +17,13 @@ $bold     : 700;
 // Body
 // =================================================
 
-html, body {
-	font-size: 12px;
-	font-family: 'Open Sans', 'Helvetica', 'sans-serif';
+body {
+	font-size: 16px;
+	line-height: 120%;
+	font-family: 'Proxima Nova', 'Helvetica', 'sans-serif';
 	color: $black;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
-
-	@include media($small) {
-		font-size: 14px;
-	}
-
-	@include media($medium) {
-		font-size: 16px;
-	}
-
-	@include media($large) {
-		font-size: 18px;
-	}
 }
 
 
@@ -43,12 +32,13 @@ html, body {
 // =================================================
 
 h1 {
-	font-family: 'Open Sans Condensed', 'Helvetica', 'sans-serif';
+	font-family: 'Proxima Nova Condensed', 'Helvetica', 'sans-serif';
 	font-weight: $bold;
-	color: $white;
-	font-size: 2rem;
+	font-size: 48px;
+	line-height: 48px;
 	text-transform: uppercase;
-	margin: 0 0 0.5rem 0;
+	margin-bottom: 12px;
+	letter-spacing: 2px;
 }
 
 h2 {
@@ -64,8 +54,6 @@ h2 {
 
 p {
 	font-weight: $normal;
-	font-size: 1rem;
-	line-height: 1.4rem;
 	margin: 0 0 1rem 0;
 }
 
@@ -76,25 +64,4 @@ p {
 
 ol, ul {
 	margin: 0 0 1rem 0;
-	font-size: 1rem;
-	line-height: 1.4rem;
-}
-
-
-
-// =================================================
-// Links
-// =================================================
-
-a {
-	font-size: 1rem;
-}
-
-
-// =================================================
-// Bold
-// =================================================
-
-strong {
-	font-weight: $semibold;
 }

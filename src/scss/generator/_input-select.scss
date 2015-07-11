@@ -5,9 +5,11 @@
 // =================================================
 
 .select-element {
+	float:right;
 	position: relative;
 	z-index: 1;
-	width: rem(180px);
+	width: 200px;
+	background: pink;
 
 	&:hover {
 		.icon-down-open {
@@ -18,12 +20,13 @@
 
 	// down arrow icon
 	.icon-down-open {
-		padding: rem(8px) rem(4px);
+		height: $ipsum-element-height;
+		line-height: $ipsum-element-height;
+		padding: 0 10px;
 		cursor: pointer;
 		position: absolute;
 		z-index: 1;
 		right: 0;
-		background: $grey;
 		color: $white;
 	}
 
@@ -31,8 +34,7 @@
 	// current value
 	.select-value {
 		display: block;
-		padding: rem(8px);
-		background: $white;
+		background: pink;
 		cursor: pointer;
 
 		&:focus {

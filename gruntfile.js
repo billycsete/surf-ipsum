@@ -125,6 +125,6 @@ module.exports = function( grunt ) {
   // Default task
   grunt.registerTask('install', ['clean:lib', 'bower:install']);
   grunt.registerTask('build', ['clean:dist', 'sass', 'jshint', 'concat', 'browserify', 'uglify', 'copy']);
-  grunt.registerTask('default', 'watch');
+  grunt.registerTask('default', 'build');
 
 };

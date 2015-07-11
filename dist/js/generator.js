@@ -9457,9 +9457,9 @@ module.exports = Firebase;
 },{}],3:[function(require,module,exports){
 'use strict';
 
-var $           = require('../../../lib/jquery/jquery');
-var IpsumInput = require('./IpsumInput');
-var IpsumOutput = require('./IpsumOutput');
+var $             = require('../../../lib/jquery/jquery');
+var SelectElement = require('./SelectElement');
+var IpsumOutput   = require('./IpsumOutput');
 
 var proto;
 
@@ -9469,8 +9469,9 @@ var IpsumController = function( ) {
 	// IpsumController elements
 	this.$inputElement = $('#ipsum-input');
 	this.$outputElement = $('#ipsum-output');
-	// create input controls
-	this.input = new IpsumInput( this.$inputElement );
+	this.selectElement = new SelectElement();
+	this.$inputElement = $('#ipsum-input-element');
+	this.$generateButton = $('#ipsum-generate');
 	// create reference to our output object
 	this.output = new IpsumOutput( this.$outputElement );
 
@@ -9482,6 +9483,7 @@ proto = IpsumController.prototype;
 
 
 proto._init = function( ) {
+	// Add event listeners
 	this._attachEvents();
 };
 
@@ -9489,14 +9491,14 @@ proto._init = function( ) {
 
 proto._attachEvents = function( ) {
 	// when the submit button is clicked, generate ipsum
-	$(document).on( 'generateIpsum', this._generateIpsum.bind(this) );
+	this.$generateButton.on('click', this._generateIpsum.bind(this) );
 };
 
 
 
 proto._generateIpsum = function( listItemObject ) {
-	var selectValue = this.input.getSelectValue();
-	var inputValue = this.input.getInputValue();
+	var inputValue = this.$inputElement.val();
+	var selectValue = this.selectElement.getValue();
 
 	switch ( selectValue ) {
 		case 'paragraphs':
@@ -9522,92 +9524,11 @@ proto._generateIpsum = function( listItemObject ) {
 module.exports = IpsumController;
 
 
-},{"../../../lib/jquery/jquery":1,"./IpsumInput":4,"./IpsumOutput":5}],4:[function(require,module,exports){
-'use strict';
-
-var $             = require('../../../lib/jquery/jquery');
-var SelectElement = require('./SelectElement');
-
-var proto;
-
-
-
-var IpsumInput = function( wrapperElement ) {
-	this.$inputWrapper = wrapperElement;
-
-	this.classNames = {
-		inputElement : 'ipsum-input-element',
-		submitButton : 'ipsum-generate'
-	};
-
-	this._buildIpusmInput();
-	this._attachEvents();
-};
-
-proto = IpsumInput.prototype;
-
-
-
-proto._buildIpusmInput = function( ) {
-	// append text span
-	this._appendSpan('Shred me');
-	// append input element
-	this.$inputElement = $('<input class="' + this.classNames.inputElement + '" type="text" name="number" value="2" max="9999">');
-	this.$inputWrapper.append( this.$inputElement );
-	// append text span
-	this._appendSpan('gnarley');
-	// append select element
-	this.selectElement = new SelectElement();
-	this.$inputWrapper.append( this.selectElement.getElement() );
-	// append submit button
-	this.$generateButton = $('<button class="' + this.classNames.submitButton + '" type="submit"><i class="input-shaka"></i></button>');
-	this.$inputWrapper.append( this.$generateButton );
-}
-
-
-
-proto._attachEvents = function( ) {
-	this.$generateButton.on('click', this._fireSubmitEvent.bind(this));
-};
-
-
-
-proto._fireSubmitEvent = function( ) {
-	$(document).trigger({
-		type : 'generateIpsum',
-		obj : this
-	});
-}
-
-
-
-proto._appendSpan = function( text ) {
-	// create a new span element with text inside
-	var span = $('<span>' + text + '</span>');
-	// append the span element to the list item
-	this.$inputWrapper.append(span);
-};
-
-
-
-proto.getInputValue = function( ) {
-	return this.$inputElement.val();
-};
-
-
-
-proto.getSelectValue = function( ) {
-	return this.selectElement.getValue();
-};
-
-
-
-module.exports = IpsumInput;
-
-},{"../../../lib/jquery/jquery":1,"./SelectElement":6}],5:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"./IpsumOutput":4,"./SelectElement":5}],4:[function(require,module,exports){
 'use strict';
 
 var $              = require('../../../lib/jquery/jquery');
+var Utils          = require('../shared/Utils.js').Utils;
 var FirebaseObject = require('../shared/FirebaseObject');
 
 var proto;
@@ -9625,7 +9546,7 @@ proto = IpsumOutput.prototype;
 
 
 proto.printSentence = function ( ) {
-	var sentenceLength = this._getRandomInt( 5, 10 );
+	var sentenceLength = Utils.getRandomInt( 5, 10 );
 	// get strings from the firebase database
 	var sentence = this.firebaseObject.getRandomStrings( sentenceLength );
 	// replace commas with spaces
@@ -9640,7 +9561,7 @@ proto.printSentence = function ( ) {
 proto.printParagraphs = function ( numberOfParagraphs ) {
 
 	for (var i = 0; i < numberOfParagraphs; i++) {
-		var sentencesPerParagraph = this._getRandomInt( 5, 8 );
+		var sentencesPerParagraph = Utils.getRandomInt( 5, 8 );
 		var paragraph = '';
 
 		for ( var j = 0; j < sentencesPerParagraph; j++ ) {
@@ -9658,7 +9579,7 @@ proto.printParagraphs = function ( numberOfParagraphs ) {
 proto.printHeadlines = function ( numberOfHeadlines ) {
 
 	for ( var i = 0; i < numberOfHeadlines; i++ ) {
-		var headlineLength = this._getRandomInt( 2, 4 );
+		var headlineLength = Utils.getRandomInt( 2, 4 );
 		// get strings from the firebase database
 		var headline = this.firebaseObject.getRandomStrings( headlineLength );
 		// capitalize headline
@@ -9672,13 +9593,13 @@ proto.printHeadlines = function ( numberOfHeadlines ) {
 proto.printLists = function ( numberOfLists ) {
 
 	for ( var i = 0; i < numberOfLists; i++ ) {
-		var listLength = this._getRandomInt( 4, 8 );
+		var listLength = Utils.getRandomInt( 4, 8 );
 		var listElement = document.createElement( 'ul' );
 
 		for (var j = 0; j < listLength; j++) {
 			var listItem = document.createElement( 'li' );
 
-			var listItemTextLength = this._getRandomInt( 2, 4 );
+			var listItemTextLength = Utils.getRandomInt( 2, 4 );
 			// get strings from the firebase database
 			var listItemText = this.firebaseObject.getRandomStrings( listItemTextLength );
 			// add the random text to the new list item
@@ -9700,11 +9621,6 @@ proto.printWords = function ( numberOfWords ) {
 };
 
 
-proto._getRandomInt = function( min, max ) {
-	return Math.floor( Math.random() * (max - min + 1) ) + min;
-};
-
-
 proto._capitalizeString = function( string ) {
 	return string.substring(0, 1).toUpperCase() + string.substring(1);
 };
@@ -9712,11 +9628,11 @@ proto._capitalizeString = function( string ) {
 
 module.exports = IpsumOutput;
 
-},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":8}],6:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/FirebaseObject":7,"../shared/Utils.js":8}],5:[function(require,module,exports){
 'use strict';
 
 var $     = require('../../../lib/jquery/jquery');
-var utils = require('../shared/utils');
+var Utils = require('../shared/Utils').Utils;
 
 
 // ======================================================
@@ -9727,7 +9643,7 @@ var utils = require('../shared/utils');
 //   <span class="select-value">paragraphs</span>
 //   <ul class="select-list">
 //     <li class="select-option selected">paragraphs</li>
-//     <li class="select-option">titles</li>
+//     <li class="select-option">headlines</li>
 //     <li class="select-option">lists</li>
 //     <li class="select-option">words</li>
 //   </ul>
@@ -9739,7 +9655,7 @@ var utils = require('../shared/utils');
 var proto;
 
 var SelectElement = function( ) {
-	this.$element = $('<div class="select-element"></div>');
+	this.$element = $('#select-element');
 	this.$downIcon = $('<i class="icon-down-open"></i>');
 	this.$selectValue = $('<span class="select-value" tabindex="0">paragraphs</span>');
 	this.$optionsList = $('<ul class="select-list"></ul>');
@@ -9827,7 +9743,7 @@ proto._selectClicked = function( targetElement ) {
 	// ensure the select element wasn't clicked
 	var isSelectElement = targetElement === selectElement;
 	// ensure none of the children of the select element were clicked
-	var isChildofSelectElement = utils.hasParent( targetElement, selectElement );
+	var isChildofSelectElement = Utils.hasParent( targetElement, selectElement );
 
 	return isSelectElement || isChildofSelectElement;
 }
@@ -9877,7 +9793,7 @@ proto.getValue = function( ) {
 
 module.exports = SelectElement;
 
-},{"../../../lib/jquery/jquery":1,"../shared/utils":9}],7:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"../shared/Utils":8}],6:[function(require,module,exports){
 'use strict'
 
 // Require statements
@@ -9896,7 +9812,7 @@ var Main = {
 
 Main.initialize();
 
-},{"./IpsumController":3}],8:[function(require,module,exports){
+},{"./IpsumController":3}],7:[function(require,module,exports){
 'use strict';
 
 var $        = require('../../../lib/jquery/jquery');
@@ -9981,21 +9897,28 @@ proto.addString = function( string ) {
 module.exports = FirebaseObject;
 
 
-},{"../../../lib/jquery/jquery":1,"Firebase":2}],9:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":1,"Firebase":2}],8:[function(require,module,exports){
 'use strict';
 
-/**
- * based on from https://github.com/inuyaksa/jquery.nicescroll/blob/master/jquery.nicescroll.js
- */
-var hasParent = function( e, p ) {
-	if ( !e ) return false;
-	var el = e.target||e.srcElement||e||false;
-	while ( el && el != p ) {
-		el = el.parentNode||false;
+var Utils = {
+	/**
+	 * based on from https://github.com/inuyaksa/jquery.nicescroll/blob/master/jquery.nicescroll.js
+	 */
+	hasParent : function( e, p ) {
+		if ( !e ) return false;
+		var el = e.target||e.srcElement||e||false;
+		while ( el && el != p ) {
+			el = el.parentNode||false;
+		}
+		return ( el!==false );
+	},
+
+	getRandomInt : function( min, max ) {
+		return Math.floor( Math.random() * (max - min + 1) ) + min;
 	}
-	return ( el!==false );
+
 };
 
-module.exports.hasParent = hasParent;
+module.exports.Utils = Utils;
 
-},{}]},{},[7]);
+},{}]},{},[6]);
