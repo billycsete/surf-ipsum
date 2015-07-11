@@ -663,7 +663,7 @@ ol, ul {
     font-size: 1.75rem; }
 
 body {
-  background-color: #3da1ce;
+  background-color: #2b9dc1;
   background-image: url(../images/surfer-background.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -686,14 +686,14 @@ body {
       bottom: -15px;
       height: 2px;
       width: 150px;
-      background: #0655bd; }
+      background: #105575; }
   .header p {
     color: #fff; }
 
 .ipsum-input {
   position: relative;
   z-index: 1;
-  font-weight: 30px;
+  font-size: 24px;
   background: #fff;
   border-bottom: 4px solid #48d573; }
   .ipsum-input:after {
@@ -716,6 +716,7 @@ body {
   .ipsum-input .ipsum-generate {
     width: 80px;
     height: 80px;
+    background-color: #48d573;
     padding: 0;
     margin: 0;
     box-shadow: none;
@@ -725,12 +726,21 @@ body {
       display: block;
       width: 80px;
       height: 80px;
-      background-color: #48d573;
       background-image: url("../images/shaka.svg");
-      background-size: 80px 80px;
+      background-size: 90px 90px;
       background-repeat: no-repeat;
-      background-position: 50% 35%; }
+      background-position: 50% 0; }
+      .ipsum-input .ipsum-generate .icon-shaka:hover {
+        transform-origin: 40% 60%;
+        animation: shaka 0.2s infinite; }
 
+@keyframes shaka {
+  0% {
+    transform: rotate(0deg); }
+  50% {
+    transform: rotate(-15deg); }
+  100% {
+    transform: rotate(0deg); } }
 .select-element {
   float: right;
   position: relative;
@@ -747,7 +757,8 @@ body {
     position: absolute;
     z-index: 1;
     right: 0;
-    color: #fff; }
+    color: #fff;
+    font-size: 20px; }
   .select-element .select-value {
     display: block;
     background: pink;
