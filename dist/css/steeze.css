@@ -503,7 +503,7 @@ html *, body * {
 
 /* '' */
 body {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 120%;
   font-family: 'Proxima Nova', 'Helvetica', 'sans-serif';
   color: #444;
@@ -663,15 +663,33 @@ ol, ul {
     font-size: 1.75rem; }
 
 body {
-  background-color: #2b9dc1;
-  background-image: url(../images/surfer-background.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: left center; }
+  background-color: #47b3d0; }
+
+#main {
+  position: relative;
+  z-index: 1; }
+
+.background-wrapper {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden; }
+  .background-wrapper .background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 100%;
+    z-index: 1; }
 
 .header {
+  position: relative;
+  z-index: 10;
   width: 600px;
-  padding-top: 10vh;
+  padding-top: 4vh;
   margin: 0 auto; }
   .header h1 {
     position: relative;
@@ -688,7 +706,12 @@ body {
       width: 150px;
       background: #105575; }
   .header p {
-    color: #fff; }
+    color: #fff;
+    margin-bottom: 40px; }
+
+.ipsum-output {
+  position: relative;
+  z-index: 1; }
 
 .ipsum-input {
   position: relative;
@@ -705,17 +728,17 @@ body {
     float: left; }
   .ipsum-input span {
     padding: 0 20px;
-    line-height: 80px; }
+    line-height: 70px; }
   .ipsum-input .ipsum-input-element {
     background: green;
-    height: 80px;
+    height: 70px;
     width: 80px;
     padding: 0 10px;
     border: none;
     float: right; }
   .ipsum-input .ipsum-generate {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     background-color: #48d573;
     padding: 0;
     margin: 0;
@@ -724,12 +747,12 @@ body {
     float: right; }
     .ipsum-input .ipsum-generate .icon-shaka {
       display: block;
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       background-image: url("../images/shaka.svg");
       background-size: 90px 90px;
       background-repeat: no-repeat;
-      background-position: 50% 0; }
+      background-position: 50% 20%; }
       .ipsum-input .ipsum-generate .icon-shaka:hover {
         transform-origin: 40% 60%;
         animation: shaka 0.2s infinite; }
@@ -750,15 +773,15 @@ body {
   .select-element:hover .icon-down-open {
     background: #9c9c9c; }
   .select-element .icon-down-open {
-    height: 80px;
-    line-height: 80px;
+    height: 70px;
+    line-height: 70px;
     padding: 0 10px;
     cursor: pointer;
     position: absolute;
     z-index: 1;
     right: 0;
     color: #fff;
-    font-size: 20px; }
+    font-size: 18px; }
   .select-element .select-value {
     display: block;
     background: pink;

@@ -5,7 +5,7 @@
 // =================================================
 
 // ipsum input vars
-$ipsum-element-height: 80px;
+$ipsum-element-height: 70px;
 
 
 // ipsum input wrapper
@@ -55,7 +55,7 @@ $ipsum-element-height: 80px;
 			background-image: url('../images/shaka.svg');
 			background-size: 90px 90px;
 			background-repeat: no-repeat;
-			background-position: 50% 0;
+			background-position: 50% 20%;
 
 			&:hover {
 				transform-origin: 40% 60%;

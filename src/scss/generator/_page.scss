@@ -9,7 +9,7 @@
 // Colors
 // =================================================
 
-$light-blue:   #2b9dc1;
+$light-blue:   #47b3d0;
 $blue:         #0f6290;
 $dark-blue:    #105575;
 
@@ -28,10 +28,35 @@ $darkish-grey: #9c9c9c;
 
 body {
 	background-color: $light-blue;
-	background-image: url(../images/surfer-background.png);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: left center;
+}
+
+#main {
+	position: relative;
+	z-index: 1;
+}
+
+
+// =================================================
+// Background Video
+// =================================================
+
+.background-wrapper {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+
+	.background {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		width: 100%;
+		z-index: 1;
+	}
 }
 
 
@@ -41,9 +66,10 @@ body {
 // =================================================
 
 .header {
-
+	position: relative;
+	z-index: 10;
 	width: 600px;
-	padding-top: 10vh;
+	padding-top: 4vh;
 	margin: 0 auto;
 
 	h1 {
@@ -66,24 +92,20 @@ body {
 
 	p {
 		color: $white;
+		margin-bottom: 40px;
 	}
 }
 
 
-
 // =================================================
-// Submit Section
-// =================================================
-
-
-
-
-// =================================================
-// Submit Section
+// Output
 // =================================================
 
-.section-output {
-
+.ipsum-output {
+	position: relative;
+	z-index: 1;
 }
+
+
 
 

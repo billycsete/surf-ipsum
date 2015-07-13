@@ -40,6 +40,10 @@ proto._attachEvents = function( ) {
 
 
 proto._generateIpsum = function( listItemObject ) {
+
+	this._openResults();
+
+
 	var inputValue = this.$inputElement.val();
 	var selectValue = this.selectElement.getValue();
 
@@ -60,6 +64,13 @@ proto._generateIpsum = function( listItemObject ) {
 			this.output.printWords( inputValue );
 			break;
 	}
+};
+
+
+
+proto._openResults = function( ) {
+	$(document.body).addClass('show-results');
+
 }
 
 

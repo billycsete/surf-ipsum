@@ -87,7 +87,7 @@ module.exports = function( grunt ) {
           {
             expand: true,
             cwd: 'src/',
-            src: ['images/*', 'fonts/*', '*.html'],
+            src: ['images/*', 'videos/*', 'fonts/*', '*.html'],
             dest: 'dist/'
           }
         ]
