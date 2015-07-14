@@ -29,12 +29,21 @@ $ipsum-element-height: 70px;
 
 	// Number input
 	.ipsum-input-element {
-		background: green;
 		height: $ipsum-element-height;
-		width: 80px;
+		width: 100px;
 		padding: 0 10px;
 		border: none;
-		float:right;
+		border-right: 1px solid #eee;
+		border-left: 1px solid #eee;
+		float: right;
+
+		&:hover {
+			background: $light-grey;
+		}
+
+		&:focus {
+			outline: none;
+		}
 	}
 
 	// Submit button

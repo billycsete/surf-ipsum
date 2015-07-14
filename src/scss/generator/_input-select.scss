@@ -9,11 +9,11 @@
 	position: relative;
 	z-index: 1;
 	width: 200px;
-	background: pink;
 
 	&:hover {
+		background: $light-grey;
 		.icon-down-open {
-			background: $darkish-grey;
+			color: $white;
 		}
 	}
 
@@ -27,7 +27,8 @@
 		position: absolute;
 		z-index: 1;
 		right: 0;
-		color: $white;
+		color: $grey;
+		background: rgba(0,0,0,0.1);
 		font-size: 18px;
 	}
 
@@ -35,7 +36,6 @@
 	// current value
 	.select-value {
 		display: block;
-		background: pink;
 		cursor: pointer;
 
 		&:focus {
@@ -60,12 +60,12 @@
 		border: 1px solid $grey;
 
 		li.select-option {
-			padding: rem(8px);
+			padding: 12px;
 			list-style-type: none;
 			cursor: pointer;
 
 			&:hover {
-				background: #eee;
+				background: $light-grey;
 			}
 		}
 	}
