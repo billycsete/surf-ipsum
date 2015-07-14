@@ -5,7 +5,7 @@
 // =================================================
 
 .select-element {
-	float:right;
+	float: right;
 	position: relative;
 	z-index: 1;
 	width: 200px;
@@ -50,7 +50,7 @@
 		position: absolute;
 		z-index: 1;
 		overflow: hidden;
-		top: 0;
+		top: 100%;
 		left: 0;
 		width: 100%;
 		height: 0;

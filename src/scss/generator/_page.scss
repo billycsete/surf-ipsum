@@ -56,6 +56,13 @@ body {
 		transform: translateX(-50%) translateY(-50%);
 		width: 100%;
 		z-index: 1;
+		opacity: 1;
+		transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+
+		.show-results & {
+			opacity: 0;
+			transform: translateX(-50%) translateY(-30%);
+		}
 	}
 }
 
