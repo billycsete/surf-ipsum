@@ -76,13 +76,14 @@ body {
 	position: relative;
 	z-index: 10;
 	width: 600px;
-	padding-top: 4vh;
+	padding-top: 3vh;
 	margin: 0 auto;
 
 	h1 {
 		position: relative;
 		z-index: 1;
 		color: $white;
+		font-size: 54px;
 		margin-bottom: 32px;
 
 		&::after {
@@ -98,6 +99,7 @@ body {
 	}
 
 	p {
+		font-size: 22px;
 		color: $white;
 		margin-bottom: 40px;
 	}

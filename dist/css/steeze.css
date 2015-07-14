@@ -513,8 +513,8 @@ body {
 h1 {
   font-family: 'Proxima Nova Condensed', 'Helvetica', 'sans-serif';
   font-weight: 700;
-  font-size: 48px;
-  line-height: 48px;
+  font-size: 50px;
+  line-height: 50px;
   text-transform: uppercase;
   margin-bottom: 12px;
   letter-spacing: 2px; }
@@ -694,12 +694,13 @@ body {
   position: relative;
   z-index: 10;
   width: 600px;
-  padding-top: 4vh;
+  padding-top: 3vh;
   margin: 0 auto; }
   .header h1 {
     position: relative;
     z-index: 1;
     color: #fff;
+    font-size: 54px;
     margin-bottom: 32px; }
     .header h1::after {
       content: '';
@@ -711,6 +712,7 @@ body {
       width: 150px;
       background: #105575; }
   .header p {
+    font-size: 22px;
     color: #fff;
     margin-bottom: 40px; }
 
