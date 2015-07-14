@@ -816,11 +816,17 @@ body {
     margin: 0;
     padding: 0;
     background: #fff;
-    border: 1px solid #c4c4c4; }
+    border-top: 1px solid #f5f5f5; }
     .select-element .select-list li.select-option {
-      padding: 12px;
+      padding: 14px 22px;
       list-style-type: none;
-      cursor: pointer; }
+      cursor: pointer;
+      font-size: 18px;
+      border-bottom: 1px solid #f5f5f5; }
+      .select-element .select-list li.select-option.selected {
+        color: #c4c4c4; }
+        .select-element .select-list li.select-option.selected:hover {
+          background: #fff; }
       .select-element .select-list li.select-option:hover {
         background: #f5f5f5; }
   .select-element.focused .select-list {
