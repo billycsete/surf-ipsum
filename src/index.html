@@ -12,26 +12,26 @@
 </head>
 <body>
 
-	<div class="background-wrapper">
-		<video class="background" src="videos/surfer-background.webm" autoplay loop poster="images/surfer-background.png"></video>
+	<div class="background">
+		<video id="background-video" class="background-video" src="videos/surfer-background.webm" autoplay loop poster="images/surfer-background.png"></video>
 	</div>
 
 	<main class="main">
-
-		<header class="header">
+		<header id="ipsum-header" class="ipsum-header">
 			<h1>Surf Ipsum</h1>
 			<p>A random surf word generator.</p>
-			<div id="ipsum-input" class="ipsum-input">
-				<span>Generate</span>
-				<button id="ipsum-generate" class="ipsum-generate" type="submit"><i class="icon-shaka"></i></button>
-				<div id="select-element" class="select-element"></div>
-				<input id="ipsum-input-element" class="ipsum-input-element" type="text" name="number" value="2" max="9999">
-			</div>
 		</header>
-
-		<section id="ipsum-output" class="ipsum-output"></section>
-
+		<div id="ipsum-input" class="ipsum-input">
+			<span>Generate</span>
+			<button id="ipsum-generate" class="ipsum-generate" type="submit"><i class="icon-shaka"></i></button>
+			<div id="select-element" class="select-element"></div>
+			<input id="ipsum-input-element" class="ipsum-input-element" type="text" name="number" value="2" max="9999">
+		</div>
 	</main>
+
+	<section id="ipsum-output" class="ipsum-output">
+		<div class="output-header"></div>
+	</section>
 
 	<script src="js/generator.js" type="text/javascript" charset="utf-8"></script>
 </body>

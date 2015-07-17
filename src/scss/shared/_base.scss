@@ -17,5 +17,5 @@ html {
 }
 
 html *, body * {
-	@include box-sizing(border-box);
+	box-sizing: border-box;
 }

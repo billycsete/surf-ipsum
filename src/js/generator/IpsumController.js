@@ -4,6 +4,8 @@ var $             = require('../../../lib/jquery/jquery');
 var SelectElement = require('./SelectElement');
 var IpsumOutput   = require('./IpsumOutput');
 
+require('../../../lib/gsap/TweenMax.js');
+
 var proto;
 
 
@@ -34,15 +36,21 @@ proto._init = function( ) {
 
 proto._attachEvents = function( ) {
 	// when the submit button is clicked, generate ipsum
-	this.$generateButton.on('click', this._generateIpsum.bind(this) );
+	this.$generateButton.on('click', this._openResults.bind(this) );
 };
 
 
 
-proto._generateIpsum = function( listItemObject ) {
+proto._openResults = function( ) {
+	this._generateIpsum();
 
-	this._openResults();
+	TweenMax.to( this.$outputElement, 1, {top: '0', ease: Quart.easeInOut } );
+	$(document.body).addClass('show-results');
+}
 
+
+
+proto._generateIpsum = function( ) {
 
 	var inputValue = this.$inputElement.val();
 	var selectValue = this.selectElement.getValue();
@@ -65,13 +73,6 @@ proto._generateIpsum = function( listItemObject ) {
 			break;
 	}
 };
-
-
-
-proto._openResults = function( ) {
-	$(document.body).addClass('show-results');
-
-}
 
 
 
