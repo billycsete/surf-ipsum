@@ -697,28 +697,40 @@ body.page-generator {
   margin: 0 auto;
   transform: translateY(0);
   transition: opacity 0.4s ease-in-out 0.4s, transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-  .ipsum-input h1 {
+  .show-results .ipsum-input {
+    opacity: 0;
+    transform: translateY(-250%); }
+
+.input-header {
+  padding-bottom: 40px; }
+  .input-header h1 {
     position: relative;
     z-index: 1;
     color: #fff;
     font-size: 54px;
-    margin-bottom: 32px; }
-    .ipsum-input h1::after {
-      content: '';
-      display: block;
-      position: absolute;
-      z-index: 1;
-      bottom: -15px;
-      height: 2px;
-      width: 150px;
-      background: #105575; }
-  .ipsum-input p {
+    margin-bottom: 15px; }
+  .input-header .quote:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .input-header .quote .quote-profile {
+    display: block;
+    float: left;
+    height: 60px;
+    width: 60px;
+    margin-right: 20px;
+    background-color: #2281A8;
+    background-image: url(../images/profiles/kelly-slater.png);
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    border-radius: 50%; }
+  .input-header .quote .quote-text {
+    float: left;
+    padding-top: 17px;
+    font-style: italic;
     font-size: 22px;
-    color: #fff;
-    margin-bottom: 40px; }
-  .show-results .ipsum-input {
-    opacity: 0;
-    transform: translateY(-250%); }
+    color: #fff; }
 
 .input-element {
   position: relative;

@@ -13,31 +13,6 @@
 	transform: translateY(0);
 	transition: opacity 0.4s ease-in-out 0.4s, transform 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
 
-	h1 {
-		position: relative;
-		z-index: 1;
-		color: $white;
-		font-size: 54px;
-		margin-bottom: 32px;
-
-		&::after {
-			content: '';
-			display: block;
-			position: absolute;
-			z-index: 1;
-			bottom: -15px;
-			height: 2px;
-			width: 150px;
-			background: $dark-blue;
-		}
-	}
-
-	p {
-		font-size: 22px;
-		color: $white;
-		margin-bottom: 40px;
-	}
-
 	.show-results & {
 		opacity: 0;
 		transform: translateY(-250%);
@@ -46,4 +21,45 @@
 
 
 
+// =================================================
+// Input Header
+// =================================================
 
+.input-header {
+	padding-bottom: 40px;
+
+	h1 {
+		position: relative;
+		z-index: 1;
+		color: $white;
+		font-size: 54px;
+		margin-bottom: 15px;
+	}
+
+	.quote {
+		@include clearfix;
+
+		.quote-profile {
+			display: block;
+			float: left;
+			height: 60px;
+			width: 60px;
+			margin-right: 20px;
+			background-color: $blue;
+			background-image: url(../images/profiles/kelly-slater.png);
+			background-size: cover;
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			border-radius: 50%;
+		}
+
+		.quote-text {
+			float: left;
+			padding-top: 17px;
+			font-style: italic;
+			font-size: 22px;
+			color: $white;
+		}
+
+	}
+}
