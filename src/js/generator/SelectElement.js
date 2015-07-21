@@ -61,10 +61,13 @@ proto._attachEvents = function( ) {
 		$(this).on( 'click', function( evt ) {
 			// grab innerHTML from the option that was clicked
 			var newValue = $(this).html();
-			// update the selected value and close
+			// update the selected value
 			self._setSelectValue( newValue );
+			// update the class name for the active item in the dropdown list
+			$('.selected', this.$optionsList).removeClass( 'selected' );
+			$(this).addClass( 'selected' );
+			// close the select input
 			self._closeSelect();
-
 		});
 	});
 
@@ -98,8 +101,6 @@ proto._buildSelectElement = function( ) {
 proto._closeOnClickOutsideSelect = function( evt ) {
 	var targetElement = evt.target;
 
-	// console.log(targetElement);
-
 	if( this._isOpen() && !this._selectClicked( targetElement ) ) {
 		this._closeSelect();
 	}
@@ -121,6 +122,7 @@ proto._selectClicked = function( targetElement ) {
 
 proto._openSelect = function( evt ) {
 	if( this._isOpen() ) {
+		this._closeSelect();
 		return;
 	}
 
