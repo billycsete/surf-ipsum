@@ -4,11 +4,12 @@
 //
 // =================================================
 
-.select-element {
-	float: right;
+.input-select {
 	position: relative;
 	z-index: 1;
-	width: 200px;
+	width: 240px;
+	padding-left: 25px;
+	float: right;
 
 	&:hover {
 		background: $light-grey;
@@ -20,8 +21,8 @@
 
 	// down arrow icon
 	.icon-down-open {
-		height: $ipsum-element-height;
-		line-height: $ipsum-element-height;
+		height: $input-element-height;
+		line-height: $input-element-height;
 		padding: 0 10px;
 		cursor: pointer;
 		position: absolute;
@@ -37,6 +38,7 @@
 	.select-value {
 		display: block;
 		cursor: pointer;
+		line-height: $input-element-height;
 
 		&:focus {
 			outline: none;

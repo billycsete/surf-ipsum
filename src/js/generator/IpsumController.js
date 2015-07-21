@@ -12,13 +12,14 @@ var proto;
 
 var IpsumController = function( ) {
 	// IpsumController elements
-	this.$inputElement = $('#ipsum-input');
-	this.$outputElement = $('#ipsum-output');
+	this.$inputElement = $('#input-number');
 	this.selectElement = new SelectElement();
-	this.$inputElement = $('#ipsum-input-element');
-	this.$generateButton = $('#ipsum-generate');
+	this.$generateButton = $('#input-generate');
 	// create reference to our output object
-	this.output = new IpsumOutput( this.$outputElement );
+	this.$outputElement = $('#ipsum-output');
+	this.$outputResults = $('#ipsum-output-results');
+	this.output = new IpsumOutput( this.$outputResults );
+	this.$closeOutputButton = $('#output-close');
 
 	this._init();
 };
@@ -36,16 +37,40 @@ proto._init = function( ) {
 
 proto._attachEvents = function( ) {
 	// when the submit button is clicked, generate ipsum
-	this.$generateButton.on('click', this._openResults.bind(this) );
+	this.$generateButton.on( 'click', this._openResults.bind(this) );
+
+	this.$closeOutputButton.on( 'click', this._closeResults.bind(this) );
 };
 
 
 
 proto._openResults = function( ) {
-	this._generateIpsum();
-
-	TweenMax.to( this.$outputElement, 1, {top: '0', ease: Quart.easeInOut } );
 	$(document.body).addClass('show-results');
+
+	TweenMax.to( this.$outputElement, 1, {
+		top: '0',
+		ease: Quart.easeInOut,
+		onComplete : this._generateIpsum.bind(this)
+	});
+
+}
+
+
+proto._closeResults = function( ) {
+	$(document.body).removeClass('show-results');
+
+	TweenMax.to( this.$outputElement, 1, {
+		top: '100%',
+		ease: Quart.easeInOut,
+		onComplete : this._clearIpsum.bind(this)
+	});
+
+}
+
+
+
+proto._clearIpsum = function( ) {
+	this.$outputResults.html('');
 }
 
 

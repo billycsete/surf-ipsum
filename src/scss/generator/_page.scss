@@ -28,6 +28,11 @@ $darkish-grey: #9c9c9c;
 
 body {
 	background-color: $light-blue;
+	overflow: hidden;
+
+	&.show-results {
+		overflow: visible;
+	}
 }
 
 
@@ -64,10 +69,10 @@ body {
 
 
 // =================================================
-// Header Section
+// Ipsum input Section
 // =================================================
 
-.main {
+.ipsum-input {
 	position: relative;
 	z-index: 10;
 	width: 600px;

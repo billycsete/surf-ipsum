@@ -24,7 +24,7 @@ var Utils = require('../shared/Utils').Utils;
 var proto;
 
 var SelectElement = function( ) {
-	this.$element = $('#select-element');
+	this.$element = $('#input-select');
 	this.$downIcon = $('<i class="icon-down-open"></i>');
 	this.$selectValue = $('<span class="select-value" tabindex="0">paragraphs</span>');
 	this.$optionsList = $('<ul class="select-list"></ul>');
