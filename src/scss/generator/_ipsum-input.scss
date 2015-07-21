@@ -1,0 +1,49 @@
+// =================================================
+//
+// Ipsum Input Section
+//
+// =================================================
+
+.ipsum-input {
+	position: relative;
+	z-index: 10;
+	width: 600px;
+	padding-top: 3vh;
+	margin: 0 auto;
+	transform: translateY(0);
+	transition: opacity 0.4s ease-in-out 0.4s, transform 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
+
+	h1 {
+		position: relative;
+		z-index: 1;
+		color: $white;
+		font-size: 54px;
+		margin-bottom: 32px;
+
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			z-index: 1;
+			bottom: -15px;
+			height: 2px;
+			width: 150px;
+			background: $dark-blue;
+		}
+	}
+
+	p {
+		font-size: 22px;
+		color: $white;
+		margin-bottom: 40px;
+	}
+
+	.show-results & {
+		opacity: 0;
+		transform: translateY(-250%);
+	}
+}
+
+
+
+

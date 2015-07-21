@@ -518,9 +518,11 @@ h1 {
   letter-spacing: 2px; }
 
 h2 {
+  font-family: 'Proxima Nova Condensed', 'Helvetica', 'sans-serif';
   font-weight: 400;
-  font-size: 1.2rem;
-  margin: 0 0 1.5rem 0; }
+  font-size: 36px;
+  line-height: 36px;
+  margin: 0 0 20px 0; }
 
 p {
   font-weight: 400;
@@ -529,16 +531,16 @@ p {
 ol, ul {
   margin: 0 0 1rem 0; }
 
-.page-uploader {
+body.page-uploader {
   background-image: url(../images/craig-background.jpg);
   background-size: 800px auto;
   background-position: center bottom;
   background-repeat: no-repeat; }
   @media screen and (min-width: 480px) {
-    .page-uploader {
+    body.page-uploader {
       background-size: 1200px auto; } }
   @media screen and (min-width: 760px) {
-    .page-uploader {
+    body.page-uploader {
       background-size: 100% auto; } }
 
 .uploader-element {
@@ -633,7 +635,7 @@ ol, ul {
   transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0.2s ease-in-out; }
   .uploader-message.show-message {
     height: 4rem;
-    background: #ededed;
+    background: #f5f5f5;
     -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out;
     -moz-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out;
     transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out; }
@@ -660,10 +662,10 @@ ol, ul {
     color: #6ec972;
     font-size: 1.75rem; }
 
-body {
+body.page-generator {
   background-color: #47b3d0;
   overflow: hidden; }
-  body.show-results {
+  body.page-generator.show-results {
     overflow: visible; }
 
 .background {
@@ -723,7 +725,7 @@ body {
   z-index: 1;
   font-size: 24px;
   background: #fff;
-  border-bottom: 6px solid #48d573; }
+  border-bottom: 4px solid #6ec972; }
   .input-element:after {
     content: "";
     display: table;
@@ -745,8 +747,8 @@ body {
     float: right;
     width: 220px;
     height: 70px;
-    line-height: 76px;
-    background-color: #48d573;
+    line-height: 74px;
+    background-color: #6ec972;
     padding: 0 0 0 25px;
     margin: 0;
     box-shadow: none;
@@ -836,22 +838,58 @@ body {
     height: auto; }
 
 .ipsum-output {
-  background: #fff;
+  background: #f5f5f5;
   position: absolute;
   z-index: 10;
   top: 100%;
   width: 100%;
   min-height: 100%;
   padding: 0 50px 50px; }
-  .ipsum-output * {
-    opacity: 0;
-    transition: opacity 0.4s 1s ease-in-out; }
-  .show-results .ipsum-output * {
-    opacity: 1; }
   .ipsum-output .output-header {
     margin: 0 -50px;
-    height: 80px;
-    background: #f5f5f5;
-    margin-bottom: 100px; }
+    background: #c4c4c4;
+    margin-bottom: 50px; }
+    .ipsum-output .output-header p {
+      line-height: 60px;
+      float: left;
+      margin: 0; }
+    .ipsum-output .output-header .output-header-inner {
+      max-width: 1300px;
+      padding: 0 50px;
+      margin: 0 auto; }
+      .ipsum-output .output-header .output-header-inner:after {
+        content: "";
+        display: table;
+        clear: both; }
+  .ipsum-output .output-close {
+    float: right;
+    height: 60px;
+    line-height: 60px;
+    background: #ee5456;
+    border: none;
+    box-shadow: none;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600; }
+    .ipsum-output .output-close i {
+      margin-right: 5px; }
+    .ipsum-output .output-close:hover {
+      background: #e04042; }
+    .ipsum-output .output-close:focus {
+      outline: none; }
+
+.ipsum-output-results {
+  background: #fff;
+  max-width: 1200px;
+  padding: 40px;
+  margin: 0 auto;
+  opacity: 0;
+  transition: opacity 0.4s 1s ease-in-out; }
+  .show-results .ipsum-output-results {
+    opacity: 1; }
+  .ipsum-output-results h1 {
+    font-size: 36px;
+    text-transform: none; }
 
 /*# sourceMappingURL=steeze.css.map */

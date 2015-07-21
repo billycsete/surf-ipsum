@@ -58,7 +58,7 @@ proto.printHeadlines = function ( numberOfHeadlines ) {
 		// capitalize headline
 		headline = this._capitalizeString( headline );
 		// print a new headline to the output element
-		this.$outputElement.append( '<h1>' + headline + '</h1>' );
+		this.$outputElement.append( '<h2>' + headline + '</h2>' );
 	}
 };
 

@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="css/steeze.css" type="text/css" />
 	<script src="js/head-min.js" type="text/javascript" charset="utf-8"></script>
 </head>
-<body>
+<body class="page-generator">
 
 	<div class="background">
 		<video id="background-video" class="background-video" src="videos/surfer-background.webm" autoplay loop poster="images/surfer-background.png"></video>
@@ -30,11 +30,12 @@
 
 	<section id="ipsum-output" class="ipsum-output">
 		<div class="output-header">
-			<button id="output-close" class="output-close"><i class="icon-cancel"></i></button>
+			<div class="output-header-inner">
+				<p>Your gnarley results, brah:</p>
+				<button id="output-close" class="output-close"><i class="icon-cancel"></i>Clear</button>
+			</div>
 		</div>
-		<div id="ipsum-output-results" class="ipsum-output-results">
-
-		</div>
+		<div id="ipsum-output-results" class="ipsum-output-results"></div>
 	</section>
 
 	<script src="js/generator.js" type="text/javascript" charset="utf-8"></script>

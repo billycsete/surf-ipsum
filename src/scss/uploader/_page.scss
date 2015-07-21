@@ -4,15 +4,7 @@
 //
 // =================================================
 
-// Colors
-$blue:       #2492c5;
-$light-blue: #3da1ce;
-$dark-blue:  #177aa8;
-$red:        #ee5456;
-$green:      #6ec972;
-
-
-.page-uploader {
+body.page-uploader {
 	background-image: url(../images/craig-background.jpg);
 	background-size: 800px auto;
 	background-position: center bottom;
@@ -26,5 +18,3 @@ $green:      #6ec972;
 		background-size: 100% auto;
 	}
 }
-
-

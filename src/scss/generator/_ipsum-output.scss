@@ -1,11 +1,15 @@
 // =================================================
 //
-// Ipsum Output
+// Ipsum Output Section
 //
 // =================================================
 
+$header-height: 60px;
+
+
+
 .ipsum-output {
-	background: $white;
+	background: $light-grey;
 	position: absolute;
 	z-index: 10;
 	top: 100%;
@@ -13,20 +17,85 @@
 	min-height: 100%;
 	padding: 0 50px 50px;
 
+	.output-header {
+		margin: 0 -50px;
+		background: $grey;
+		margin-bottom: 50px;
 
-	& * {
-		opacity: 0;
-		transition: opacity 0.4s 1s ease-in-out;
+		p {
+			line-height: $header-height;
+			float: left;
+			margin: 0;
+		}
+
+		.output-header-inner {
+			max-width: 1300px;
+			padding: 0 50px;
+			margin: 0 auto;
+			@include clearfix;
+		}
 	}
 
-	.show-results & * {
+	.output-close {
+		float: right;
+		height: $header-height;
+		line-height: $header-height;
+		background: $red;
+		border: none;
+		box-shadow: none;
+		padding: 0 15px;
+		color: $white;
+		font-size: 20px;
+		font-weight: $semibold;
+
+		i {
+			margin-right: 5px;
+		}
+
+		&:hover {
+			background: $red-alt;
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+}
+
+
+
+// =================================================
+//
+// Ipsum Output Results
+//
+// =================================================
+
+.ipsum-output-results {
+	background: $white;
+	max-width: 1200px;
+	padding: 40px;
+	margin: 0 auto;
+	opacity: 0;
+	transition: opacity 0.4s 1s ease-in-out;
+
+	.show-results & {
 		opacity: 1;
 	}
 
-	.output-header {
-		margin: 0 -50px;
-		height: 80px;
-		background: $light-grey;
-		margin-bottom: 100px;
+	h1 {
+		font-size: 36px;
+		text-transform: none;
+	}
+
+	p {
+
+	}
+
+	ul {
+
+		li {
+
+		}
 	}
 }
