@@ -503,13 +503,13 @@ html *, body * {
 body {
   font-size: 18px;
   line-height: 120%;
-  font-family: 'Proxima Nova', 'Helvetica', 'sans-serif';
+  font-family: 'Open Sans', 'Helvetica', 'sans-serif';
   color: #444;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased; }
 
 h1 {
-  font-family: 'Proxima Nova Condensed', 'Helvetica', 'sans-serif';
+  font-family: 'Open Sans Condensed', 'Helvetica', 'sans-serif';
   font-weight: 700;
   font-size: 50px;
   line-height: 50px;
@@ -518,18 +518,22 @@ h1 {
   letter-spacing: 2px; }
 
 h2 {
-  font-family: 'Proxima Nova Condensed', 'Helvetica', 'sans-serif';
+  font-family: 'Open Sans Condensed', 'Helvetica', 'sans-serif';
   font-weight: 400;
   font-size: 36px;
   line-height: 36px;
   margin: 0 0 20px 0; }
 
 p {
-  font-weight: 400;
-  margin: 0 0 1rem 0; }
+  font-size: 18px;
+  line-height: 26px;
+  margin: 0 0 20px 0;
+  font-weight: 400; }
 
 ol, ul {
-  margin: 0 0 1rem 0; }
+  font-size: 18px;
+  line-height: 26px;
+  margin: 0 0 20px 0; }
 
 body.page-uploader {
   background-image: url(../images/craig-background.jpg);
@@ -714,11 +718,12 @@ body.page-generator {
     color: #f5f5f5;
     font-size: 20px;
     line-height: 28px;
-    margin-bottom: 2px; }
+    margin-bottom: 2px;
+    font-weight: 400; }
     .input-header p.header-quote {
       font-style: italic; }
     .input-header p.header-author {
-      font-weight: 700; }
+      font-weight: 600; }
 
 .input-element {
   position: relative;
