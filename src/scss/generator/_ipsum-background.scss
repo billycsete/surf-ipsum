@@ -22,6 +22,18 @@
 		background-image: url( ../images/surfer-background.gif);
 	}
 
+	&::after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 2px;
+		z-index: 2;
+		background-color: $light-blue;
+	}
+
 	.show-results & {
 		opacity: 0;
 		transform: translate3d(0, -50%, 0);
