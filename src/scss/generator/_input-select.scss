@@ -12,7 +12,7 @@
 	float: right;
 
 	&:hover {
-		background: $light-grey;
+		background: $white;
 		.icon-down-open {
 			color: $white;
 		}
@@ -28,8 +28,8 @@
 		position: absolute;
 		z-index: 1;
 		right: 0;
-		color: $grey;
-		background: rgba(0,0,0,0.1);
+		color: $dark-grey;
+		background: rgba(0,0,0,0.15);
 		font-size: 18px;
 	}
 
@@ -58,8 +58,8 @@
 		height: 0;
 		margin: 0;
 		padding: 0;
-		background: $white;
-		border-top: 1px solid $light-grey;
+		background: $light-grey;
+		border-top: 1px solid $grey;
 		// transition: opacity 0.3s ease-in-out,
 		//             transform 0.3s ease-in-out;
 		// transform: translateY(-20px);
@@ -69,17 +69,14 @@
 			list-style-type: none;
 			cursor: pointer;
 			font-size: 18px;
-			border-bottom: 1px solid $light-grey;
+			border-bottom: 1px solid $grey;
 
 			&.selected {
-				color: $grey;
-				&:hover {
-					background: $white;
-				}
+				display: none;
 			}
 
 			&:hover {
-				background: $light-grey;
+				background: $white;
 			}
 		}
 	}

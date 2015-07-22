@@ -4,33 +4,54 @@
 //
 // =================================================
 
-$header-height: 60px;
+$header-height: 80px;
+$button-height: 50px;
+$results-padding: 80px;
 
 
 
 .ipsum-output {
-	background: $light-grey;
+	background: $white;
 	position: absolute;
 	z-index: 10;
 	top: 100%;
 	width: 100%;
 	min-height: 100%;
-	padding: 0 50px 50px;
+	padding: 0 80px 80px;
 
 	.output-header {
-		margin: 0 -50px;
-		background: $grey;
-		margin-bottom: 50px;
+		background: $blue;
+		margin: 0 -80px;
 
-		p {
-			line-height: $header-height;
-			float: left;
-			margin: 0;
+		.quote {
+			@include clearfix;
+			float:left;
+
+			.quote-profile {
+				display: block;
+				float: left;
+				height: $header-height;
+				width: $header-height + 10px;
+				margin-left: 80px;
+				background-color: $blue;
+				background-image: url(../images/profiles/kelly-slater.png);
+				background-size: 100% auto;
+				background-position: center bottom;
+				background-repeat: no-repeat;
+			}
+
+			.quote-text {
+				float: left;
+				padding: 30px 20px 0;
+				font-style: italic;
+				font-size: 22px;
+				line-height: 22px;
+				color: $white;
+			}
 		}
 
 		.output-header-inner {
 			max-width: 1300px;
-			padding: 0 50px;
 			margin: 0 auto;
 			@include clearfix;
 		}
@@ -38,12 +59,14 @@ $header-height: 60px;
 
 	.output-close {
 		float: right;
-		height: $header-height;
-		line-height: $header-height;
-		background: $red;
+		height: $button-height;
+		line-height: $button-height;
+		background: rgba(0,0,0,0.4);
 		border: none;
 		box-shadow: none;
-		padding: 0 15px;
+		padding: 0 20px;
+		margin-right: 80px;
+		margin-top: ( $header-height - $button-height ) / 2;
 		color: $white;
 		font-size: 20px;
 		font-weight: $semibold;
@@ -53,7 +76,7 @@ $header-height: 60px;
 		}
 
 		&:hover {
-			background: $red-alt;
+			background: $red;
 		}
 
 		&:focus {
@@ -72,15 +95,18 @@ $header-height: 60px;
 // =================================================
 
 .ipsum-output-results {
-	background: $white;
 	max-width: 1200px;
-	padding: 40px;
+	padding-top: 80px;
 	margin: 0 auto;
 	opacity: 0;
 	transition: opacity 0.4s 1s ease-in-out;
 
 	.show-results & {
 		opacity: 1;
+	}
+
+	h1, p, ul {
+		margin-top: 0;
 	}
 
 	h1 {

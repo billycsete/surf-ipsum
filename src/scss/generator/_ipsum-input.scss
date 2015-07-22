@@ -31,35 +31,24 @@
 	h1 {
 		position: relative;
 		z-index: 1;
-		color: $white;
-		font-size: 54px;
-		margin-bottom: 15px;
+		color: #197398; // slightly darker blue than $blue
+		font-size: 60px;
+		font-weight: $bold;
+		margin-bottom: 24px;
 	}
 
-	.quote {
-		@include clearfix;
+	p {
+		color: $light-grey;
+		font-size: 20px;
+		line-height: 28px;
+		margin-bottom: 2px;
 
-		.quote-profile {
-			display: block;
-			float: left;
-			height: 60px;
-			width: 60px;
-			margin-right: 20px;
-			background-color: $blue;
-			background-image: url(../images/profiles/kelly-slater.png);
-			background-size: cover;
-			background-position: 50% 50%;
-			background-repeat: no-repeat;
-			border-radius: 50%;
-		}
-
-		.quote-text {
-			float: left;
-			padding-top: 17px;
+		&.header-quote {
 			font-style: italic;
-			font-size: 22px;
-			color: $white;
 		}
 
+		&.header-author {
+			font-weight: $bold;
+		}
 	}
 }

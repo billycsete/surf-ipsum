@@ -706,38 +706,25 @@ body.page-generator {
   .input-header h1 {
     position: relative;
     z-index: 1;
-    color: #fff;
-    font-size: 54px;
-    margin-bottom: 15px; }
-  .input-header .quote:after {
-    content: "";
-    display: table;
-    clear: both; }
-  .input-header .quote .quote-profile {
-    display: block;
-    float: left;
-    height: 60px;
-    width: 60px;
-    margin-right: 20px;
-    background-color: #2281A8;
-    background-image: url(../images/profiles/kelly-slater.png);
-    background-size: cover;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    border-radius: 50%; }
-  .input-header .quote .quote-text {
-    float: left;
-    padding-top: 17px;
-    font-style: italic;
-    font-size: 22px;
-    color: #fff; }
+    color: #197398;
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 24px; }
+  .input-header p {
+    color: #f5f5f5;
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 2px; }
+    .input-header p.header-quote {
+      font-style: italic; }
+    .input-header p.header-author {
+      font-weight: 700; }
 
 .input-element {
   position: relative;
   z-index: 1;
   font-size: 24px;
-  background: #fff;
-  border-bottom: 4px solid #6ec972; }
+  background: #f5f5f5; }
   .input-element:after {
     content: "";
     display: table;
@@ -747,19 +734,19 @@ body.page-generator {
     width: 140px;
     padding: 0 10px 0 25px;
     border: none;
-    border-right: 1px solid #eee;
-    border-left: 1px solid #eee;
-    float: left; }
+    border-right: 1px solid #dbdbdb;
+    float: left;
+    background: #f5f5f5; }
     .input-element .input-number:hover {
-      background: #f5f5f5; }
+      background: #fff; }
     .input-element .input-number:focus {
       outline: none;
-      background: #f5f5f5; }
+      background: #fff; }
   .input-element .input-generate {
     float: right;
     width: 220px;
     height: 70px;
-    line-height: 74px;
+    line-height: 70px;
     background-color: #6ec972;
     padding: 0 0 0 25px;
     margin: 0;
@@ -779,10 +766,12 @@ body.page-generator {
       background-image: url("../images/shaka.svg");
       background-size: 90px 90px;
       background-repeat: no-repeat;
-      background-position: 100% 20%;
+      background-position: 100% 25%;
       transform-origin: 40% 60%; }
-    .input-element .input-generate:hover .icon-shaka {
-      animation: shaka 0.2s infinite; }
+    .input-element .input-generate:hover {
+      background-color: #7edb82; }
+      .input-element .input-generate:hover .icon-shaka {
+        animation: shaka 0.2s infinite; }
     .input-element .input-generate:focus {
       outline: none; }
 
@@ -800,7 +789,7 @@ body.page-generator {
   padding-left: 25px;
   float: right; }
   .input-select:hover {
-    background: #f5f5f5; }
+    background: #fff; }
     .input-select:hover .icon-down-open {
       color: #fff; }
   .input-select .icon-down-open {
@@ -811,8 +800,8 @@ body.page-generator {
     position: absolute;
     z-index: 1;
     right: 0;
-    color: #c4c4c4;
-    background: rgba(0, 0, 0, 0.1);
+    color: #888;
+    background: rgba(0, 0, 0, 0.15);
     font-size: 18px; }
   .input-select .select-value {
     display: block;
@@ -831,43 +820,59 @@ body.page-generator {
     height: 0;
     margin: 0;
     padding: 0;
-    background: #fff;
-    border-top: 1px solid #f5f5f5; }
+    background: #f5f5f5;
+    border-top: 1px solid #dbdbdb; }
     .input-select .select-list li.select-option {
       padding: 14px 22px;
       list-style-type: none;
       cursor: pointer;
       font-size: 18px;
-      border-bottom: 1px solid #f5f5f5; }
+      border-bottom: 1px solid #dbdbdb; }
       .input-select .select-list li.select-option.selected {
-        color: #c4c4c4; }
-        .input-select .select-list li.select-option.selected:hover {
-          background: #fff; }
+        display: none; }
       .input-select .select-list li.select-option:hover {
-        background: #f5f5f5; }
+        background: #fff; }
   .input-select.focused .select-list {
     opacity: 1;
     height: auto; }
 
 .ipsum-output {
-  background: #f5f5f5;
+  background: #fff;
   position: absolute;
   z-index: 10;
   top: 100%;
   width: 100%;
   min-height: 100%;
-  padding: 0 50px 50px; }
+  padding: 0 80px 80px; }
   .ipsum-output .output-header {
-    margin: 0 -50px;
-    background: #c4c4c4;
-    margin-bottom: 50px; }
-    .ipsum-output .output-header p {
-      line-height: 60px;
-      float: left;
-      margin: 0; }
+    background: #2281A8;
+    margin: 0 -80px; }
+    .ipsum-output .output-header .quote {
+      float: left; }
+      .ipsum-output .output-header .quote:after {
+        content: "";
+        display: table;
+        clear: both; }
+      .ipsum-output .output-header .quote .quote-profile {
+        display: block;
+        float: left;
+        height: 80px;
+        width: 90px;
+        margin-left: 80px;
+        background-color: #2281A8;
+        background-image: url(../images/profiles/kelly-slater.png);
+        background-size: 100% auto;
+        background-position: center bottom;
+        background-repeat: no-repeat; }
+      .ipsum-output .output-header .quote .quote-text {
+        float: left;
+        padding: 30px 20px 0;
+        font-style: italic;
+        font-size: 22px;
+        line-height: 22px;
+        color: #fff; }
     .ipsum-output .output-header .output-header-inner {
       max-width: 1300px;
-      padding: 0 50px;
       margin: 0 auto; }
       .ipsum-output .output-header .output-header-inner:after {
         content: "";
@@ -875,31 +880,34 @@ body.page-generator {
         clear: both; }
   .ipsum-output .output-close {
     float: right;
-    height: 60px;
-    line-height: 60px;
-    background: #ee5456;
+    height: 50px;
+    line-height: 50px;
+    background: rgba(0, 0, 0, 0.4);
     border: none;
     box-shadow: none;
-    padding: 0 15px;
+    padding: 0 20px;
+    margin-right: 80px;
+    margin-top: 15px;
     color: #fff;
     font-size: 20px;
     font-weight: 600; }
     .ipsum-output .output-close i {
       margin-right: 5px; }
     .ipsum-output .output-close:hover {
-      background: #e04042; }
+      background: #ee5456; }
     .ipsum-output .output-close:focus {
       outline: none; }
 
 .ipsum-output-results {
-  background: #fff;
   max-width: 1200px;
-  padding: 40px;
+  padding-top: 80px;
   margin: 0 auto;
   opacity: 0;
   transition: opacity 0.4s 1s ease-in-out; }
   .show-results .ipsum-output-results {
     opacity: 1; }
+  .ipsum-output-results h1, .ipsum-output-results p, .ipsum-output-results ul {
+    margin-top: 0; }
   .ipsum-output-results h1 {
     font-size: 36px;
     text-transform: none; }
