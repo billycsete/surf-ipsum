@@ -26,9 +26,17 @@ module.exports = function( grunt ) {
           loadPath: require('node-neat').includePaths
         },
         files: {
-          'dist/css/steeze.css' : 'src/scss/steeze.scss'
+          'src/css/steeze.css' : 'src/scss/steeze.scss'
         }
       }
+    },
+
+    autoprefixer: {
+        dist: {
+            files: {
+                'dist/css/steeze.css': 'src/css/steeze.css'
+            }
+        }
     },
 
     // Combine head JS
@@ -87,7 +95,7 @@ module.exports = function( grunt ) {
           {
             expand: true,
             cwd: 'src/',
-            src: ['images/*', 'images/*/*', 'videos/*', 'fonts/*', '*.html'],
+            src: ['images/*', 'images/*/*', 'fonts/*', '*.html'],
             dest: 'dist/'
           }
         ]
@@ -102,7 +110,7 @@ module.exports = function( grunt ) {
       },
       css: {
         files: ['src/scss/**/*.scss'],
-        tasks: ['sass']
+        tasks: ['sass', 'autoprefixer']
       },
       html: {
         files: ['src/*.html'],
@@ -115,6 +123,7 @@ module.exports = function( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -124,7 +133,7 @@ module.exports = function( grunt ) {
 
   // Default task
   grunt.registerTask('install', ['clean:lib', 'bower:install']);
-  grunt.registerTask('build', ['clean:dist', 'sass', 'jshint', 'concat', 'browserify', 'uglify', 'copy']);
+  grunt.registerTask('build', ['clean:dist', 'sass', 'autoprefixer', 'jshint', 'concat', 'browserify', 'uglify', 'copy']);
   grunt.registerTask('default', 'build');
 
 };
