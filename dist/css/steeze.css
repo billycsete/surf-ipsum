@@ -514,8 +514,7 @@ h1 {
   font-size: 50px;
   line-height: 50px;
   text-transform: uppercase;
-  margin-bottom: 12px;
-  letter-spacing: 2px; }
+  margin-bottom: 12px; }
 
 h2 {
   font-family: 'Open Sans Condensed', 'Helvetica', 'sans-serif';
@@ -711,7 +710,8 @@ body.page-generator {
     position: relative;
     z-index: 1;
     color: #197398;
-    font-size: 60px;
+    font-size: 64px;
+    line-height: 64px;
     font-weight: 700;
     margin-bottom: 24px; }
   .input-header p {
