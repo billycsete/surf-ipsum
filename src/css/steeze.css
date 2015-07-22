@@ -847,7 +847,8 @@ body.page-generator {
   top: 100%;
   width: 100%;
   min-height: 100%;
-  padding: 0 80px 80px; }
+  padding: 0 80px 80px;
+  tranform: translateZ(0); }
   .ipsum-output .output-header {
     background: #2281A8;
     margin: 0 -80px; }

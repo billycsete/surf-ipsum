@@ -18,6 +18,7 @@ $results-padding: 80px;
 	width: 100%;
 	min-height: 100%;
 	padding: 0 80px 80px;
+	tranform: translateZ(0);
 
 	.output-header {
 		background: $blue;
