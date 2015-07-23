@@ -14,7 +14,7 @@
 	padding: rem(16px) rem(100px) rem(16px) rem(30px);
 	border: none;
 	border-radius: 0; // 1
-	background-color: $light-blue;
+	background-color: $up-light-blue;
 	color: #fff;
 	font-weight: $normal;
 	font-size: rem(30px);
@@ -31,15 +31,15 @@
 
 	// style placeholder text
 	&::-webkit-input-placeholder {
-		color: $dark-blue;
+		color: $up-dark-blue;
 	}
 	&:-moz-placeholder { // 2
-		color: $dark-blue;
+		color: $up-dark-blue;
 	}
 	&::-moz-placeholder { // 3
-		color: $dark-blue;
+		color: $up-dark-blue;
 	}
 	&:-ms-input-placeholder {
-		color: $dark-blue;
+		color: $up-dark-blue;
 	}
 }

@@ -1,0 +1,128 @@
+// =================================================
+//
+// Ipsum Output Section
+//
+// =================================================
+
+$header-height: 80px;
+$button-height: 50px;
+$results-padding: 80px;
+
+
+
+.ipsum-output {
+	background: $white;
+	position: absolute;
+	z-index: 10;
+	top: 100%;
+	width: 100%;
+	min-height: 100%;
+	padding: 0 80px 80px;
+	tranform: translateZ(0);
+
+	.output-header {
+		background: $blue;
+		margin: 0 -80px;
+
+		.quote {
+			@include clearfix;
+			float:left;
+
+			.quote-profile {
+				display: block;
+				float: left;
+				height: $header-height;
+				width: $header-height + 10px;
+				margin-left: 80px;
+				background-color: $blue;
+				background-image: url(../images/profiles/kelly-slater.png);
+				background-size: 100% auto;
+				background-position: center bottom;
+				background-repeat: no-repeat;
+			}
+
+			.quote-text {
+				float: left;
+				padding: 30px 20px 0;
+				font-style: italic;
+				font-size: 22px;
+				line-height: 22px;
+				color: $white;
+			}
+		}
+
+		.output-header-inner {
+			max-width: 1300px;
+			margin: 0 auto;
+			@include clearfix;
+		}
+	}
+
+	.output-close {
+		float: right;
+		height: $button-height;
+		line-height: $button-height;
+		background: rgba(0,0,0,0.4);
+		border: none;
+		box-shadow: none;
+		padding: 0 20px;
+		margin-right: 80px;
+		margin-top: ( $header-height - $button-height ) / 2;
+		color: $white;
+		font-size: 20px;
+		font-weight: $semibold;
+
+		i {
+			margin-right: 5px;
+		}
+
+		&:hover {
+			background: $red;
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+}
+
+
+
+// =================================================
+//
+// Ipsum Output Results
+//
+// =================================================
+
+.ipsum-output-results {
+	max-width: 1200px;
+	padding-top: 80px;
+	margin: 0 auto;
+	opacity: 0;
+	transition: opacity 0.4s 1s ease-in-out;
+
+	.show-results & {
+		opacity: 1;
+	}
+
+	h1, p, ul {
+		margin-top: 0;
+	}
+
+	h1 {
+		font-size: 36px;
+		text-transform: none;
+	}
+
+	p {
+
+	}
+
+	ul {
+
+		li {
+
+		}
+	}
+}

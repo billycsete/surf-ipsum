@@ -13,14 +13,16 @@ $light-grey: #ededed;
 $dark-grey:  #888;
 $black:      #444;
 
+$light-blue: #2b9dc1;
+
 
 // =================================================
 // Breakpoints
 // =================================================
 
-$small: new-breakpoint(min-width 480px 4);
-$medium: new-breakpoint(min-width 760px 6);
-$large: new-breakpoint(min-width 1200px 12);
+$small  : new-breakpoint(min-width 480px 4);
+$medium : new-breakpoint(min-width 760px 6);
+$large  : new-breakpoint(min-width 1200px 12);
 
 
 // =================================================

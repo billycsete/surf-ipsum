@@ -1,12 +1,12 @@
 // =================================================
 //
 // Body
-// 
+//
 // 1. Remove the background applied by normalize because:
-// 
+//
 // In the absence of a background on the html element,
-// the body background will cover the page. If there 
-// is a background on the html element, the body background 
+// the body background will cover the page. If there
+// is a background on the html element, the body background
 // behaves just like any other element.
 //
 // =================================================
@@ -17,5 +17,5 @@ html {
 }
 
 html *, body * {
-	@include box-sizing(border-box);
+	box-sizing: border-box;
 }

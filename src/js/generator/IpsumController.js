@@ -1,8 +1,10 @@
 'use strict';
 
-var $           = require('../../../lib/jquery/jquery');
-var IpsumList   = require('./IpsumList');
-var IpsumOutput = require('./IpsumOutput');
+var $             = require('../../../lib/jquery/jquery');
+var SelectElement = require('./SelectElement');
+var IpsumOutput   = require('./IpsumOutput');
+
+require('../../../lib/gsap/TweenMax.js');
 
 var proto;
 
@@ -10,13 +12,14 @@ var proto;
 
 var IpsumController = function( ) {
 	// IpsumController elements
-	this.$listElement = $('#ipsum-list');
-	this.$outputElement = $('#output');
-	this.$submitButton = $('#ipsum-submit');
-	// create list of inputs
-	this.list = new IpsumList( this.$listElement );
+	this.$inputElement = $('#input-number');
+	this.selectElement = new SelectElement();
+	this.$generateButton = $('#input-generate');
 	// create reference to our output object
-	this.output = new IpsumOutput( this.$outputElement );
+	this.$outputElement = $('#ipsum-output');
+	this.$outputResults = $('#ipsum-output-results');
+	this.output = new IpsumOutput( this.$outputResults );
+	this.$closeOutputButton = $('#output-close');
 
 	this._init();
 };
@@ -26,6 +29,7 @@ proto = IpsumController.prototype;
 
 
 proto._init = function( ) {
+	// Add event listeners
 	this._attachEvents();
 };
 
@@ -33,24 +37,48 @@ proto._init = function( ) {
 
 proto._attachEvents = function( ) {
 	// when the submit button is clicked, generate ipsum
-	this.$submitButton.on( 'click', this._onSubmit.bind(this) );
+	this.$generateButton.on( 'click', this._openResults.bind(this) );
+
+	this.$closeOutputButton.on( 'click', this._closeResults.bind(this) );
 };
 
 
 
-proto._onSubmit = function( ) {
-	var listItemObjects = this.list.getIpsumItems();
+proto._openResults = function( ) {
+	$(document.body).addClass('show-results');
 
-	listItemObjects.forEach( function( item ) {
-		this._generateIpsum( item );
-	}.bind(this));
-};
+	TweenMax.to( this.$outputElement, 1, {
+		top: '0',
+		ease: Quart.easeInOut,
+		onComplete : this._generateIpsum.bind(this)
+	});
+
+}
+
+
+proto._closeResults = function( ) {
+	$(document.body).removeClass('show-results');
+
+	TweenMax.to( this.$outputElement, 1, {
+		top: '100%',
+		ease: Quart.easeInOut,
+		onComplete : this._clearIpsum.bind(this)
+	});
+
+}
 
 
 
-proto._generateIpsum = function( listItemObject ) {
-	var selectValue = listItemObject.getSelectValue();
-	var inputValue = listItemObject.getInputValue();
+proto._clearIpsum = function( ) {
+	this.$outputResults.html('');
+}
+
+
+
+proto._generateIpsum = function( ) {
+
+	var inputValue = this.$inputElement.val();
+	var selectValue = this.selectElement.getValue();
 
 	switch ( selectValue ) {
 		case 'paragraphs':
@@ -69,7 +97,7 @@ proto._generateIpsum = function( listItemObject ) {
 			this.output.printWords( inputValue );
 			break;
 	}
-}
+};
 
 
 

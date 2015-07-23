@@ -1,0 +1,91 @@
+// =================================================
+//
+// Select Element
+//
+// =================================================
+
+.input-select {
+	position: relative;
+	z-index: 1;
+	width: 240px;
+	padding-left: 25px;
+	float: right;
+
+	&:hover {
+		background: $white;
+		.icon-down-open {
+			color: $white;
+		}
+	}
+
+
+	// down arrow icon
+	.icon-down-open {
+		height: $input-element-height;
+		line-height: $input-element-height;
+		padding: 0 10px;
+		cursor: pointer;
+		position: absolute;
+		z-index: 1;
+		right: 0;
+		color: $dark-grey;
+		background: rgba(0,0,0,0.15);
+		font-size: 18px;
+	}
+
+
+	// current value
+	.select-value {
+		display: block;
+		cursor: pointer;
+		line-height: $input-element-height;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+
+	// list of options
+	.select-list {
+		opacity: 0;
+		position: absolute;
+		z-index: 1;
+		overflow: hidden;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		height: 0;
+		margin: 0;
+		padding: 0;
+		background: $light-grey;
+		border-top: 1px solid $grey;
+		// transition: opacity 0.3s ease-in-out,
+		//             transform 0.3s ease-in-out;
+		// transform: translateY(-20px);
+
+		li.select-option {
+			padding: 14px 22px;
+			list-style-type: none;
+			cursor: pointer;
+			font-size: 18px;
+			border-bottom: 1px solid $grey;
+
+			&.selected {
+				display: none;
+			}
+
+			&:hover {
+				background: $white;
+			}
+		}
+	}
+
+	&.focused {
+		.select-list {
+			opacity: 1;
+			height: auto;
+			// transform: translateY(0px);
+		}
+	}
+}

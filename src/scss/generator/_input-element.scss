@@ -1,0 +1,91 @@
+// =================================================
+//
+// Ipsum Input Element
+//
+// =================================================
+
+// ipsum input vars
+$input-element-height: 70px;
+
+
+// ipsum input wrapper
+.input-element {
+	position: relative;
+	z-index: 1;
+	font-size: 24px;
+	background: $light-grey;
+	@include clearfix();
+
+	// Number input
+	.input-number {
+		height: $input-element-height;
+		width: 140px;
+		padding: 0 10px 0 25px;
+		border: none;
+		border-right: 1px solid $grey;
+		float: left;
+		background: $light-grey;
+
+		&:hover {
+			background: $white;
+		}
+
+		&:focus {
+			outline: none;
+			background: $white;
+		}
+	}
+
+	// Submit button
+	.input-generate {
+		float: right;
+		width: 220px;
+		height: $input-element-height;
+		line-height: $input-element-height;
+		background-color: $green;
+		padding: 0 0 0 25px;
+		margin: 0;
+		box-shadow: none;
+		border: none;
+		color: rgba(0,0,0,0.5);
+		font-weight: $semibold;
+		@include clearfix();
+
+		.icon-shaka {
+			display: block;
+			float: right;
+			width: $input-element-height;
+			height: $input-element-height;
+			background-image: url('../images/shaka.svg');
+			background-size: 90px 90px;
+			background-repeat: no-repeat;
+			background-position: 100% 25%;
+			transform-origin: 40% 60%;
+		}
+
+		&:hover {
+			background-color: $green-alt;
+
+			.icon-shaka {
+				animation: shaka 0.2s infinite;
+			}
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+}
+
+
+// =================================================
+//
+// Shaka Icon Animation
+//
+// =================================================
+
+@keyframes shaka {
+	0% { transform   : rotate(0deg); }
+	50% { transform  : rotate(-15deg); }
+	100% { transform : rotate(0deg); }
+}
