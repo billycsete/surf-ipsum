@@ -1,5 +1,6 @@
-#Surf Ipsum
+Surf Ipsum
 ==========
+
 A surf themed lorem ipsum generator
 
 http://surfipsum.com
