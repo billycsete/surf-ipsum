@@ -45,6 +45,10 @@ proto._attachEvents = function( ) {
 
 
 proto._openResults = function( ) {
+	// TODO: try a wave effect?
+	// http://tympanus.net/Development/OffCanvasMenuEffects/wave.html
+	// http://codepen.io/manpreet/pen/KwgBJN
+
 	$(document.body).addClass('show-results');
 
 	TweenMax.to( this.$outputElement, 1, {

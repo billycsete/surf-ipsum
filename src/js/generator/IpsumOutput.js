@@ -7,7 +7,6 @@ var FirebaseObject = require('../shared/FirebaseObject');
 var proto;
 
 
-
 var IpsumOutput = function( outputContainer ) {
 	// IpsumOutput elements
 	this.$outputElement = outputContainer;
@@ -32,6 +31,19 @@ proto.printSentence = function ( ) {
 
 
 proto.printParagraphs = function ( numberOfParagraphs ) {
+
+	// TODO:
+	// ========
+	// Add random sentence connectors, maybe twice per paragraph
+
+	// For example:
+	// ----
+	// in the
+	// on the
+	// at the
+	// for the
+	// ========
+
 
 	for (var i = 0; i < numberOfParagraphs; i++) {
 		var sentencesPerParagraph = Utils.getRandomInt( 5, 8 );

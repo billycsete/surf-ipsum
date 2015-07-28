@@ -16859,6 +16859,10 @@ proto._attachEvents = function( ) {
 
 
 proto._openResults = function( ) {
+	// TODO: try a wave effect?
+	// http://tympanus.net/Development/OffCanvasMenuEffects/wave.html
+	// http://codepen.io/manpreet/pen/KwgBJN
+
 	$(document.body).addClass('show-results');
 
 	TweenMax.to( this.$outputElement, 1, {
@@ -16928,7 +16932,6 @@ var FirebaseObject = require('../shared/FirebaseObject');
 var proto;
 
 
-
 var IpsumOutput = function( outputContainer ) {
 	// IpsumOutput elements
 	this.$outputElement = outputContainer;
@@ -16953,6 +16956,19 @@ proto.printSentence = function ( ) {
 
 
 proto.printParagraphs = function ( numberOfParagraphs ) {
+
+	// TODO:
+	// ========
+	// Add random sentence connectors, maybe twice per paragraph
+
+	// For example:
+	// ----
+	// in the
+	// on the
+	// at the
+	// for the
+	// ========
+
 
 	for (var i = 0; i < numberOfParagraphs; i++) {
 		var sentencesPerParagraph = Utils.getRandomInt( 5, 8 );
