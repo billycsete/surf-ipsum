@@ -9,6 +9,8 @@ require('../../../lib/gsap/TweenMax.js');
 var proto;
 
 
+// TODO: Move this all to main.js?
+
 
 var IpsumController = function( ) {
 	// IpsumController elements
@@ -86,19 +88,19 @@ proto._generateIpsum = function( ) {
 
 	switch ( selectValue ) {
 		case 'paragraphs':
-			this.output.printParagraphs( inputValue );
+			this.output.printParagraphsToOutputElement( inputValue );
 			break;
 
 		case 'headlines':
-			this.output.printHeadlines( inputValue );
+			this.output.printHeadlinesToOutputElement( inputValue );
 			break;
 
 		case 'lists':
-			this.output.printLists( inputValue );
+			this.output.printListsToOutputElement( inputValue );
 			break;
 
 		case 'words':
-			this.output.printWords( inputValue );
+			this.output.printWordsToOutputElement( inputValue );
 			break;
 	}
 };

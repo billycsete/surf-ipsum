@@ -16823,6 +16823,8 @@ require('../../../lib/gsap/TweenMax.js');
 var proto;
 
 
+// TODO: Move this all to main.js?
+
 
 var IpsumController = function( ) {
 	// IpsumController elements
@@ -16900,19 +16902,19 @@ proto._generateIpsum = function( ) {
 
 	switch ( selectValue ) {
 		case 'paragraphs':
-			this.output.printParagraphs( inputValue );
+			this.output.printParagraphsToOutputElement( inputValue );
 			break;
 
 		case 'headlines':
-			this.output.printHeadlines( inputValue );
+			this.output.printHeadlinesToOutputElement( inputValue );
 			break;
 
 		case 'lists':
-			this.output.printLists( inputValue );
+			this.output.printListsToOutputElement( inputValue );
 			break;
 
 		case 'words':
-			this.output.printWords( inputValue );
+			this.output.printWordsToOutputElement( inputValue );
 			break;
 	}
 };
@@ -16932,50 +16934,55 @@ var FirebaseObject = require('../shared/FirebaseObject');
 var proto;
 
 
+
+/**
+ * Ipsum Output
+ * @constructor
+ */
 var IpsumOutput = function( outputContainer ) {
 	// IpsumOutput elements
 	this.$outputElement = outputContainer;
 	// access to database of words
 	this.firebaseObject = new FirebaseObject();
+	// store arrays of special punctuation characters
+	this.endingPunctuation = ['?', '!'];
+	this.decorativePunctuation = [ ',', ';', ':' ];
 };
 
 proto = IpsumOutput.prototype;
 
 
-proto.printSentence = function ( ) {
+
+/**
+ * Generate a random sentence
+ * @return {String} - random sentence of surf words
+ */
+proto.generateSentence = function ( ) {
 	var sentenceLength = Utils.getRandomInt( 5, 10 );
 	// get strings from the firebase database
 	var sentence = this.firebaseObject.getRandomStrings( sentenceLength );
 	// replace commas with spaces
 	sentence = sentence.toString().replace( /,/g, ' ' );
 	// capitalize sentence and add a period
-	sentence = this._capitalizeString( sentence ) + '.';
+	sentence = this._capitalizeString( sentence ) + this._generatePunctuationMark();
 
 	return sentence;
 };
 
 
-proto.printParagraphs = function ( numberOfParagraphs ) {
 
-	// TODO:
-	// ========
-	// Add random sentence connectors, maybe twice per paragraph
-
-	// For example:
-	// ----
-	// in the
-	// on the
-	// at the
-	// for the
-	// ========
-
+/**
+ * Print paragraphs to the output element
+ * @param {Number} numberOfParagraphs - number of paragraphs to generate
+ */
+proto.printParagraphsToOutputElement = function ( numberOfParagraphs ) {
 
 	for (var i = 0; i < numberOfParagraphs; i++) {
 		var sentencesPerParagraph = Utils.getRandomInt( 5, 8 );
 		var paragraph = '';
 
 		for ( var j = 0; j < sentencesPerParagraph; j++ ) {
-			paragraph += this.printSentence() + ' ';
+			paragraph += this.generateSentence() + ' ';
 		};
 
 		// trim off the trailing space on the last sentence
@@ -16986,7 +16993,12 @@ proto.printParagraphs = function ( numberOfParagraphs ) {
 };
 
 
-proto.printHeadlines = function ( numberOfHeadlines ) {
+
+/**
+ * Print headlines to the output element
+ * @param {Number} numberOfHeadlines - number of headlines to generate
+ */
+proto.printHeadlinesToOutputElement = function ( numberOfHeadlines ) {
 
 	for ( var i = 0; i < numberOfHeadlines; i++ ) {
 		var headlineLength = Utils.getRandomInt( 2, 4 );
@@ -16995,12 +17007,17 @@ proto.printHeadlines = function ( numberOfHeadlines ) {
 		// capitalize headline
 		headline = this._capitalizeString( headline );
 		// print a new headline to the output element
-		this.$outputElement.append( '<h2>' + headline + '</h2>' );
+		this.$outputElement.append( '<h2>' + headline + this._generatePunctuationMark() + '</h2>' );
 	}
 };
 
 
-proto.printLists = function ( numberOfLists ) {
+
+/**
+ * Print lists to the output element
+ * @param {Number} numberOfLists - number of lists to generate
+ */
+proto.printListsToOutputElement = function ( numberOfLists ) {
 
 	for ( var i = 0; i < numberOfLists; i++ ) {
 		var listLength = Utils.getRandomInt( 4, 8 );
@@ -17023,7 +17040,12 @@ proto.printLists = function ( numberOfLists ) {
 };
 
 
-proto.printWords = function ( numberOfWords ) {
+
+/**
+ * Print lists to the output element
+ * @param {Number} numberOfWords - number of lists to generate
+ */
+proto.printWordsToOutputElement = function ( numberOfWords ) {
 	// get strings from the firebase database
 	var words = this.firebaseObject.getRandomStrings( numberOfWords );
 	// print words to the output element
@@ -17031,6 +17053,37 @@ proto.printWords = function ( numberOfWords ) {
 };
 
 
+
+/**
+ * Returns a randomized punctuation mark
+ * Periods are weighted heavier than other types of punctuation
+ * @private
+ * @return {String} - punctuation mark
+ */
+proto._generatePunctuationMark = function( ) {
+	// TODO: add some sort of UI checkbox to enable special punctuation??
+	var randomNumber = Utils.getRandomInt( 0, 10 );
+
+	// if the random number is not a 5 return a period
+	// TODO: more clear way of setting a flag for 1/10 odds
+	if ( randomNumber !== 5 ) {
+		return '.';
+	}
+
+	// If our 1 in 10 random number matched, randomly select a special punctuation mark
+	var specialPunctuationMark = this.endingPunctuation[ Utils.getRandomInt( 0, this.endingPunctuation.length - 1 ) ];
+
+	return specialPunctuationMark;
+};
+
+
+
+/**
+ * Capitalize a string
+ * @private
+ * @param {String} string - string to capitalize
+ * @return {String} - capitalized string
+ */
 proto._capitalizeString = function( string ) {
 	return string.substring(0, 1).toUpperCase() + string.substring(1);
 };
@@ -17232,6 +17285,8 @@ var Firebase = require('Firebase');
 
 var proto;
 
+
+
 /**
  * FirebaseObject
  * @constructor
@@ -17250,9 +17305,10 @@ var FirebaseObject = function() {
 proto = FirebaseObject.prototype;
 
 
+
 /**
  * Update the array of words whenever the firebase data changes
- * @param {object} dataSnapshot - firebase data object
+ * @param {Object} dataSnapshot - firebase data object
  */
 proto._onFirebaseUpdate = function( dataSnapshot ) {
 	var updatedStrings = [];
@@ -17266,20 +17322,22 @@ proto._onFirebaseUpdate = function( dataSnapshot ) {
 };
 
 
+
 /**
  * Check to see if a string already exists in the firebase database
- * @param {string} string - string to test for duplicate in firebase
- * @return {boolean}
+ * @param {String} string - string to test for duplicate in firebase
+ * @return {Boolean}
  */
 proto.isDuplicate = function( string ) {
 	return $.inArray( string, this.strings ) !== -1;
 };
 
 
+
 /**
  * Return an array of random strings from the firebase database
- * @param {number} numberOfItems - the number of random strings to be added to the array
- * @return {array}
+ * @param {Number} numberOfItems - the number of random strings to be added to the array
+ * @return {Array}
  */
 proto.getRandomStrings = function( numberOfItems ) {
 	var stringsLength = this.strings.length;
@@ -17297,34 +17355,41 @@ proto.getRandomStrings = function( numberOfItems ) {
 };
 
 
+
 /**
  * Push a string to the firebase database
- * @param {string} string
+ * @param {String} string
  */
 proto.addString = function( string ) {
 	this.firebase.push( string );
 };
 
 
-module.exports = FirebaseObject;
 
+module.exports = FirebaseObject;
 
 },{"../../../lib/jquery/jquery":2,"Firebase":3}],9:[function(require,module,exports){
 'use strict';
 
 var Utils = {
+
 	/**
 	 * based on from https://github.com/inuyaksa/jquery.nicescroll/blob/master/jquery.nicescroll.js
 	 */
 	hasParent : function( e, p ) {
 		if ( !e ) return false;
-		var el = e.target||e.srcElement||e||false;
+		var el = e.target || e.srcElement || e || false;
 		while ( el && el != p ) {
-			el = el.parentNode||false;
+			el = el.parentNode || false;
 		}
 		return ( el!==false );
 	},
 
+	/**
+	 * Random integer generator
+	 * @param min {Number} - minimum value
+	 * @param max {Number} - maximum value
+	 */
 	getRandomInt : function( min, max ) {
 		return Math.floor( Math.random() * (max - min + 1) ) + min;
 	}
