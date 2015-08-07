@@ -7,50 +7,55 @@ var FirebaseObject = require('../shared/FirebaseObject');
 var proto;
 
 
+
+/**
+ * Ipsum Output
+ * @constructor
+ */
 var IpsumOutput = function( outputContainer ) {
 	// IpsumOutput elements
 	this.$outputElement = outputContainer;
 	// access to database of words
 	this.firebaseObject = new FirebaseObject();
+	// store arrays of special punctuation characters
+	this.endingPunctuation = ['?', '!'];
+	this.decorativePunctuation = [ ',', ';', ':' ];
 };
 
 proto = IpsumOutput.prototype;
 
 
-proto.printSentence = function ( ) {
+
+/**
+ * Generate a random sentence
+ * @return {String} - random sentence of surf words
+ */
+proto.generateSentence = function ( ) {
 	var sentenceLength = Utils.getRandomInt( 5, 10 );
 	// get strings from the firebase database
 	var sentence = this.firebaseObject.getRandomStrings( sentenceLength );
 	// replace commas with spaces
 	sentence = sentence.toString().replace( /,/g, ' ' );
 	// capitalize sentence and add a period
-	sentence = this._capitalizeString( sentence ) + '.';
+	sentence = this._capitalizeString( sentence ) + this._generatePunctuationMark();
 
 	return sentence;
 };
 
 
-proto.printParagraphs = function ( numberOfParagraphs ) {
 
-	// TODO:
-	// ========
-	// Add random sentence connectors, maybe twice per paragraph
-
-	// For example:
-	// ----
-	// in the
-	// on the
-	// at the
-	// for the
-	// ========
-
+/**
+ * Print paragraphs to the output element
+ * @param {Number} numberOfParagraphs - number of paragraphs to generate
+ */
+proto.printParagraphsToOutputElement = function ( numberOfParagraphs ) {
 
 	for (var i = 0; i < numberOfParagraphs; i++) {
 		var sentencesPerParagraph = Utils.getRandomInt( 5, 8 );
 		var paragraph = '';
 
 		for ( var j = 0; j < sentencesPerParagraph; j++ ) {
-			paragraph += this.printSentence() + ' ';
+			paragraph += this.generateSentence() + ' ';
 		};
 
 		// trim off the trailing space on the last sentence
@@ -61,7 +66,12 @@ proto.printParagraphs = function ( numberOfParagraphs ) {
 };
 
 
-proto.printHeadlines = function ( numberOfHeadlines ) {
+
+/**
+ * Print headlines to the output element
+ * @param {Number} numberOfHeadlines - number of headlines to generate
+ */
+proto.printHeadlinesToOutputElement = function ( numberOfHeadlines ) {
 
 	for ( var i = 0; i < numberOfHeadlines; i++ ) {
 		var headlineLength = Utils.getRandomInt( 2, 4 );
@@ -70,12 +80,17 @@ proto.printHeadlines = function ( numberOfHeadlines ) {
 		// capitalize headline
 		headline = this._capitalizeString( headline );
 		// print a new headline to the output element
-		this.$outputElement.append( '<h2>' + headline + '</h2>' );
+		this.$outputElement.append( '<h2>' + headline + this._generatePunctuationMark() + '</h2>' );
 	}
 };
 
 
-proto.printLists = function ( numberOfLists ) {
+
+/**
+ * Print lists to the output element
+ * @param {Number} numberOfLists - number of lists to generate
+ */
+proto.printListsToOutputElement = function ( numberOfLists ) {
 
 	for ( var i = 0; i < numberOfLists; i++ ) {
 		var listLength = Utils.getRandomInt( 4, 8 );
@@ -98,7 +113,12 @@ proto.printLists = function ( numberOfLists ) {
 };
 
 
-proto.printWords = function ( numberOfWords ) {
+
+/**
+ * Print lists to the output element
+ * @param {Number} numberOfWords - number of lists to generate
+ */
+proto.printWordsToOutputElement = function ( numberOfWords ) {
 	// get strings from the firebase database
 	var words = this.firebaseObject.getRandomStrings( numberOfWords );
 	// print words to the output element
@@ -106,6 +126,37 @@ proto.printWords = function ( numberOfWords ) {
 };
 
 
+
+/**
+ * Returns a randomized punctuation mark
+ * Periods are weighted heavier than other types of punctuation
+ * @private
+ * @return {String} - punctuation mark
+ */
+proto._generatePunctuationMark = function( ) {
+	// TODO: add some sort of UI checkbox to enable special punctuation??
+	var randomNumber = Utils.getRandomInt( 0, 10 );
+
+	// if the random number is not a 5 return a period
+	// TODO: more clear way of setting a flag for 1/10 odds
+	if ( randomNumber !== 5 ) {
+		return '.';
+	}
+
+	// If our 1 in 10 random number matched, randomly select a special punctuation mark
+	var specialPunctuationMark = this.endingPunctuation[ Utils.getRandomInt( 0, this.endingPunctuation.length - 1 ) ];
+
+	return specialPunctuationMark;
+};
+
+
+
+/**
+ * Capitalize a string
+ * @private
+ * @param {String} string - string to capitalize
+ * @return {String} - capitalized string
+ */
 proto._capitalizeString = function( string ) {
 	return string.substring(0, 1).toUpperCase() + string.substring(1);
 };

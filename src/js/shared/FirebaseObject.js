@@ -5,6 +5,8 @@ var Firebase = require('Firebase');
 
 var proto;
 
+
+
 /**
  * FirebaseObject
  * @constructor
@@ -23,9 +25,10 @@ var FirebaseObject = function() {
 proto = FirebaseObject.prototype;
 
 
+
 /**
  * Update the array of words whenever the firebase data changes
- * @param {object} dataSnapshot - firebase data object
+ * @param {Object} dataSnapshot - firebase data object
  */
 proto._onFirebaseUpdate = function( dataSnapshot ) {
 	var updatedStrings = [];
@@ -39,20 +42,22 @@ proto._onFirebaseUpdate = function( dataSnapshot ) {
 };
 
 
+
 /**
  * Check to see if a string already exists in the firebase database
- * @param {string} string - string to test for duplicate in firebase
- * @return {boolean}
+ * @param {String} string - string to test for duplicate in firebase
+ * @return {Boolean}
  */
 proto.isDuplicate = function( string ) {
 	return $.inArray( string, this.strings ) !== -1;
 };
 
 
+
 /**
  * Return an array of random strings from the firebase database
- * @param {number} numberOfItems - the number of random strings to be added to the array
- * @return {array}
+ * @param {Number} numberOfItems - the number of random strings to be added to the array
+ * @return {Array}
  */
 proto.getRandomStrings = function( numberOfItems ) {
 	var stringsLength = this.strings.length;
@@ -70,14 +75,15 @@ proto.getRandomStrings = function( numberOfItems ) {
 };
 
 
+
 /**
  * Push a string to the firebase database
- * @param {string} string
+ * @param {String} string
  */
 proto.addString = function( string ) {
 	this.firebase.push( string );
 };
 
 
-module.exports = FirebaseObject;
 
+module.exports = FirebaseObject;
