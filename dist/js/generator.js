@@ -16848,10 +16848,12 @@ proto.generateSentence = function ( ) {
 	var sentenceLength = Utils.getRandomInt( 5, 10 );
 	// get strings from the firebase database
 	var sentence = this.firebaseObject.getRandomStrings( sentenceLength );
+
+	console.log(sentence.length);
 	// replace commas with spaces
 	sentence = sentence.toString().replace( /,/g, ' ' );
 	// capitalize sentence and add a period
-	sentence = this._capitalizeString( sentence ) + this._generatePunctuationMark();
+	sentence = this._capitalizeString( sentence ) + this._generatePunctuationEnding();
 
 	return sentence;
 };
@@ -16894,7 +16896,7 @@ proto.printHeadlinesToOutputElement = function ( numberOfHeadlines ) {
 		// capitalize headline
 		headline = this._capitalizeString( headline );
 		// print a new headline to the output element
-		this.$outputElement.append( '<h2>' + headline + this._generatePunctuationMark() + '</h2>' );
+		this.$outputElement.append( '<h2>' + headline + this._generatePunctuationEnding() + '</h2>' );
 	}
 };
 
@@ -16942,12 +16944,12 @@ proto.printWordsToOutputElement = function ( numberOfWords ) {
 
 
 /**
- * Returns a randomized punctuation mark
- * Periods are weighted heavier than other types of punctuation
+ * Returns a randomized punctuation mark for ending a sentence
+ * Periods are weighted heavier than other types of sentence ending punctuation marks
  * @private
  * @return {String} - punctuation mark
  */
-proto._generatePunctuationMark = function( ) {
+proto._generatePunctuationEnding = function( ) {
 	// TODO: add some sort of UI checkbox to enable special punctuation??
 	var randomNumber = Utils.getRandomInt( 0, 10 );
 
@@ -16958,9 +16960,23 @@ proto._generatePunctuationMark = function( ) {
 	}
 
 	// If our 1 in 10 random number matched, randomly select a special punctuation mark
-	var specialPunctuationMark = this.endingPunctuation[ Utils.getRandomInt( 0, this.endingPunctuation.length - 1 ) ];
+	var punctuationMark = this.endingPunctuation[ Utils.getRandomInt( 0, this.endingPunctuation.length - 1 ) ];
 
-	return specialPunctuationMark;
+	return punctuationMark;
+};
+
+
+
+/**
+ * Returns a randomized mid-sentence punctuation mark
+ * @private
+ * @return {String} - punctuation mark
+ */
+proto._generatePunctuation = function( ) {
+	// Randomly select a mid-sentence punctuation mark
+	var decorativePunctuationMark = this.decorativePunctuation[ Utils.getRandomInt( 0, this.decorativePunctuation.length - 1 ) ];
+
+	return decorativePunctuationMark;
 };
 
 
