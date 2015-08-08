@@ -16833,7 +16833,6 @@ var IpsumOutput = function( outputContainer ) {
 	this.firebaseObject = new FirebaseObject();
 	// store arrays of special punctuation characters
 	this.endingPunctuation = ['?', '!'];
-	this.decorativePunctuation = [ ',', ';', ':' ];
 };
 
 proto = IpsumOutput.prototype;
@@ -16848,10 +16847,10 @@ proto.generateSentence = function ( ) {
 	var sentenceLength = Utils.getRandomInt( 5, 10 );
 	// get strings from the firebase database
 	var sentence = this.firebaseObject.getRandomStrings( sentenceLength );
-	// replace commas with spaces
-	sentence = sentence.toString().replace( /,/g, ' ' );
+	// turn array of results into one long string with random commas
+	sentence = this._stringifyIpsumResults( sentence, true );
 	// capitalize sentence and add a period
-	sentence = this._capitalizeString( sentence ) + this._generatePunctuationMark();
+	sentence = this._capitalizeString( sentence ) + this._generatePunctuationEnding();
 
 	return sentence;
 };
@@ -16891,10 +16890,12 @@ proto.printHeadlinesToOutputElement = function ( numberOfHeadlines ) {
 		var headlineLength = Utils.getRandomInt( 2, 4 );
 		// get strings from the firebase database
 		var headline = this.firebaseObject.getRandomStrings( headlineLength );
+		// turn array of results into one long string and remove commas
+		headline = this._stringifyIpsumResults( headline );
 		// capitalize headline
 		headline = this._capitalizeString( headline );
 		// print a new headline to the output element
-		this.$outputElement.append( '<h2>' + headline + this._generatePunctuationMark() + '</h2>' );
+		this.$outputElement.append( '<h2>' + headline + this._generatePunctuationEnding() + '</h2>' );
 	}
 };
 
@@ -16916,6 +16917,8 @@ proto.printListsToOutputElement = function ( numberOfLists ) {
 			var listItemTextLength = Utils.getRandomInt( 2, 4 );
 			// get strings from the firebase database
 			var listItemText = this.firebaseObject.getRandomStrings( listItemTextLength );
+			// turn array of results into one long string and remove commas
+			listItemText = this._stringifyIpsumResults( listItemText );
 			// add the random text to the new list item
 			$(listItem).html( listItemText );
 			// add the new list item element to the list element
@@ -16935,6 +16938,8 @@ proto.printListsToOutputElement = function ( numberOfLists ) {
 proto.printWordsToOutputElement = function ( numberOfWords ) {
 	// get strings from the firebase database
 	var words = this.firebaseObject.getRandomStrings( numberOfWords );
+	// turn array of results into one long string and remove commas
+	words = this._stringifyIpsumResults( words );
 	// print words to the output element
 	this.$outputElement.append( '<p>' + words + '</p>' );
 };
@@ -16942,25 +16947,47 @@ proto.printWordsToOutputElement = function ( numberOfWords ) {
 
 
 /**
- * Returns a randomized punctuation mark
- * Periods are weighted heavier than other types of punctuation
+ * Returns a randomized punctuation mark for ending a sentence
+ * Periods are weighted heavier than other types of sentence ending punctuation marks
  * @private
  * @return {String} - punctuation mark
  */
-proto._generatePunctuationMark = function( ) {
+proto._generatePunctuationEnding = function( ) {
 	// TODO: add some sort of UI checkbox to enable special punctuation??
 	var randomNumber = Utils.getRandomInt( 0, 10 );
-
 	// if the random number is not a 5 return a period
 	// TODO: more clear way of setting a flag for 1/10 odds
 	if ( randomNumber !== 5 ) {
 		return '.';
 	}
-
 	// If our 1 in 10 random number matched, randomly select a special punctuation mark
-	var specialPunctuationMark = this.endingPunctuation[ Utils.getRandomInt( 0, this.endingPunctuation.length - 1 ) ];
+	var punctuationMark = this.endingPunctuation[ Utils.getRandomInt( 0, this.endingPunctuation.length - 1 ) ];
 
-	return specialPunctuationMark;
+	return punctuationMark;
+};
+
+
+
+/**
+ * Converts the array of strings returned from firebase into one long string
+ * @private
+ * @param {Array} resultsArray - array of strings
+ * @param {Boolean} shouldHaveCommas - option to generate a sentence with random commas
+ * @return {String} - database results as one long string
+ */
+proto._stringifyIpsumResults = function( resultsArray, shouldHaveCommas ) {
+
+	var character = resultsArray.toString().replace( /,/g, function( ) {
+		// return a space if the comma option is false
+		if ( !shouldHaveCommas ) {
+			return ' ';
+		}
+		// otherwise there is a 1 in 10 odds that a comma will not be replaced by a space
+		var randomNumber = Utils.getRandomInt( 0, 10 );
+		return randomNumber !== 5 ? ' ' : ', ';
+	});
+
+	return character;
 };
 
 
@@ -16989,7 +17016,8 @@ var Utils = require('../shared/Utils').Utils;
 // Markup for generated select element:
 // ------------------------------------------------------
 //
-// <div class="select-element">
+// <div id="input-select" class="input-select">
+//   <i class="icon-down-open"></i>
 //   <span class="select-value">paragraphs</span>
 //   <ul class="select-list">
 //     <li class="select-option selected">paragraphs</li>
@@ -17005,11 +17033,12 @@ var Utils = require('../shared/Utils').Utils;
 var proto;
 
 var SelectElement = function( ) {
-	this.$element = $('#input-select');
-	this.$downIcon = $('<i class="icon-down-open"></i>');
-	this.$selectValue = $('<span class="select-value" tabindex="0">paragraphs</span>');
-	this.$optionsList = $('<ul class="select-list"></ul>');
+	this.$element        = $('#input-select');
+	this.$downIcon       = $('<i class="icon-down-open"></i>');
+	this.$selectValue    = $('<span class="select-value" tabindex="0">paragraphs</span>');
+	this.$optionsList    = $('<ul class="select-list"></ul>');
 	this.$optionElements = [ ];
+	// options available in the dropdown of the select element
 	this.selectOptions = [ 'paragraphs', 'headlines', 'lists', 'words' ];
 
 	this._init();
@@ -17132,11 +17161,20 @@ proto._setSelectValue = function( value ) {
 
 
 
+/**
+ * Get the SelectElement wrapper element
+ * @return {Element} - SelectElement wrapper element
+ */
 proto.getElement = function( ) {
 	return this.$element;
 };
 
 
+
+/**
+ * Get the current value of the SelectElement
+ * @return {String} - value of the SelectElement
+ */
 proto.getValue = function( ) {
 	return this.$selectValue.html();
 };
@@ -17359,9 +17397,6 @@ proto.getRandomStrings = function( numberOfItems ) {
 		var randomString = this.strings[ Math.floor( Math.random() * stringsLength ) ];
 		results.push( randomString );
 	}
-
-	// turn results array into one long string and remove commas
-	results = results.toString().replace( /,/g, ' ' );
 
 	return results;
 };
