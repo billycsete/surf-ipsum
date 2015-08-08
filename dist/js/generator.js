@@ -16989,7 +16989,8 @@ var Utils = require('../shared/Utils').Utils;
 // Markup for generated select element:
 // ------------------------------------------------------
 //
-// <div class="select-element">
+// <div id="input-select" class="input-select">
+//   <i class="icon-down-open"></i>
 //   <span class="select-value">paragraphs</span>
 //   <ul class="select-list">
 //     <li class="select-option selected">paragraphs</li>
@@ -17005,11 +17006,12 @@ var Utils = require('../shared/Utils').Utils;
 var proto;
 
 var SelectElement = function( ) {
-	this.$element = $('#input-select');
-	this.$downIcon = $('<i class="icon-down-open"></i>');
-	this.$selectValue = $('<span class="select-value" tabindex="0">paragraphs</span>');
-	this.$optionsList = $('<ul class="select-list"></ul>');
+	this.$element        = $('#input-select');
+	this.$downIcon       = $('<i class="icon-down-open"></i>');
+	this.$selectValue    = $('<span class="select-value" tabindex="0">paragraphs</span>');
+	this.$optionsList    = $('<ul class="select-list"></ul>');
 	this.$optionElements = [ ];
+	// options available in the dropdown of the select element
 	this.selectOptions = [ 'paragraphs', 'headlines', 'lists', 'words' ];
 
 	this._init();
@@ -17132,11 +17134,20 @@ proto._setSelectValue = function( value ) {
 
 
 
+/**
+ * Get the SelectElement wrapper element
+ * @return {Element} - SelectElement wrapper element
+ */
 proto.getElement = function( ) {
 	return this.$element;
 };
 
 
+
+/**
+ * Get the current value of the SelectElement
+ * @return {String} - value of the SelectElement
+ */
 proto.getValue = function( ) {
 	return this.$selectValue.html();
 };
