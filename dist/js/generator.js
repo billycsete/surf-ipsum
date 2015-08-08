@@ -16814,119 +16814,6 @@ module.exports = Firebase;
 },{}],4:[function(require,module,exports){
 'use strict';
 
-var $             = require('../../../lib/jquery/jquery');
-var SelectElement = require('./SelectElement');
-var IpsumOutput   = require('./IpsumOutput');
-
-require('../../../lib/gsap/TweenMax.js');
-
-var proto;
-
-
-// TODO: Move this all to main.js?
-
-
-var IpsumController = function( ) {
-	// IpsumController elements
-	this.$inputElement = $('#input-number');
-	this.selectElement = new SelectElement();
-	this.$generateButton = $('#input-generate');
-	// create reference to our output object
-	this.$outputElement = $('#ipsum-output');
-	this.$outputResults = $('#ipsum-output-results');
-	this.output = new IpsumOutput( this.$outputResults );
-	this.$closeOutputButton = $('#output-close');
-
-	this._init();
-};
-
-proto = IpsumController.prototype;
-
-
-
-proto._init = function( ) {
-	// Add event listeners
-	this._attachEvents();
-};
-
-
-
-proto._attachEvents = function( ) {
-	// when the submit button is clicked, generate ipsum
-	this.$generateButton.on( 'click', this._openResults.bind(this) );
-
-	this.$closeOutputButton.on( 'click', this._closeResults.bind(this) );
-};
-
-
-
-proto._openResults = function( ) {
-	// TODO: try a wave effect?
-	// http://tympanus.net/Development/OffCanvasMenuEffects/wave.html
-	// http://codepen.io/manpreet/pen/KwgBJN
-
-	$(document.body).addClass('show-results');
-
-	TweenMax.to( this.$outputElement, 1, {
-		top: '0',
-		ease: Quart.easeInOut,
-		onComplete : this._generateIpsum.bind(this)
-	});
-
-}
-
-
-proto._closeResults = function( ) {
-	$(document.body).removeClass('show-results');
-
-	TweenMax.to( this.$outputElement, 1, {
-		top: '100%',
-		ease: Quart.easeInOut,
-		onComplete : this._clearIpsum.bind(this)
-	});
-
-}
-
-
-
-proto._clearIpsum = function( ) {
-	this.$outputResults.html('');
-}
-
-
-
-proto._generateIpsum = function( ) {
-
-	var inputValue = this.$inputElement.val();
-	var selectValue = this.selectElement.getValue();
-
-	switch ( selectValue ) {
-		case 'paragraphs':
-			this.output.printParagraphsToOutputElement( inputValue );
-			break;
-
-		case 'headlines':
-			this.output.printHeadlinesToOutputElement( inputValue );
-			break;
-
-		case 'lists':
-			this.output.printListsToOutputElement( inputValue );
-			break;
-
-		case 'words':
-			this.output.printWordsToOutputElement( inputValue );
-			break;
-	}
-};
-
-
-
-module.exports = IpsumController;
-
-
-},{"../../../lib/gsap/TweenMax.js":1,"../../../lib/jquery/jquery":2,"./IpsumOutput":5,"./SelectElement":6}],5:[function(require,module,exports){
-'use strict';
-
 var $              = require('../../../lib/jquery/jquery');
 var Utils          = require('../shared/Utils.js').Utils;
 var FirebaseObject = require('../shared/FirebaseObject');
@@ -17091,7 +16978,7 @@ proto._capitalizeString = function( string ) {
 
 module.exports = IpsumOutput;
 
-},{"../../../lib/jquery/jquery":2,"../shared/FirebaseObject":8,"../shared/Utils.js":9}],6:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":2,"../shared/FirebaseObject":7,"../shared/Utils.js":8}],5:[function(require,module,exports){
 'use strict';
 
 var $     = require('../../../lib/jquery/jquery');
@@ -17258,26 +17145,151 @@ proto.getValue = function( ) {
 
 module.exports = SelectElement;
 
-},{"../../../lib/jquery/jquery":2,"../shared/Utils":9}],7:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":2,"../shared/Utils":8}],6:[function(require,module,exports){
 'use strict'
 
-// Require statements
-var IpsumController = require('./IpsumController');
+var $             = require('../../../lib/jquery/jquery');
+var TweenMax      = require('../../../lib/gsap/TweenMax.js');
+var SelectElement = require('./SelectElement');
+var IpsumOutput   = require('./IpsumOutput');
+
 
 var Main = {
 
-	initialize : function() {
+	/**
+	 * Set up generator page
+	 */
+	initialize : function( ) {
+		this.$document          = $(document);
+		this.$body              = $(document.body);
+		this.$inputElement      = $('#input-number');
+		this.$generateButton    = $('#input-generate');
+		this.$outputElement     = $('#ipsum-output');
+		this.$outputResults     = $('#ipsum-output-results');
+		this.$closeOutputButton = $('#output-close');
 
-		var controller = new IpsumController();
+		// build custom select element
+		this.selectElement = new SelectElement();
+
+		// init ipsum output
+		this.output = new IpsumOutput( this.$outputResults );
+
+		// Bind functions.
+		// TODO: Look up why you do this.
+		this._onKeypress         = this._onKeypress.bind(this);
+		this._generateIpsum      = this._generateIpsum.bind(this);
+		this._closeIpsum            = this._closeIpsum.bind(this);
+		this._printIpsumToOutput = this._printIpsumToOutput.bind(this);
+		this._clearIpsum         = this._clearIpsum.bind(this);
+
+		// attach events
+		this.$generateButton.on( 'click', this._generateIpsum );
+		this.$closeOutputButton.on( 'click', this._closeIpsum );
+		this.$document.on( 'keydown', this._onKeypress );
 
 		return this;
+	},
+
+
+
+	/**
+	 * Handle keypress events
+	 * `Enter` should generate ipsum
+	 * `Esc should clear ipsum
+	 */
+	_onKeypress : function( evt ) {
+		// cross browser keycode
+		var keycode = (evt.keyCode ? evt.keyCode : evt.which);
+		// If the 'Enter' key is pressed
+		if( keycode === 13 ) {
+			this._generateIpsum();
+		}
+		// If the 'Esc' key is pressed
+		if( keycode === 27 ) {
+			this._closeIpsum();
+		}
+	},
+
+
+
+	/**
+	 * Animate to the generated ipsum
+	 */
+	_generateIpsum : function( ) {
+		// TODO: try a wave effect?
+		// http://tympanus.net/Development/OffCanvasMenuEffects/wave.html
+		// http://codepen.io/manpreet/pen/KwgBJN
+
+		this.$body.addClass('show-results');
+
+		TweenMax.to( this.$outputElement, 1, {
+			top: '0',
+			ease: Quart.easeInOut,
+			onComplete : this._printIpsumToOutput
+		});
+
+	},
+
+
+
+	/**
+	 * Print the ipsum to the DOM
+	 */
+	_printIpsumToOutput : function( ) {
+
+		var inputValue = this.$inputElement.val();
+		var selectValue = this.selectElement.getValue();
+
+		switch ( selectValue ) {
+			case 'paragraphs':
+				this.output.printParagraphsToOutputElement( inputValue );
+				break;
+
+			case 'headlines':
+				this.output.printHeadlinesToOutputElement( inputValue );
+				break;
+
+			case 'lists':
+				this.output.printListsToOutputElement( inputValue );
+				break;
+
+			case 'words':
+				this.output.printWordsToOutputElement( inputValue );
+				break;
+		}
+	},
+
+
+
+	/**
+	 * Animate back to the ipsum input state
+	 */
+	_closeIpsum : function( ) {
+		this.$body.removeClass('show-results');
+
+		TweenMax.to( this.$outputElement, 1, {
+			top: '100%',
+			ease: Quart.easeInOut,
+			onComplete : this._clearIpsum
+		});
+	},
+
+
+
+	/**
+	 * Clear any ipsum from the DOM
+	 */
+	_clearIpsum : function( ) {
+		this.$outputResults.html('');
 	}
 
 };
 
+
+
 Main.initialize();
 
-},{"./IpsumController":4}],8:[function(require,module,exports){
+},{"../../../lib/gsap/TweenMax.js":1,"../../../lib/jquery/jquery":2,"./IpsumOutput":4,"./SelectElement":5}],7:[function(require,module,exports){
 'use strict';
 
 var $        = require('../../../lib/jquery/jquery');
@@ -17368,7 +17380,7 @@ proto.addString = function( string ) {
 
 module.exports = FirebaseObject;
 
-},{"../../../lib/jquery/jquery":2,"Firebase":3}],9:[function(require,module,exports){
+},{"../../../lib/jquery/jquery":2,"Firebase":3}],8:[function(require,module,exports){
 'use strict';
 
 var Utils = {
@@ -17398,4 +17410,4 @@ var Utils = {
 
 module.exports.Utils = Utils;
 
-},{}]},{},[7]);
+},{}]},{},[6]);
