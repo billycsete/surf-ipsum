@@ -19,7 +19,6 @@ var IpsumOutput = function( outputContainer ) {
 	this.firebaseObject = new FirebaseObject();
 	// store arrays of special punctuation characters
 	this.endingPunctuation = ['?', '!'];
-	this.decorativePunctuation = [ ',', ';', ':' ];
 };
 
 proto = IpsumOutput.prototype;
@@ -34,10 +33,8 @@ proto.generateSentence = function ( ) {
 	var sentenceLength = Utils.getRandomInt( 5, 10 );
 	// get strings from the firebase database
 	var sentence = this.firebaseObject.getRandomStrings( sentenceLength );
-
-	console.log(sentence.length);
-	// replace commas with spaces
-	sentence = sentence.toString().replace( /,/g, ' ' );
+	// turn array of results into one long string with random commas
+	sentence = this._stringifyIpsumResults( sentence, true );
 	// capitalize sentence and add a period
 	sentence = this._capitalizeString( sentence ) + this._generatePunctuationEnding();
 
@@ -79,6 +76,8 @@ proto.printHeadlinesToOutputElement = function ( numberOfHeadlines ) {
 		var headlineLength = Utils.getRandomInt( 2, 4 );
 		// get strings from the firebase database
 		var headline = this.firebaseObject.getRandomStrings( headlineLength );
+		// turn array of results into one long string and remove commas
+		headline = this._stringifyIpsumResults( headline );
 		// capitalize headline
 		headline = this._capitalizeString( headline );
 		// print a new headline to the output element
@@ -104,6 +103,8 @@ proto.printListsToOutputElement = function ( numberOfLists ) {
 			var listItemTextLength = Utils.getRandomInt( 2, 4 );
 			// get strings from the firebase database
 			var listItemText = this.firebaseObject.getRandomStrings( listItemTextLength );
+			// turn array of results into one long string and remove commas
+			listItemText = this._stringifyIpsumResults( listItemText );
 			// add the random text to the new list item
 			$(listItem).html( listItemText );
 			// add the new list item element to the list element
@@ -123,6 +124,8 @@ proto.printListsToOutputElement = function ( numberOfLists ) {
 proto.printWordsToOutputElement = function ( numberOfWords ) {
 	// get strings from the firebase database
 	var words = this.firebaseObject.getRandomStrings( numberOfWords );
+	// turn array of results into one long string and remove commas
+	words = this._stringifyIpsumResults( words );
 	// print words to the output element
 	this.$outputElement.append( '<p>' + words + '</p>' );
 };
@@ -138,13 +141,11 @@ proto.printWordsToOutputElement = function ( numberOfWords ) {
 proto._generatePunctuationEnding = function( ) {
 	// TODO: add some sort of UI checkbox to enable special punctuation??
 	var randomNumber = Utils.getRandomInt( 0, 10 );
-
 	// if the random number is not a 5 return a period
 	// TODO: more clear way of setting a flag for 1/10 odds
 	if ( randomNumber !== 5 ) {
 		return '.';
 	}
-
 	// If our 1 in 10 random number matched, randomly select a special punctuation mark
 	var punctuationMark = this.endingPunctuation[ Utils.getRandomInt( 0, this.endingPunctuation.length - 1 ) ];
 
@@ -154,15 +155,25 @@ proto._generatePunctuationEnding = function( ) {
 
 
 /**
- * Returns a randomized mid-sentence punctuation mark
+ * Converts the array of strings returned from firebase into one long string
  * @private
- * @return {String} - punctuation mark
+ * @param {Array} resultsArray - array of strings
+ * @param {Boolean} shouldHaveCommas - option to generate a sentence with random commas
+ * @return {String} - database results as one long string
  */
-proto._generatePunctuation = function( ) {
-	// Randomly select a mid-sentence punctuation mark
-	var decorativePunctuationMark = this.decorativePunctuation[ Utils.getRandomInt( 0, this.decorativePunctuation.length - 1 ) ];
+proto._stringifyIpsumResults = function( resultsArray, shouldHaveCommas ) {
 
-	return decorativePunctuationMark;
+	var character = resultsArray.toString().replace( /,/g, function( ) {
+		// return a space if the comma option is false
+		if ( !shouldHaveCommas ) {
+			return ' ';
+		}
+		// otherwise there is a 1 in 10 odds that a comma will not be replaced by a space
+		var randomNumber = Utils.getRandomInt( 0, 10 );
+		return randomNumber !== 5 ? ' ' : ', ';
+	});
+
+	return character;
 };
 
 
