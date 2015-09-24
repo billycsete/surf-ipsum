@@ -10,9 +10,9 @@
 	overflow: hidden;
 	width: 90%;
 	max-width: 1000px;
-	margin: rem(100px) auto 0;
+	margin: 5.2rem auto 0;
 
-	@include media($medium) {
+	@include media(medium) {
 		width: 80%;
 	}
 }

@@ -14,7 +14,7 @@ $input-element-height: 70px;
 	z-index: 1;
 	font-size: 24px;
 	background: $light-grey;
-	@include clearfix();
+	@include clearfix;
 
 	// Number input
 	.input-number {

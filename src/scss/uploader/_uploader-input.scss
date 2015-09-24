@@ -11,16 +11,16 @@
 
 .uploader-input {
 	width: 100%;
-	padding: rem(16px) rem(100px) rem(16px) rem(30px);
+	padding: 1rem 7.1rem 1.2rem 2.1rem;
 	border: none;
 	border-radius: 0; // 1
 	background-color: $up-light-blue;
 	color: #fff;
 	font-weight: $normal;
-	font-size: rem(30px);
-	@include transform(translateZ(0));
+	font-size: 2.1rem;
+	transform: translateZ(0);
 
-	@include media($small) {
+	@include media(small) {
 		font-size: rem(40px);
 	}
 

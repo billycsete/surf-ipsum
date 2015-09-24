@@ -1,7 +1,6 @@
 'use strict'
 
-var $             = require('../../../lib/jquery/jquery');
-var TweenMax      = require('../../../lib/gsap/TweenMax.js');
+var TweenMax      = require('../../../node_modules/gsap/src/uncompressed/TweenMax.js');
 var SelectElement = require('./SelectElement');
 var IpsumOutput   = require('./IpsumOutput');
 
@@ -20,26 +19,31 @@ var Main = {
 		this.$outputResults     = $('#ipsum-output-results');
 		this.$closeOutputButton = $('#output-close');
 
-		// build custom select element
+		// Build custom select element
 		this.selectElement = new SelectElement();
 
-		// init ipsum output
+		// Create the ipsum output generator
 		this.output = new IpsumOutput( this.$outputResults );
 
-		// Bind functions.
-		// TODO: Look up why you do this.
+		// Bound functions.
 		this._onKeypress         = this._onKeypress.bind(this);
 		this._generateIpsum      = this._generateIpsum.bind(this);
-		this._closeIpsum            = this._closeIpsum.bind(this);
+		this._closeIpsum         = this._closeIpsum.bind(this);
 		this._printIpsumToOutput = this._printIpsumToOutput.bind(this);
 		this._clearIpsum         = this._clearIpsum.bind(this);
 
 		// attach events
+		this._setupEvents();
+	},
+
+
+	/**
+	 * Set up events
+	 */
+	_setupEvents : function( ) {
 		this.$generateButton.on( 'click', this._generateIpsum );
 		this.$closeOutputButton.on( 'click', this._closeIpsum );
 		this.$document.on( 'keydown', this._onKeypress );
-
-		return this;
 	},
 
 

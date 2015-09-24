@@ -5,19 +5,13 @@
  */
 
 // =================================================
-// Frameworks
-// =================================================
-
-@import 'bourbon';
-@import 'neat';
-
-
-// =================================================
 // Shared
 // =================================================
 
-@import 'shared/settings';
+@import 'shared/mixins';
 @import 'shared/normalize';
+@import 'shared/breakpoints';
+@import 'shared/colors';
 @import 'shared/base';
 @import 'shared/colors';
 @import 'shared/icons';
