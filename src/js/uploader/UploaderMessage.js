@@ -1,7 +1,5 @@
 'use strict';
 
-var $ = require('../../../lib/jquery/jquery');
-
 var proto;
 
 /**

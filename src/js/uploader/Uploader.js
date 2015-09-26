@@ -1,6 +1,5 @@
 'use strict';
 
-var $               = require('../../../lib/jquery/jquery');
 var FirebaseObject  = require('../shared/FirebaseObject');
 var UploaderMessage = require('./UploaderMessage');
 

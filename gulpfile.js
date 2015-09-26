@@ -37,15 +37,32 @@ gulp.task('jshint', function() {
 });
 
 
-// Build JS
-gulp.task('scripts', function () {
+// Build Generator JS
+gulp.task('generator', function () {
 	var b = browserify({
 		entries: 'src/js/generator/main.js',
 		debug: true
 	});
 
 	return b.bundle()
-		.pipe(source('main.js'))
+		.pipe(source('generator.js'))
+		.pipe(buffer())
+		.pipe(gulp.dest('dist/js/'))
+		.pipe(rename({suffix: '-min'}))
+		.pipe(uglify())
+		.pipe(gulp.dest('dist/js/'))
+});
+
+
+// Build Uploader JS
+gulp.task('uploader', function () {
+	var b = browserify({
+		entries: 'src/js/uploader/main.js',
+		debug: true
+	});
+
+	return b.bundle()
+		.pipe(source('uploader.js'))
 		.pipe(buffer())
 		.pipe(gulp.dest('dist/js/'))
 		.pipe(rename({suffix: '-min'}))
@@ -65,6 +82,7 @@ gulp.task('images', function() {
 // Copy HTML and font files
 gulp.task('copy', function() {
 	gulp.src('src/*.html').pipe(gulp.dest('dist/'));
+	gulp.src('src/uploader/*.html').pipe(gulp.dest('dist/uploader/'));
 	gulp.src('src/fonts/**').pipe(gulp.dest('dist/fonts/'));
 });
 
@@ -72,6 +90,12 @@ gulp.task('copy', function() {
 // Clean out /dist/ directory
 gulp.task('clean', function(cb) {
 	del(['dist/**/*'], cb)
+});
+
+
+// Default task
+gulp.task('scripts', function() {
+	gulp.start('generator', 'uploader');
 });
 
 
