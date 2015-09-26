@@ -5,8 +5,8 @@
 // =================================================
 
 body.page-generator {
-	background-color: $light-blue;
 	overflow: hidden;
+	min-height: 100%;
 
 	&.show-results {
 		overflow: visible;

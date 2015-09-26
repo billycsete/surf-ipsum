@@ -1,6 +1,7 @@
 'use strict'
 
 var TweenMax      = require('../../../node_modules/gsap/src/uncompressed/TweenMax.js');
+var Trianglify    = require('../../../node_modules/trianglify/lib/trianglify.js');
 var SelectElement = require('./SelectElement');
 var IpsumOutput   = require('./IpsumOutput');
 
@@ -34,6 +35,9 @@ var Main = {
 
 		// attach events
 		this._setupEvents();
+
+		// generate the low poly ocean texture svg
+		this._generateBackgroundPattern();
 	},
 
 
@@ -46,6 +50,22 @@ var Main = {
 		this.$document.on( 'keydown', this._onKeypress );
 	},
 
+
+
+	/**
+	 * Generate Background Pattern
+	 */
+	_generateBackgroundPattern : function( ) {
+		var oceanPattern = Trianglify({
+			height: 240,
+			width: window.innerWidth,
+			variance: 0.5,
+			x_colors: ['#081d58', '#253494', '#225ea8', '#1d91c0', '#41b6c4', '#7fcdbb'],
+			cell_size: 40
+		});
+
+		console.log(oceanPattern);
+	},
 
 
 	/**

@@ -27,28 +27,6 @@ $results-padding: 80px;
 		.quote {
 			@include clearfix;
 			float:left;
-
-			.quote-profile {
-				display: block;
-				float: left;
-				height: $header-height;
-				width: $header-height + 10px;
-				margin-left: 80px;
-				background-color: $blue;
-				background-image: url(../images/profiles/dane-reynolds.png);
-				background-size: 100% auto;
-				background-position: center bottom;
-				background-repeat: no-repeat;
-			}
-
-			.quote-text {
-				float: left;
-				padding: 30px 20px 0;
-				font-style: italic;
-				font-size: 22px;
-				line-height: 22px;
-				color: $white;
-			}
 		}
 
 		.output-header-inner {

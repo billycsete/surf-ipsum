@@ -1,0 +1,23 @@
+// =================================================
+//
+// Ocean Background
+//
+// =================================================
+
+.ocean-background {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	opacity: 1;
+	transform: translate3d(0, 0, 0);
+	transition: opacity 0.4s ease-in-out 0.4s, transform 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
+
+	.show-results & {
+		opacity: 0;
+		transform: translate3d(0, -100%, 0);
+	}
+}
