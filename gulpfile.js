@@ -117,7 +117,7 @@ gulp.task('watch', function() {
 	// Watch image files
 	gulp.watch('src/images/**/*', ['images']);
 	// Watch .html files
-	gulp.watch('src/*.html', ['copy']);
+	gulp.watch(['src/*.html', 'src/**/*.html'], ['copy']);
 	// Create LiveReload server
 	livereload.listen();
 	// Watch any files in dist/, reload on change

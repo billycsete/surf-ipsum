@@ -12,22 +12,15 @@ $results-padding: 80px;
 
 .ipsum-output {
 	background: $white;
-	position: absolute;
+	position: relative;
 	z-index: 10;
-	top: 100%;
 	width: 100%;
-	min-height: 100%;
 	padding: 0 80px 80px;
 	tranform: translateZ(0);
 
 	.output-header {
 		background: $blue;
 		margin: 0 -80px;
-
-		.quote {
-			@include clearfix;
-			float:left;
-		}
 
 		.output-header-inner {
 			max-width: 1300px;

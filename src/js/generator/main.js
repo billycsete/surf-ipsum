@@ -113,11 +113,11 @@ var Main = {
 
 		this.$body.addClass('show-results');
 
-		TweenMax.to( this.$outputElement, 1, {
-			top: '0',
-			ease: Quart.easeInOut,
-			onComplete : this._printIpsumToOutput
-		});
+		// TweenMax.to( this.$outputElement, 1, {
+		// 	top: '0',
+		// 	ease: Quart.easeInOut,
+		// 	onComplete : this._printIpsumToOutput
+		// });
 
 	},
 
@@ -158,11 +158,11 @@ var Main = {
 	_closeIpsum : function( ) {
 		this.$body.removeClass('show-results');
 
-		TweenMax.to( this.$outputElement, 1, {
-			top: '100%',
-			ease: Quart.easeInOut,
-			onComplete : this._clearIpsum
-		});
+		// TweenMax.to( this.$outputElement, 1, {
+		// 	top: '100%',
+		// 	ease: Quart.easeInOut,
+		// 	onComplete : this._clearIpsum
+		// });
 	},
 
 
@@ -171,7 +171,7 @@ var Main = {
 	 * Clear any ipsum from the DOM
 	 */
 	_clearIpsum : function( ) {
-		this.$outputResults.html('');
+		this.$outputResults.empty();
 	}
 
 };

@@ -5,9 +5,9 @@
 // =================================================
 
 .ocean-wrapper {
-	position: absolute;
+	position: relative;
 	z-index: 1;
-	bottom: -200px;
+	margin-top: -200px;
 	width: 100%;
 	overflow: hidden;
 	transform: translate3d(0, 0, 0);

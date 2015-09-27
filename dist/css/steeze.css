@@ -745,9 +745,9 @@ body.page-generator.show-results {
 }
 
 .ocean-wrapper {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  bottom: -200px;
+  margin-top: -200px;
   width: 100%;
   overflow: hidden;
   -webkit-transform: translate3d(0, 0, 0);
@@ -784,19 +784,12 @@ body.page-generator.show-results {
   position: relative;
   z-index: 10;
   width: 600px;
-  padding-top: 3vh;
+  height: 100vh;
+  padding: 20vh 0;
   margin: 0 auto;
-  -webkit-transform: translateY(0);
-      -ms-transform: translateY(0);
-          transform: translateY(0);
-  -webkit-transition: opacity 0.4s ease-in-out 0.4s, -webkit-transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-          transition: opacity 0.4s ease-in-out 0.4s, transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 .show-results .ipsum-input {
   opacity: 0;
-  -webkit-transform: translateY(-250%);
-      -ms-transform: translateY(-250%);
-          transform: translateY(-250%);
 }
 
 .input-header {
@@ -983,25 +976,15 @@ body.page-generator.show-results {
 
 .ipsum-output {
   background: #fff;
-  position: absolute;
+  position: relative;
   z-index: 10;
-  top: 100%;
   width: 100%;
-  min-height: 100%;
   padding: 0 80px 80px;
   tranform: translateZ(0);
 }
 .ipsum-output .output-header {
   background: blue;
   margin: 0 -80px;
-}
-.ipsum-output .output-header .quote {
-  float: left;
-}
-.ipsum-output .output-header .quote:after {
-  content: '';
-  display: table;
-  clear: both;
 }
 .ipsum-output .output-header .output-header-inner {
   max-width: 1300px;
