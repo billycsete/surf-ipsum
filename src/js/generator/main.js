@@ -12,8 +12,9 @@ var Main = {
 	 * Set up generator page
 	 */
 	initialize : function( ) {
-		this.$document          = $(document);
 		this.$body              = $(document.body);
+		this.$oceanWrapper      = $('#ocean-wrapper');
+		this.$ocean             = $('#ocean');
 		this.$inputElement      = $('#input-number');
 		this.$generateButton    = $('#input-generate');
 		this.$outputElement     = $('#ipsum-output');
@@ -26,18 +27,20 @@ var Main = {
 		// Create the ipsum output generator
 		this.output = new IpsumOutput( this.$outputResults );
 
-		// Bound functions.
+		// Bound functions
 		this._onKeypress         = this._onKeypress.bind(this);
+		this._onResize           = this._onResize.bind(this);
 		this._generateIpsum      = this._generateIpsum.bind(this);
 		this._closeIpsum         = this._closeIpsum.bind(this);
 		this._printIpsumToOutput = this._printIpsumToOutput.bind(this);
 		this._clearIpsum         = this._clearIpsum.bind(this);
 
+		// generate the low poly ocean texture svg
+		this._generateBackgroundPattern();
+
 		// attach events
 		this._setupEvents();
 
-		// generate the low poly ocean texture svg
-		this._generateBackgroundPattern();
 	},
 
 
@@ -47,7 +50,8 @@ var Main = {
 	_setupEvents : function( ) {
 		this.$generateButton.on( 'click', this._generateIpsum );
 		this.$closeOutputButton.on( 'click', this._closeIpsum );
-		this.$document.on( 'keydown', this._onKeypress );
+		$(document).on( 'keydown', this._onKeypress );
+		$(window).on( 'resize', this._onResize );
 	},
 
 
@@ -56,15 +60,29 @@ var Main = {
 	 * Generate Background Pattern
 	 */
 	_generateBackgroundPattern : function( ) {
+		var oceanBackgroundHeight = 400;
+
 		var oceanPattern = Trianglify({
-			height: 240,
+			height: oceanBackgroundHeight,
 			width: window.innerWidth,
 			variance: 0.5,
 			x_colors: ['#081d58', '#253494', '#225ea8', '#1d91c0', '#41b6c4', '#7fcdbb'],
 			cell_size: 40
 		});
 
-		console.log(oceanPattern);
+		// make sure the ocean background container is empty first
+		this.$ocean.empty();
+		// generate an ocean pattern and add it to the DOM
+		this.$ocean.append( oceanPattern.svg() );
+	},
+
+
+	/**
+	 * Handle page resize
+	 */
+	_onResize : function( evt ) {
+		// generate a new background ocean pattern that matches the width on the new viewport size
+		this._generateBackgroundPattern();
 	},
 
 
@@ -92,9 +110,6 @@ var Main = {
 	 * Animate to the generated ipsum
 	 */
 	_generateIpsum : function( ) {
-		// TODO: try a wave effect?
-		// http://tympanus.net/Development/OffCanvasMenuEffects/wave.html
-		// http://codepen.io/manpreet/pen/KwgBJN
 
 		this.$body.addClass('show-results');
 

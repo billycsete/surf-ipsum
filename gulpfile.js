@@ -110,8 +110,10 @@ gulp.task('default', ['clean'], function() {
 gulp.task('watch', function() {
 	// Watch .scss files
 	gulp.watch('src/scss/**/*.scss', ['styles']);
-	// Watch .js files
-	gulp.watch('src/js/**/*.js', ['jshint', 'scripts']);
+	// Watch uploader .js files
+	gulp.watch('src/js/uploader/*.js', ['uploader']);
+	// Watch generator .js files
+	gulp.watch('src/js/generator/*.js', ['generator']);
 	// Watch image files
 	gulp.watch('src/images/**/*', ['images']);
 	// Watch .html files
