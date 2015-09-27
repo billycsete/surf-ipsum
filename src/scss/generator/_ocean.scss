@@ -14,7 +14,7 @@
 	transition: transform 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
 
 	.show-results & {
-		transform: translate3d(0, -100%, 0);
+		// transform: translate3d(0, -100%, 0);
 	}
 
 	.wave-mask {

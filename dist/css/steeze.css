@@ -679,7 +679,7 @@ body.page-uploader {
 }
 .uploader-submit:hover, .uploader-submit:focus {
   background-color: transparent;
-  color: #fff;
+  color: #ffffff;
 }
 .input-has-value .uploader-submit {
   -webkit-transform: translate3d(0, 0, 0);
@@ -723,7 +723,7 @@ body.page-uploader {
   padding: 5px 10px;
 }
 .uploader-message span.green {
-  color: #fff;
+  color: #ffffff;
   background: green;
   margin-left: 10px;
 }
@@ -739,6 +739,7 @@ body.page-uploader {
 body.page-generator {
   overflow: hidden;
   min-height: 100%;
+  background: #f2f7f9;
 }
 body.page-generator.show-results {
   overflow: visible;
@@ -754,10 +755,6 @@ body.page-generator.show-results {
           transform: translate3d(0, 0, 0);
   -webkit-transition: -webkit-transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
           transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-.show-results .ocean-wrapper {
-  -webkit-transform: translate3d(0, -100%, 0);
-          transform: translate3d(0, -100%, 0);
 }
 .ocean-wrapper .wave-mask {
   position: absolute;
@@ -787,9 +784,6 @@ body.page-generator.show-results {
   height: 100vh;
   padding: 20vh 0;
   margin: 0 auto;
-}
-.show-results .ipsum-input {
-  opacity: 0;
 }
 
 .input-header {
@@ -832,11 +826,11 @@ body.page-generator.show-results {
   background: #ededed;
 }
 .input-element .input-number:hover {
-  background: #fff;
+  background: #ffffff;
 }
 .input-element .input-number:focus {
   outline: none;
-  background: #fff;
+  background: #ffffff;
 }
 .input-element .input-generate {
   float: right;
@@ -917,10 +911,10 @@ body.page-generator.show-results {
   float: right;
 }
 .input-select:hover {
-  background: #fff;
+  background: #ffffff;
 }
 .input-select:hover .icon-down-open {
-  color: #fff;
+  color: #ffffff;
 }
 .input-select .icon-down-open {
   height: 70px;
@@ -967,7 +961,7 @@ body.page-generator.show-results {
   display: none;
 }
 .input-select .select-list li.select-option:hover {
-  background: #fff;
+  background: #ffffff;
 }
 .input-select.focused .select-list {
   opacity: 1;
@@ -975,11 +969,12 @@ body.page-generator.show-results {
 }
 
 .ipsum-output {
-  background: #fff;
   position: relative;
   z-index: 10;
   width: 100%;
+  min-height: 100vh;
   padding: 0 80px 80px;
+  background: #ffffff;
   tranform: translateZ(0);
 }
 .ipsum-output .output-header {
@@ -1005,7 +1000,7 @@ body.page-generator.show-results {
   padding: 0 20px;
   margin-right: 80px;
   margin-top: 15px;
-  color: #fff;
+  color: #ffffff;
   font-size: 20px;
   font-weight: 600;
 }

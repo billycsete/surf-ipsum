@@ -11,11 +11,12 @@ $results-padding: 80px;
 
 
 .ipsum-output {
-	background: $white;
 	position: relative;
 	z-index: 10;
 	width: 100%;
+	min-height: 100vh;
 	padding: 0 80px 80px;
+	background: $white;
 	tranform: translateZ(0);
 
 	.output-header {

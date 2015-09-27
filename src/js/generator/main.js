@@ -1,10 +1,13 @@
 'use strict';
 
-var TweenMax      = require('../../../node_modules/gsap/src/uncompressed/TweenMax.js');
-var Trianglify    = require('../../../node_modules/trianglify/lib/trianglify.js');
-var SelectElement = require('./SelectElement');
-var IpsumOutput   = require('./IpsumOutput');
+var TweenMax       = require('../../../node_modules/gsap/src/uncompressed/TweenMax.js');
+var ScrollToPlugin = require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
+var EasePack       = require('../../../node_modules/gsap/src/uncompressed/easing/EasePack.js');
+var Trianglify     = require('../../../node_modules/trianglify/lib/trianglify.js');
+var SelectElement  = require('./SelectElement');
+var IpsumOutput    = require('./IpsumOutput');
 
+console.log(EasePack);
 
 var Main = {
 
@@ -20,6 +23,9 @@ var Main = {
 		this.$outputElement     = $('#ipsum-output');
 		this.$outputResults     = $('#ipsum-output-results');
 		this.$closeOutputButton = $('#output-close');
+
+		// store the viewport height
+		this.viewportHeight     = $(window).height();
 
 		// Build custom select element
 		this.selectElement = new SelectElement();
@@ -63,11 +69,11 @@ var Main = {
 		var oceanBackgroundHeight = 400;
 
 		var oceanPattern = new Trianglify({
-			height: oceanBackgroundHeight,
-			width: window.innerWidth,
-			variance: 0.5,
-			x_colors: ['#081d58', '#253494', '#225ea8', '#1d91c0', '#41b6c4', '#7fcdbb'],
-			cell_size: 40
+			height    : oceanBackgroundHeight,
+			width     : window.innerWidth,
+			variance  : 0.5,
+			x_colors  : ['#081d58', '#253494', '#225ea8', '#1d91c0', '#41b6c4', '#7fcdbb'],
+			cell_size : 40
 		});
 
 		// make sure the ocean background container is empty first
@@ -81,6 +87,8 @@ var Main = {
 	 * Handle page resize
 	 */
 	_onResize : function( ) {
+		// recalculate viewport height
+		this.viewportHeight = $(window).height();
 		// generate a new background ocean pattern that matches the width on the new viewport size
 		this._generateBackgroundPattern();
 	},
@@ -113,10 +121,17 @@ var Main = {
 
 		this.$body.addClass('show-results');
 
+		TweenLite.to(window, 1, {
+			scrollTo: {
+				y: $(window).height()
+			},
+			ease: Quart.easeInOut,
+			onComplete : this._printIpsumToOutput
+		});
+
 		// TweenMax.to( this.$outputElement, 1, {
 		// 	top: '0',
 		// 	ease: Quart.easeInOut,
-		// 	onComplete : this._printIpsumToOutput
 		// });
 
 	},
@@ -156,12 +171,17 @@ var Main = {
 	 * Animate back to the ipsum input state
 	 */
 	_closeIpsum : function( ) {
-		this.$body.removeClass('show-results');
+		// this.$body.removeClass('show-results');
+
+		TweenLite.to(window, 1, {
+			scrollTo: { y: 0 },
+			ease: Power2.easeInOut,
+			onComplete : this._clearIpsum
+		});
 
 		// TweenMax.to( this.$outputElement, 1, {
 		// 	top: '100%',
 		// 	ease: Quart.easeInOut,
-		// 	onComplete : this._clearIpsum
 		// });
 	},
 
