@@ -7,7 +7,6 @@ var Trianglify     = require('../../../node_modules/trianglify/lib/trianglify.js
 var SelectElement  = require('./SelectElement');
 var IpsumOutput    = require('./IpsumOutput');
 
-console.log(EasePack);
 
 var Main = {
 
@@ -20,8 +19,7 @@ var Main = {
 		this.$ocean             = $('#ocean');
 		this.$inputElement      = $('#input-number');
 		this.$generateButton    = $('#input-generate');
-		this.$outputElement     = $('#ipsum-output');
-		this.$outputResults     = $('#ipsum-output-results');
+		this.$outputResults     = $('#output-results');
 		this.$closeOutputButton = $('#output-close');
 
 		// store the viewport height
@@ -59,7 +57,6 @@ var Main = {
 		$(document).on( 'keydown', this._onKeypress );
 		$(window).on( 'resize', this._onResize );
 	},
-
 
 
 	/**

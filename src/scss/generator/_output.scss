@@ -1,6 +1,6 @@
 // =================================================
 //
-// Ipsum Output Section
+// Output Section
 //
 // =================================================
 
@@ -10,7 +10,7 @@ $results-padding: 80px;
 
 
 
-.ipsum-output {
+.output {
 	position: relative;
 	z-index: 10;
 	width: 100%;
@@ -19,6 +19,10 @@ $results-padding: 80px;
 	background: $white;
 	tranform: translateZ(0);
 
+
+	// =================================
+	// Output header
+	// =================================
 	.output-header {
 		background: $blue;
 		margin: 0 -80px;
@@ -30,6 +34,10 @@ $results-padding: 80px;
 		}
 	}
 
+
+	// =================================
+	// Clear the lineup button
+	// =================================
 	.output-close {
 		float: right;
 		height: $button-height;
@@ -42,7 +50,7 @@ $results-padding: 80px;
 		margin-top: ( $header-height - $button-height ) / 2;
 		color: $white;
 		font-size: 20px;
-		font-weight: $semibold;
+		font-weight: $bold;
 
 		i {
 			margin-right: 5px;
@@ -57,44 +65,20 @@ $results-padding: 80px;
 		}
 	}
 
-}
 
+	// =================================
+	// Ipsum output results container
+	// =================================
+	.output-results {
+		max-width: 1200px;
+		padding-top: 80px;
+		margin: 0 auto;
+		opacity: 0;
+		transition: opacity 0.4s 1s ease-in-out;
 
-
-// =================================================
-//
-// Ipsum Output Results
-//
-// =================================================
-
-.ipsum-output-results {
-	max-width: 1200px;
-	padding-top: 80px;
-	margin: 0 auto;
-	opacity: 0;
-	transition: opacity 0.4s 1s ease-in-out;
-
-	.show-results & {
-		opacity: 1;
-	}
-
-	h1, p, ul {
-		margin-top: 0;
-	}
-
-	h1 {
-		font-size: 36px;
-		text-transform: none;
-	}
-
-	p {
-
-	}
-
-	ul {
-
-		li {
-
+		.show-results & {
+			opacity: 1;
 		}
 	}
+
 }

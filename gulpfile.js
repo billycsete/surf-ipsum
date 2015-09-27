@@ -50,7 +50,7 @@ gulp.task('generator', function () {
 		.pipe(gulp.dest('dist/js/'))
 		.pipe(rename({suffix: '-min'}))
 		.pipe(uglify())
-		.pipe(gulp.dest('dist/js/'))
+		.pipe(gulp.dest('dist/js/'));
 });
 
 
@@ -67,7 +67,7 @@ gulp.task('uploader', function () {
 		.pipe(gulp.dest('dist/js/'))
 		.pipe(rename({suffix: '-min'}))
 		.pipe(uglify())
-		.pipe(gulp.dest('dist/js/'))
+		.pipe(gulp.dest('dist/js/'));
 });
 
 
@@ -102,7 +102,6 @@ gulp.task('scripts', function() {
 // Default task
 gulp.task('default', ['clean'], function() {
 	gulp.start('styles', 'jshint', 'scripts', 'images', 'copy');
-	notifier.notify({ title: 'Burp!', message: 'that was a big gulp, brah.' });
 });
 
 
