@@ -58,8 +58,8 @@ proto._attachEvents = function( ) {
 	// TODO: keyboard events
 
 	// update selected when an option is clicked
-	this.$optionElements.each( function( index ) {
-		$(this).on( 'click', function( evt ) {
+	this.$optionElements.each( function( ) {
+		$(this).on( 'click', function( ) {
 			// grab innerHTML from the option that was clicked
 			var newValue = $(this).html();
 			// update the selected value
@@ -85,7 +85,7 @@ proto._buildSelectElement = function( ) {
 	// add an option to the list for each item in this.selectOptions
 	for ( var i = 0; i < this.selectOptions.length; i++ ) {
 		this.$optionsList.append( $('<li class="select-option">' + this.selectOptions[i] + '</li>') );
-	};
+	}
 
 	// make the first li in the options list selected
 	$('li:first', this.$optionsList).addClass( 'selected' );
@@ -117,11 +117,11 @@ proto._selectClicked = function( targetElement ) {
 	var isChildofSelectElement = Utils.hasParent( targetElement, selectElement );
 
 	return isSelectElement || isChildofSelectElement;
-}
+};
 
 
 
-proto._openSelect = function( evt ) {
+proto._openSelect = function( ) {
 	if( this._isOpen() ) {
 		this._closeSelect();
 		return;
@@ -132,7 +132,7 @@ proto._openSelect = function( evt ) {
 
 
 
-proto._closeSelect = function( evt ) {
+proto._closeSelect = function( ) {
 	if( this._isOpen() ) {
 		this.$element.removeClass( 'focused' );
 	}

@@ -101,7 +101,7 @@ gulp.task('scripts', function() {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-	gulp.start('styles', 'scripts', 'images', 'copy');
+	gulp.start('styles', 'jshint', 'scripts', 'images', 'copy');
 	notifier.notify({ title: 'Burp!', message: 'that was a big gulp, brah.' });
 });
 

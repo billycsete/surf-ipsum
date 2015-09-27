@@ -54,7 +54,7 @@ proto.printParagraphsToOutputElement = function ( numberOfParagraphs ) {
 
 		for ( var j = 0; j < sentencesPerParagraph; j++ ) {
 			paragraph += this.generateSentence() + ' ';
-		};
+		}
 
 		// trim off the trailing space on the last sentence
 		paragraph = paragraph.slice( 0, - 1 );
@@ -108,10 +108,10 @@ proto.printListsToOutputElement = function ( numberOfLists ) {
 			$(listItem).html( listItemText );
 			// add the new list item element to the list element
 			$(listElement).append( listItem );
-		};
+		}
 
 		this.$outputElement.append( listElement );
-	};
+	}
 };
 
 

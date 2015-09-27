@@ -14,5 +14,6 @@
     "browser": true,
     "node": true,
     "loopfunc": true,
-    "browserify": true
+    "browserify": true,
+    "jquery": true
 }

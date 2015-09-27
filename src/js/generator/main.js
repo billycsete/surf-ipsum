@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var TweenMax      = require('../../../node_modules/gsap/src/uncompressed/TweenMax.js');
 var Trianglify    = require('../../../node_modules/trianglify/lib/trianglify.js');
@@ -62,7 +62,7 @@ var Main = {
 	_generateBackgroundPattern : function( ) {
 		var oceanBackgroundHeight = 400;
 
-		var oceanPattern = Trianglify({
+		var oceanPattern = new Trianglify({
 			height: oceanBackgroundHeight,
 			width: window.innerWidth,
 			variance: 0.5,
@@ -80,7 +80,7 @@ var Main = {
 	/**
 	 * Handle page resize
 	 */
-	_onResize : function( evt ) {
+	_onResize : function( ) {
 		// generate a new background ocean pattern that matches the width on the new viewport size
 		this._generateBackgroundPattern();
 	},
