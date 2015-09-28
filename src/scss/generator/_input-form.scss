@@ -5,7 +5,7 @@
 // =================================================
 
 // ipsum input vars
-$input-element-height        : 50px;
+$input-element-height-small  : 52px;
 $input-element-height-medium : 60px;
 $input-element-height-large  : 70px;
 
@@ -26,7 +26,7 @@ $input-element-height-large  : 70px;
 // =================================
 
 .input-number {
-	height: $input-element-height;
+	height: $input-element-height-small;
 	width: 25%;
 	padding: 0 10px 0 15px;
 	border: none;
@@ -35,9 +35,12 @@ $input-element-height-large  : 70px;
 	float: left;
 	background: $light-grey;
 
+	@include media(small) {
+		width: 20%;
+	}
+
 	@include media(medium) {
 		height: $input-element-height-medium;
-		width: 20%;
 	}
 
 	@include media(large) {
@@ -62,8 +65,8 @@ $input-element-height-large  : 70px;
 
 .input-generate {
 	width: 100%;
-	height: $input-element-height;
-	line-height: $input-element-height;
+	height: $input-element-height-small;
+	line-height: $input-element-height-small;
 	background-color: $green;
 	padding: 0 0 0 25px;
 	margin: 10px 0 0 0;
@@ -72,11 +75,14 @@ $input-element-height-large  : 70px;
 	color: rgba(0,0,0,0.5);
 	@include clearfix();
 
-	@include media(medium) {
-		height: $input-element-height-medium;
+	@include media(small) {
 		float: left;
 		width: 40%;
 		margin-top: 0;
+	}
+
+	@include media(medium) {
+		height: $input-element-height-medium;
 	}
 
 	@include media(large) {
@@ -87,7 +93,7 @@ $input-element-height-large  : 70px;
 		position: relative;
 		z-index: 1;
 		display: inline-block;
-		line-height: $input-element-height;
+		line-height: $input-element-height-small;
 		padding-right: 60px;
 
 		@include media(medium) {
@@ -106,8 +112,8 @@ $input-element-height-large  : 70px;
 		z-index: 1;
 		right: 0;
 		top: 0;
-		width: $input-element-height;
-		height: $input-element-height;
+		width: $input-element-height-small;
+		height: $input-element-height-small;
 		background-image: url('../images/shaka.svg');
 		background-size: 70px 70px;
 		background-repeat: no-repeat;
@@ -151,7 +157,7 @@ $input-element-height-large  : 70px;
 	float: left;
 	background: $light-grey;
 
-	@include media(medium) {
+	@include media(small) {
 		float: left;
 		width: 40%;
 		border-right: 10px solid $off-white;
@@ -167,8 +173,8 @@ $input-element-height-large  : 70px;
 
 	// down arrow icon
 	.icon-down-open {
-		height: $input-element-height;
-		line-height: $input-element-height;
+		height: $input-element-height-small;
+		line-height: $input-element-height-small;
 		padding: 0 10px;
 		cursor: pointer;
 		position: absolute;
@@ -193,7 +199,7 @@ $input-element-height-large  : 70px;
 	.select-value {
 		display: block;
 		cursor: pointer;
-		line-height: $input-element-height;
+		line-height: $input-element-height-small;
 
 		@include media(medium) {
 			line-height: $input-element-height-medium;
@@ -221,16 +227,12 @@ $input-element-height-large  : 70px;
 		margin: 0;
 		padding: 0;
 		background: $light-grey;
-		// transition: opacity 0.3s ease-in-out,
-		//             transform 0.3s ease-in-out;
-		// transform: translateY(-20px);
 
 		li.select-option {
 			padding: 14px 22px;
 			list-style-type: none;
 			cursor: pointer;
-			// font-size: 18px;
-			border-top: 1px solid $grey;
+			border-top: 2px solid $off-white;
 
 			&.selected {
 				display: none;
