@@ -32,12 +32,13 @@ var Main = {
 		this.output = new IpsumOutput( this.$outputResults );
 
 		// Bound functions
-		this._onKeypress         = this._onKeypress.bind(this);
-		this._onResize           = this._onResize.bind(this);
-		this._generateIpsum      = this._generateIpsum.bind(this);
-		this._closeIpsum         = this._closeIpsum.bind(this);
-		this._printIpsumToOutput = this._printIpsumToOutput.bind(this);
-		this._clearIpsum         = this._clearIpsum.bind(this);
+		this._onKeypress          = this._onKeypress.bind(this);
+		this._onResize            = this._onResize.bind(this);
+		this._onOrientationChange = this._onOrientationChange.bind(this);
+		this._generateIpsum       = this._generateIpsum.bind(this);
+		this._closeIpsum          = this._closeIpsum.bind(this);
+		this._printIpsumToOutput  = this._printIpsumToOutput.bind(this);
+		this._clearIpsum          = this._clearIpsum.bind(this);
 
 		// generate the low poly ocean texture svg
 		this._generateBackgroundPattern();
@@ -55,7 +56,12 @@ var Main = {
 		this.$generateButton.on( 'click', this._generateIpsum );
 		this.$closeOutputButton.on( 'click', this._closeIpsum );
 		$(document).on( 'keydown', this._onKeypress );
-		$(window).on( 'resize', this._onResize );
+
+		if ( $('html').hasClass('touch') ) {
+			$(window).on( 'orientationchange', this._onOrientationChange );
+		} else {
+			$(window).on( 'resize', this._onResize );
+		}
 	},
 
 
@@ -92,6 +98,18 @@ var Main = {
 
 
 	/**
+	 * Handle orientation change
+	 */
+	_onOrientationChange : function( ) {
+		// recalculate viewport height
+		$('html').hasClass('touch')
+		this.viewportHeight = $(window).height();
+		// generate a new background ocean pattern that matches the width on the new viewport size
+		this._generateBackgroundPattern();
+	},
+
+
+	/**
 	 * Handle keypress events
 	 * `Enter` should generate ipsum
 	 * `Esc should clear ipsum
@@ -118,7 +136,7 @@ var Main = {
 
 		this.$body.addClass('show-results');
 
-		TweenLite.to(window, 1, {
+		TweenMax.to(window, 1, {
 			scrollTo: {
 				y: $(window).height()
 			},
@@ -170,7 +188,7 @@ var Main = {
 	_closeIpsum : function( ) {
 		// this.$body.removeClass('show-results');
 
-		TweenLite.to(window, 1, {
+		TweenMax.to(window, 1, {
 			scrollTo: { y: 0 },
 			ease: Power2.easeInOut,
 			onComplete : this._clearIpsum

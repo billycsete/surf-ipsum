@@ -755,18 +755,29 @@ body.page-generator.show-results {
   -webkit-transition: -webkit-transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
           transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
+@media (min-width: 760px) {
+  .ocean-wrapper {
+    margin-top: -200px;
+  }
+}
 .ocean-wrapper .wave-mask {
   position: absolute;
   z-index: 2;
   width: 100%;
-  top: -2px;
+  top: -4px;
   right: 0;
   bottom: 0;
   left: 0;
   background-image: url(../images/wave.svg);
   background-repeat: no-repeat;
-  background-position: 50% 0;
-  background-size: auto 200px;
+  background-position: 34% 0;
+  background-size: auto 140px;
+}
+@media (min-width: 760px) {
+  .ocean-wrapper .wave-mask {
+    background-size: auto 200px;
+    background-position: 50% 0;
+  }
 }
 .ocean-wrapper .ocean {
   position: relative;
@@ -779,97 +790,267 @@ body.page-generator.show-results {
 .input {
   position: relative;
   z-index: 10;
-  width: 600px;
+  max-width: 460px;
   height: 100vh;
-  padding: 20vh 0;
   margin: 0 auto;
+  padding: 0 20px;
+}
+@media (min-width: 760px) {
+  .input {
+    max-width: 600px;
+  }
 }
 
 .input-header {
-  padding-bottom: 30px;
+  padding: 30px 0;
 }
 .input-header h1 {
   position: relative;
   z-index: 1;
-  font-size: 64px;
-  line-height: 64px;
-  margin-bottom: 24px;
+  font-size: 42px;
+  margin-top: 0;
+  margin-bottom: 12px;
 }
 .input-header p {
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 16px;
   margin-bottom: 2px;
 }
 .input-header p.header-quote {
   font-style: italic;
 }
+.input-header p.header-author {
+  font-weight: 700;
+}
 
 .input-element {
   position: relative;
   z-index: 1;
-  font-size: 24px;
-  background: #e8e8e8;
+  font-size: 20px;
 }
 .input-element:after {
   content: '';
   display: table;
   clear: both;
 }
-.input-element .input-number {
-  height: 70px;
-  width: 140px;
-  padding: 0 10px 0 25px;
+@media (min-width: 480px) {
+  .input-element {
+    font-size: 22px;
+  }
+}
+@media (min-width: 760px) {
+  .input-element {
+    font-size: 24px;
+  }
+}
+
+.input-number {
+  height: 50px;
+  width: 25%;
+  padding: 0 10px 0 15px;
   border: none;
-  border-right: 1px solid #ccc;
+  border-right: 10px solid #f2f7f9;
+  border-radius: 0;
   float: left;
   background: #e8e8e8;
 }
-.input-element .input-number:hover {
+@media (min-width: 760px) {
+  .input-number {
+    height: 60px;
+    width: 20%;
+  }
+}
+@media (min-width: 1000px) {
+  .input-number {
+    height: 70px;
+  }
+}
+.no-touch .input-number:hover {
   background: #ffffff;
 }
-.input-element .input-number:focus {
+.input-number:focus {
   outline: none;
   background: #ffffff;
 }
-.input-element .input-generate {
-  float: right;
-  width: 220px;
-  height: 70px;
-  line-height: 70px;
+
+.input-generate {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
   background-color: #77c15b;
   padding: 0 0 0 25px;
-  margin: 0;
+  margin: 10px 0 0 0;
   box-shadow: none;
   border: none;
   color: rgba(0, 0, 0, 0.5);
 }
-.input-element .input-generate:after {
+.input-generate:after {
   content: '';
   display: table;
   clear: both;
 }
-.input-element .input-generate .icon-shaka {
+@media (min-width: 760px) {
+  .input-generate {
+    height: 60px;
+    float: left;
+    width: 40%;
+    margin-top: 0;
+  }
+}
+@media (min-width: 1000px) {
+  .input-generate {
+    height: 70px;
+  }
+}
+.input-generate .button-text {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  line-height: 50px;
+  padding-right: 60px;
+}
+@media (min-width: 760px) {
+  .input-generate .button-text {
+    line-height: 60px;
+    padding-right: 70px;
+  }
+}
+@media (min-width: 1000px) {
+  .input-generate .button-text {
+    line-height: 70px;
+    padding-right: 80px;
+  }
+}
+.input-generate .icon-shaka {
   display: block;
-  float: right;
-  width: 70px;
-  height: 70px;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
   background-image: url("../images/shaka.svg");
-  background-size: 90px 90px;
+  background-size: 70px 70px;
   background-repeat: no-repeat;
   background-position: 100% 25%;
   -webkit-transform-origin: 40% 60%;
       -ms-transform-origin: 40% 60%;
           transform-origin: 40% 60%;
 }
-.input-element .input-generate:hover {
+@media (min-width: 760px) {
+  .input-generate .icon-shaka {
+    background-size: 90px 90px;
+    height: 60px;
+    width: 60px;
+  }
+}
+@media (min-width: 1000px) {
+  .input-generate .icon-shaka {
+    height: 70px;
+    width: 70px;
+  }
+}
+.no-touch .input-generate:hover {
   background-color: #82cb66;
 }
-.input-element .input-generate:hover .icon-shaka {
+.no-touch .input-generate:hover .icon-shaka {
   -webkit-animation: shaka 0.2s infinite;
           animation: shaka 0.2s infinite;
 }
-.input-element .input-generate:focus {
+.input-generate:focus {
   outline: none;
+}
+
+.input-select {
+  position: relative;
+  z-index: 2;
+  width: 75%;
+  padding-left: 20px;
+  float: left;
+  background: #e8e8e8;
+}
+@media (min-width: 760px) {
+  .input-select {
+    float: left;
+    width: 40%;
+    border-right: 10px solid #f2f7f9;
+  }
+}
+.no-touch .input-select:hover {
+  background: #ffffff;
+}
+.no-touch .input-select:hover .icon-down-open {
+  color: #888;
+}
+.input-select .icon-down-open {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 10px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  color: #ccc;
+  background: transparent;
+  font-size: 18px;
+}
+@media (min-width: 760px) {
+  .input-select .icon-down-open {
+    height: 60px;
+    line-height: 60px;
+  }
+}
+@media (min-width: 1000px) {
+  .input-select .icon-down-open {
+    height: 70px;
+    line-height: 70px;
+  }
+}
+.input-select .select-value {
+  display: block;
+  cursor: pointer;
+  line-height: 50px;
+}
+@media (min-width: 760px) {
+  .input-select .select-value {
+    line-height: 60px;
+  }
+}
+@media (min-width: 1000px) {
+  .input-select .select-value {
+    line-height: 70px;
+  }
+}
+.input-select .select-value:focus {
+  outline: none;
+}
+.input-select .select-list {
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  background: #e8e8e8;
+}
+.input-select .select-list li.select-option {
+  padding: 14px 22px;
+  list-style-type: none;
+  cursor: pointer;
+  border-top: 1px solid #ccc;
+}
+.input-select .select-list li.select-option.selected {
+  display: none;
+}
+.input-select .select-list li.select-option:hover {
+  background: #ffffff;
+}
+.input-select.focused .select-list {
+  opacity: 1;
+  height: auto;
 }
 
 @-webkit-keyframes shaka {
@@ -901,71 +1082,6 @@ body.page-generator.show-results {
             transform: rotate(0deg);
   }
 }
-.input-select {
-  position: relative;
-  z-index: 1;
-  width: 240px;
-  padding-left: 25px;
-  float: right;
-}
-.input-select:hover {
-  background: #ffffff;
-}
-.input-select:hover .icon-down-open {
-  color: #ffffff;
-}
-.input-select .icon-down-open {
-  height: 70px;
-  line-height: 70px;
-  padding: 0 10px;
-  cursor: pointer;
-  position: absolute;
-  z-index: 1;
-  right: 0;
-  color: #888;
-  background: rgba(0, 0, 0, 0.15);
-  font-size: 18px;
-}
-.input-select .select-value {
-  display: block;
-  cursor: pointer;
-  line-height: 70px;
-}
-.input-select .select-value:focus {
-  outline: none;
-}
-.input-select .select-list {
-  opacity: 0;
-  position: absolute;
-  z-index: 1;
-  overflow: hidden;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  height: 0;
-  margin: 0;
-  padding: 0;
-  background: #e8e8e8;
-  border-top: 1px solid #ccc;
-}
-.input-select .select-list li.select-option {
-  padding: 14px 22px;
-  list-style-type: none;
-  cursor: pointer;
-  font-size: 18px;
-  border-bottom: 1px solid #ccc;
-}
-.input-select .select-list li.select-option.selected {
-  display: none;
-}
-.input-select .select-list li.select-option:hover {
-  background: #ffffff;
-}
-.input-select.focused .select-list {
-  opacity: 1;
-  height: auto;
-}
-
 .output {
   position: relative;
   z-index: 10;
@@ -1000,7 +1116,7 @@ body.page-generator.show-results {
   margin-top: 15px;
   color: #ffffff;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
 }
 .output .output-close i {
   margin-right: 5px;
