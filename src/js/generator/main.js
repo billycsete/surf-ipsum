@@ -146,8 +146,16 @@ var Main = {
 				y: $(window).height()
 			},
 			ease: Quart.easeInOut,
-			onComplete : this.$body.addClass('show-results')
+			onComplete : this._ipsumGenerated()
 		});
+	},
+
+
+	/**
+	 * Callback for after scrolling to the ipsum
+	 */
+	_ipsumGenerated : function( ) {
+		this.$body.addClass('show-results');
 	},
 
 

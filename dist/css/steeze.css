@@ -1241,6 +1241,10 @@ body.page-generator.unlock-the-swag {
   display: table;
   clear: both;
 }
+.output-controls.fixedsticky-on {
+  background: #ffffff;
+  border-bottom: 1px solid #e8e8e8;
+}
 .output-controls .output-button {
   display: inline-block;
   border: none;
