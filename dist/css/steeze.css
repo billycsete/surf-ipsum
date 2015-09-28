@@ -554,7 +554,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   font-family: 'Open Sans', 'Helvetica', 'sans-serif';
-  color: #666;
+  color: #555;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -585,6 +585,33 @@ ol, ul {
   font-size: 18px;
   line-height: 26px;
   margin: 0 0 20px 0;
+}
+
+.fixedsticky {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  position: sticky;
+}
+
+/* When position: sticky is supported but native behavior is ignored */
+.fixedsticky-withoutfixedfixed .fixedsticky-off,
+.fixed-supported .fixedsticky-off {
+  position: static;
+}
+
+.fixedsticky-withoutfixedfixed .fixedsticky-on,
+.fixed-supported .fixedsticky-on {
+  position: fixed;
+}
+
+.fixedsticky-dummy {
+  display: none;
+}
+
+.fixedsticky-on + .fixedsticky-dummy {
+  display: block;
 }
 
 body.page-uploader {
@@ -1153,6 +1180,11 @@ body.page-generator.unlock-the-swag {
   }
 }
 
+.output-content {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
 .output-header {
   padding: 0 20px;
   position: absolute;
@@ -1192,6 +1224,7 @@ body.page-generator.unlock-the-swag {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  width: 100%;
   max-width: 980px;
   margin: 0 auto;
   padding: 20px 0;
@@ -1213,6 +1246,14 @@ body.page-generator.unlock-the-swag {
   display: inline-block;
   padding: 0 5px;
   color: #ffffff;
+}
+.output-controls .output-button span {
+  display: none;
+}
+@media (min-width: 760px) {
+  .output-controls .output-button span {
+    display: inline;
+  }
 }
 .output-controls .output-button:focus {
   outline: none;

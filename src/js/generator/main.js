@@ -1,8 +1,8 @@
 'use strict';
 
 var TweenMax       = require('../../../node_modules/gsap/src/uncompressed/TweenMax.js');
-var ScrollToPlugin = require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
-var EasePack       = require('../../../node_modules/gsap/src/uncompressed/easing/EasePack.js');
+require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
+require('../shared/fixedSticky.js');
 var Trianglify     = require('../../../node_modules/trianglify/lib/trianglify.js');
 var SelectElement  = require('./SelectElement');
 var IpsumOutput    = require('./IpsumOutput');
@@ -45,6 +45,9 @@ var Main = {
 
 		// attach events
 		this._setupEvents();
+
+		// add position sticky
+		$('#output-controls').fixedsticky();
 
 	},
 

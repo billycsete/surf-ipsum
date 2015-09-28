@@ -19,6 +19,11 @@
 	}
 }
 
+.output-content {
+	max-width: 980px;
+	margin: 0 auto;
+}
+
 
 // =================================
 // Output header
@@ -78,6 +83,7 @@ $button-height: 50px;
 .output-controls {
 	position: sticky;
 	top: 0;
+	width: 100%;
 	max-width: 980px;
 	margin: 0 auto;
 	padding: 20px 0;
@@ -96,6 +102,11 @@ $button-height: 50px;
 			display: inline-block;
 			padding: 0 5px;
 			color: $white;
+		}
+
+		span {
+			display: none;
+			@include media(medium) { display: inline; }
 		}
 
 		&:focus {
