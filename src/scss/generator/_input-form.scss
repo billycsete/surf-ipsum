@@ -37,6 +37,7 @@ $input-element-height-large  : 70px;
 
 	@include media(small) {
 		width: 20%;
+		border-right: 4px solid $off-white;
 	}
 
 	@include media(medium) {
@@ -161,7 +162,7 @@ $input-element-height-large  : 70px;
 	@include media(small) {
 		float: left;
 		width: 40%;
-		border-right: 10px solid $off-white;
+		border-right: 4px solid $off-white;
 	}
 
 	.no-touch &:hover {
@@ -230,10 +231,14 @@ $input-element-height-large  : 70px;
 		background: $light-grey;
 
 		li.select-option {
-			padding: 14px 22px;
+			padding: 8px 12px;
 			list-style-type: none;
 			cursor: pointer;
 			border-top: 2px solid $off-white;
+
+			@include media(small) {
+				padding: 14px 22px;
+			}
 
 			&.selected {
 				display: none;

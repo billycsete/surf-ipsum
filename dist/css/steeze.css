@@ -863,6 +863,7 @@ body.page-generator.unlock-the-swag {
   margin-bottom: 0.4em;
   text-transform: uppercase;
   font-size: 42px;
+  line-height: 42px;
 }
 @media (min-width: 760px) {
   .input-header h1 {
@@ -929,6 +930,7 @@ body.page-generator.unlock-the-swag {
 @media (min-width: 560px) {
   .input-number {
     width: 20%;
+    border-right: 4px solid #f2f7f9;
   }
 }
 @media (min-width: 760px) {
@@ -1054,7 +1056,7 @@ body.page-generator.unlock-the-swag {
   .input-select {
     float: left;
     width: 40%;
-    border-right: 10px solid #f2f7f9;
+    border-right: 4px solid #f2f7f9;
   }
 }
 .no-touch .input-select:hover {
@@ -1119,10 +1121,15 @@ body.page-generator.unlock-the-swag {
   background: #e8e8e8;
 }
 .input-select .select-list li.select-option {
-  padding: 14px 22px;
+  padding: 8px 12px;
   list-style-type: none;
   cursor: pointer;
   border-top: 2px solid #f2f7f9;
+}
+@media (min-width: 560px) {
+  .input-select .select-list li.select-option {
+    padding: 14px 22px;
+  }
 }
 .input-select .select-list li.select-option.selected {
   display: none;
