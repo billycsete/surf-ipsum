@@ -20,7 +20,7 @@ var Main = {
 		this.$inputElement      = $('#input-number');
 		this.$generateButton    = $('#input-generate');
 		this.$outputResults     = $('#output-results');
-		this.$closeOutputButton = $('#output-close');
+		this.$closeOutputButton = $('#output-button-clear');
 
 		// store the viewport height
 		this.viewportHeight     = $(window).height();
@@ -102,7 +102,6 @@ var Main = {
 	 */
 	_onOrientationChange : function( ) {
 		// recalculate viewport height
-		$('html').hasClass('touch')
 		this.viewportHeight = $(window).height();
 		// generate a new background ocean pattern that matches the width on the new viewport size
 		this._generateBackgroundPattern();
@@ -134,21 +133,18 @@ var Main = {
 	 */
 	_generateIpsum : function( ) {
 
-		this.$body.addClass('show-results');
+		// body hook to remove the overflow hidden
+		this.$body.addClass('unlock-the-swag');
 
-		TweenMax.to(window, 1, {
+		this._printIpsumToOutput();
+
+		TweenMax.to( window, 1, {
 			scrollTo: {
 				y: $(window).height()
 			},
 			ease: Quart.easeInOut,
-			onComplete : this._printIpsumToOutput
+			onComplete : this.$body.addClass('show-results')
 		});
-
-		// TweenMax.to( this.$outputElement, 1, {
-		// 	top: '0',
-		// 	ease: Quart.easeInOut,
-		// });
-
 	},
 
 
@@ -186,9 +182,8 @@ var Main = {
 	 * Animate back to the ipsum input state
 	 */
 	_closeIpsum : function( ) {
-		// this.$body.removeClass('show-results');
 
-		TweenMax.to(window, 1, {
+		TweenMax.to( window, 1, {
 			scrollTo: { y: 0 },
 			ease: Power2.easeInOut,
 			onComplete : this._clearIpsum
@@ -206,6 +201,7 @@ var Main = {
 	 * Clear any ipsum from the DOM
 	 */
 	_clearIpsum : function( ) {
+		this.$body.removeClass('show-results');
 		this.$outputResults.empty();
 	}
 

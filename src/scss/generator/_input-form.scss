@@ -121,11 +121,12 @@ $input-element-height-large  : 70px;
 		transform-origin: 40% 60%;
 
 		@include media(medium) {
-			background-size: 90px 90px;
+			background-size: 80px 80px;
 			height: $input-element-height-medium;
 			width: $input-element-height-medium;
 		}
 		@include media(large) {
+			background-size: 90px 90px;
 			height: $input-element-height-large;
 			width: $input-element-height-large;
 		}
@@ -182,7 +183,7 @@ $input-element-height-large  : 70px;
 		right: 0;
 		color: $grey;
 		background: rgba(0,0,0,0);
-		font-size: 18px;
+		font-size: 14px;
 
 		@include media(medium) {
 			height: $input-element-height-medium;

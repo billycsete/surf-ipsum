@@ -19,7 +19,7 @@
 			<p class="header-author">– Craig Anderson</p>
 		</header>
 		<div id="input-element" class="input-element">
-			<input id="input-number" class="input-number" type="number" name="number" value="5" max="9999">
+			<input id="input-number" class="input-number" type="text" name="number" pattern="[0-9]*" value="5" max="9999">
 			<div id="input-select" class="input-select"></div>
 			<button id="input-generate" class="input-generate" type="submit"><span class="button-text">Generate<i class="icon-shaka"></i></span></button>
 		</div>
@@ -33,10 +33,15 @@
 	<section class="output">
 		<div class="output-header">
 			<div class="output-header-inner">
-				<button id="output-close" class="output-close" tabIndex="-1"><i class="icon-cancel"></i>clear the lineup</button>
+				<h1>Great Success!</h1>
+				<p><strong>Your words have been generated:</strong></p>
 			</div>
 		</div>
 		<div class="output-content">
+			<div class="output-controls">
+				<button id="output-button-refresh" class="output-button output-button-refresh" tabIndex="-1"><i class="icon-cancel"></i>refresh the lineup</button>
+				<button id="output-button-clear" class="output-button output-button-clear" tabIndex="-1">clear the lineup<i class="icon-cancel"></i></button>
+			</div>
 			<div id="output-results" class="output-results"></div>
 		</div>
 	</section>
