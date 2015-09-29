@@ -8,6 +8,7 @@
 	position: relative;
 	z-index: 1;
 	width: 100%;
+	background: blue;
 	overflow: hidden;
 	margin-top: -140px;
 	@include media(small) { margin-top: -150px; }

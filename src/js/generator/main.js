@@ -78,7 +78,14 @@ var Main = {
 	 * Generate Background Pattern
 	 */
 	_generateBackgroundPattern : function( ) {
-		var oceanBackgroundHeight = 500;
+		var minOceanHeaderHeight = 380;
+		var oceanBackgroundHeight = minOceanHeaderHeight;
+
+		var newHeight = Math.floor( $(window).height() * 0.4 );
+
+		if ( newHeight >= minOceanHeaderHeight ) {
+			oceanBackgroundHeight = newHeight;
+		}
 
 		var oceanPattern = new Trianglify({
 			height    : oceanBackgroundHeight,
@@ -137,8 +144,6 @@ var Main = {
 	 */
 	_generateIpsum : function( ) {
 
-		var scrollDistance = $(window).height() + 150;
-
 		// adds a body hook when the generate button is clicked
 		// and before the scroll animation happens
 		this.$body.addClass('will-show-results');
@@ -148,7 +153,7 @@ var Main = {
 
 		TweenLite.to( window, 1, {
 			scrollTo: {
-				y: scrollDistance
+				y: $(window).height()
 			},
 			ease: Power4.easeInOut,
 			onComplete : this._afterIpsumGenerated.bind(this)

@@ -774,6 +774,7 @@ body.page-generator.will-show-results {
   position: relative;
   z-index: 1;
   width: 100%;
+  background: blue;
   overflow: hidden;
   margin-top: -140px;
 }
@@ -1205,14 +1206,8 @@ body.page-generator.will-show-results {
   z-index: 10;
   width: 100%;
   min-height: 100vh;
-  margin-top: -150px;
   background-color: #ffffff;
   tranform: translateZ(0);
-}
-@media (min-width: 760px) {
-  .output {
-    margin-top: 0px;
-  }
 }
 
 .output-results {
