@@ -9,9 +9,8 @@
 	z-index: 10;
 	width: 100%;
 	min-height: 100vh;
-	padding: 0 20px;
-	margin-top: -40px;
-	background: $white;
+	margin-top: -150px;
+	background-color: $white;
 	tranform: translateZ(0);
 
 	@include media(medium) {
@@ -20,8 +19,11 @@
 }
 
 .output-content {
+	position: relative;
+	z-index: 1;
 	max-width: 980px;
 	margin: 0 auto;
+	background-color: $white;
 }
 
 
@@ -36,7 +38,12 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, 0, 0);
+	transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+
+	.show-results & {
+		transform: translate3d(0, -100%, 0);
+	}
 
 	.output-header-inner {
 		background: $off-white;
@@ -65,7 +72,7 @@
 	margin: 0 auto;
 	padding: 40px 20px;
 	opacity: 0;
-	transition: opacity 0.4s 1s ease-in-out;
+	transition: opacity 0.5s 0.5s ease-in-out;
 
 	.show-results & {
 		opacity: 1;
@@ -82,17 +89,21 @@ $button-height: 50px;
 
 
 .output-controls {
-	position: sticky;
+	position: relative;
+	z-index: 100;
 	top: 0;
 	width: 100%;
-	max-width: 980px;
 	margin: 0 auto;
-	padding: 20px 0;
-	@include clearfix;
+	background: $white;
+	border-bottom: 1px solid $light-grey;
 
-	&.fixedsticky-on {
-		background: $white;
-		border-bottom: 1px solid $light-grey;
+	.output-controls-inner {
+		position: relative;
+		z-index: 10;
+		max-width: 980px;
+		margin: 0 auto;
+		padding: 20px 0;
+		@include clearfix;
 	}
 
 	// output button

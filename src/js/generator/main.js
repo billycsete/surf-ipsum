@@ -1,6 +1,6 @@
 'use strict';
 
-var TweenMax       = require('../../../node_modules/gsap/src/uncompressed/TweenMax.js');
+var TweenLite       = require('../../../node_modules/gsap/src/uncompressed/TweenLite.js');
 require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
 require('../shared/fixedSticky.js');
 var Trianglify     = require('../../../node_modules/trianglify/lib/trianglify.js');
@@ -38,7 +38,9 @@ var Main = {
 		this._generateIpsum       = this._generateIpsum.bind(this);
 		this._closeIpsum          = this._closeIpsum.bind(this);
 		this._printIpsumToOutput  = this._printIpsumToOutput.bind(this);
-		this._clearIpsum          = this._clearIpsum.bind(this);
+
+		// reset the scroll to the top of the page
+		window.scrollTo(0,0);
 
 		// generate the low poly ocean texture svg
 		this._generateBackgroundPattern();
@@ -72,7 +74,7 @@ var Main = {
 	 * Generate Background Pattern
 	 */
 	_generateBackgroundPattern : function( ) {
-		var oceanBackgroundHeight = 400;
+		var oceanBackgroundHeight = 500;
 
 		var oceanPattern = new Trianglify({
 			height    : oceanBackgroundHeight,
@@ -141,12 +143,12 @@ var Main = {
 
 		this._printIpsumToOutput();
 
-		TweenMax.to( window, 1, {
+		TweenLite.to( window, 1, {
 			scrollTo: {
 				y: $(window).height()
 			},
-			ease: Quart.easeInOut,
-			onComplete : this._ipsumGenerated()
+			ease: Power4.easeInOut,
+			onComplete : this._ipsumGenerated.bind(this)
 		});
 	},
 
@@ -194,16 +196,11 @@ var Main = {
 	 */
 	_closeIpsum : function( ) {
 
-		TweenMax.to( window, 1, {
+		TweenLite.to( window, 1, {
 			scrollTo: { y: 0 },
-			ease: Power2.easeInOut,
-			onComplete : this._clearIpsum
+			ease: Power4.easeInOut,
+			onComplete : this._clearIpsum.bind(this)
 		});
-
-		// TweenMax.to( this.$outputElement, 1, {
-		// 	top: '100%',
-		// 	ease: Quart.easeInOut,
-		// });
 	},
 
 
