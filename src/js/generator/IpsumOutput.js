@@ -59,7 +59,7 @@ proto.printParagraphsToOutputElement = function ( numberOfParagraphs ) {
 		// trim off the trailing space on the last sentence
 		paragraph = paragraph.slice( 0, - 1 );
 		// print paragraph to the output element
-		this.$outputElement.append( '<p>' + paragraph + '</p>' );
+		this.$outputElement.prepend( '<p>' + paragraph + '</p>' );
 	}
 };
 
@@ -80,7 +80,7 @@ proto.printHeadlinesToOutputElement = function ( numberOfHeadlines ) {
 		// capitalize headline
 		headline = this._capitalizeString( headline );
 		// print a new headline to the output element
-		this.$outputElement.append( '<h2>' + headline + this._generatePunctuationEnding() + '</h2>' );
+		this.$outputElement.prepend( '<h2>' + headline + this._generatePunctuationEnding() + '</h2>' );
 	}
 };
 
@@ -110,7 +110,7 @@ proto.printListsToOutputElement = function ( numberOfLists ) {
 			$(listElement).append( listItem );
 		}
 
-		this.$outputElement.append( listElement );
+		this.$outputElement.prepend( listElement );
 	}
 };
 
@@ -126,7 +126,7 @@ proto.printWordsToOutputElement = function ( numberOfWords ) {
 	// turn array of results into one long string and remove commas
 	words = this._stringifyIpsumResults( words );
 	// print words to the output element
-	this.$outputElement.append( '<p>' + words + '</p>' );
+	this.$outputElement.prepend( '<p>' + words + '</p>' );
 };
 
 

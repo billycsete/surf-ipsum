@@ -28,42 +28,6 @@
 
 
 // =================================
-// Output header
-// =================================
-
-.output-header {
-	padding: 0 20px;
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	width: 100%;
-	transform: translate3d(0, 0, 0);
-	transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-
-	.show-results & {
-		transform: translate3d(0, -100%, 0);
-	}
-
-	.output-header-inner {
-		background: $off-white;
-		padding: 10px 20px;
-		max-width: 980px;
-		margin: 0 auto;
-
-
-		&:first-child {
-			margin-top: 0;
-		}
-
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-}
-
-
-// =================================
 // Ipsum output results container
 // =================================
 
@@ -71,8 +35,9 @@
 	max-width: 980px;
 	margin: 0 auto;
 	padding: 40px 20px;
+	transform: translateZ(0);
 	opacity: 0;
-	transition: opacity 0.5s 0.5s ease-in-out;
+	transition: opacity 0.8s ease-out;
 
 	.show-results & {
 		opacity: 1;
@@ -90,16 +55,17 @@ $button-height: 50px;
 
 .output-controls {
 	position: relative;
+	position: sticky;
 	z-index: 100;
 	top: 0;
 	width: 100%;
 	margin: 0 auto;
-	background: $white;
 	border-bottom: 1px solid $light-grey;
 
 	.output-controls-inner {
 		position: relative;
 		z-index: 10;
+		background: $white;
 		max-width: 980px;
 		margin: 0 auto;
 		padding: 20px 0;
@@ -132,7 +98,7 @@ $button-height: 50px;
 	}
 
 	// Refresh the lineup button
-	.output-button-refresh {
+	.output-button-add {
 		margin-left: 20px;
 		padding-right: 20px;
 		float: left;

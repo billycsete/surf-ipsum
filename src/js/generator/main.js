@@ -20,10 +20,8 @@ var Main = {
 		this.$inputElement      = $('#input-number');
 		this.$generateButton    = $('#input-generate');
 		this.$outputResults     = $('#output-results');
-		this.$closeOutputButton = $('#output-button-clear');
-
-		// store the viewport height
-		this.viewportHeight     = $(window).height();
+		this.$addButton         = $('#output-button-add');
+		this.$clearButton       = $('#output-button-clear');
 
 		// Build custom select element
 		this.selectElement = new SelectElement();
@@ -36,11 +34,11 @@ var Main = {
 		this._onResize            = this._onResize.bind(this);
 		this._onOrientationChange = this._onOrientationChange.bind(this);
 		this._generateIpsum       = this._generateIpsum.bind(this);
-		this._closeIpsum          = this._closeIpsum.bind(this);
+		this._clearIpsum          = this._clearIpsum.bind(this);
+		this._scrollToTop         = this._scrollToTop.bind(this);
 		this._printIpsumToOutput  = this._printIpsumToOutput.bind(this);
 
-		// reset the scroll to the top of the page
-		window.scrollTo(0,0);
+		// TODO: reset the scroll to the top of the page
 
 		// generate the low poly ocean texture svg
 		this._generateBackgroundPattern();
@@ -51,6 +49,9 @@ var Main = {
 		// add position sticky
 		$('#output-controls').fixedsticky();
 
+		// reset the page when it first loads
+		this._clearIpsum();
+
 	},
 
 
@@ -58,10 +59,13 @@ var Main = {
 	 * Set up events
 	 */
 	_setupEvents : function( ) {
+		// buttons of action
 		this.$generateButton.on( 'click', this._generateIpsum );
-		this.$closeOutputButton.on( 'click', this._closeIpsum );
+		this.$clearButton.on( 'click', this._clearIpsum );
+		this.$addButton.on( 'click', this._scrollToTop );
 		$(document).on( 'keydown', this._onKeypress );
 
+		// prevents iOS from redrawing the ocean SVG as the bottom menu scrolls away
 		if ( $('html').hasClass('touch') ) {
 			$(window).on( 'orientationchange', this._onOrientationChange );
 		} else {
@@ -95,8 +99,6 @@ var Main = {
 	 * Handle page resize
 	 */
 	_onResize : function( ) {
-		// recalculate viewport height
-		this.viewportHeight = $(window).height();
 		// generate a new background ocean pattern that matches the width on the new viewport size
 		this._generateBackgroundPattern();
 	},
@@ -106,8 +108,6 @@ var Main = {
 	 * Handle orientation change
 	 */
 	_onOrientationChange : function( ) {
-		// recalculate viewport height
-		this.viewportHeight = $(window).height();
 		// generate a new background ocean pattern that matches the width on the new viewport size
 		this._generateBackgroundPattern();
 	},
@@ -127,10 +127,9 @@ var Main = {
 		}
 		// If the 'Esc' key is pressed
 		if( keycode === 27 ) {
-			this._closeIpsum();
+			this._clearIpsum();
 		}
 	},
-
 
 
 	/**
@@ -138,8 +137,9 @@ var Main = {
 	 */
 	_generateIpsum : function( ) {
 
-		// body hook to remove the overflow hidden
-		this.$body.addClass('unlock-the-swag');
+		// adds a body hook when the generate button is clicked
+		// and before the scroll animation happens
+		this.$body.addClass('will-show-results');
 
 		this._printIpsumToOutput();
 
@@ -148,22 +148,22 @@ var Main = {
 				y: $(window).height()
 			},
 			ease: Power4.easeInOut,
-			onComplete : this._ipsumGenerated.bind(this)
+			onComplete : this._afterIpsumGenerated.bind(this)
 		});
 	},
 
 
 	/**
-	 * Callback for after scrolling to the ipsum
+	 * Called after the results are shown
 	 */
-	_ipsumGenerated : function( ) {
+	_afterIpsumGenerated : function( ) {
+		// add a body hook after the show results scroll animation finishes
 		this.$body.addClass('show-results');
 	},
 
 
-
 	/**
-	 * Print the ipsum to the DOM
+	 * Print the ipsum to the DOM and scroll down to the results
 	 */
 	_printIpsumToOutput : function( ) {
 
@@ -190,31 +190,43 @@ var Main = {
 	},
 
 
-
 	/**
-	 * Animate back to the ipsum input state
+	 * Clear the output and scroll back up to the top
 	 */
-	_closeIpsum : function( ) {
+	_clearIpsum : function( ) {
+
+		// remove the body hook before we scroll back up to the top
+		this.$body.removeClass('show-results');
 
 		TweenLite.to( window, 1, {
 			scrollTo: { y: 0 },
 			ease: Power4.easeInOut,
-			onComplete : this._clearIpsum.bind(this)
+			onComplete : this._afterIpsumCleared.bind(this)
 		});
 	},
 
 
+	/**
+	 * Called after the clear scroll animation is complete
+	 */
+	_afterIpsumCleared : function( ) {
+		// remove the body hook after the clear scroll animation is complete
+		this.$body.removeClass('will-show-results');
+		this.$outputResults.empty();
+	},
+
 
 	/**
-	 * Clear any ipsum from the DOM
+	 * Scroll back to the top of the page
 	 */
-	_clearIpsum : function( ) {
-		this.$body.removeClass('show-results');
-		this.$outputResults.empty();
+	_scrollToTop : function( ) {
+		TweenLite.to( window, 1, {
+			scrollTo: { y: 0 },
+			ease: Power4.easeInOut
+		});
 	}
 
 };
-
 
 
 Main.initialize();
