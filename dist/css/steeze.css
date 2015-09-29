@@ -1215,18 +1215,11 @@ body.page-generator.will-show-results {
   }
 }
 
-.output-content {
+.output-results {
   position: relative;
   z-index: 1;
-  max-width: 980px;
-  margin: 0 auto;
+  padding: 40px 0;
   background-color: #ffffff;
-}
-
-.output-results {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 40px 20px;
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
   opacity: 0;
@@ -1235,6 +1228,17 @@ body.page-generator.will-show-results {
 }
 .show-results .output-results {
   opacity: 1;
+}
+.output-results .ipsum-item {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 15px 20px;
+}
+.output-results .ipsum-item.ipsum-item-list {
+  padding-left: 40px;
+}
+.output-results .ipsum-item:hover {
+  background: #f2f7f9;
 }
 
 .output-controls {

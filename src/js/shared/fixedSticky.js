@@ -3,6 +3,8 @@
  * https://github.com/filamentgroup/fixed-sticky
  */
 
+'use strict';
+
 (function( win, $ ) {
 
 	function featureTest( property, value, noPrefixes ) {

@@ -137,15 +137,18 @@ var Main = {
 	 */
 	_generateIpsum : function( ) {
 
+		var scrollDistance = $(window).height() + 150;
+
 		// adds a body hook when the generate button is clicked
 		// and before the scroll animation happens
 		this.$body.addClass('will-show-results');
 
+		// start fetching the ipsum before we start animating
 		this._printIpsumToOutput();
 
 		TweenLite.to( window, 1, {
 			scrollTo: {
-				y: $(window).height()
+				y: scrollDistance
 			},
 			ease: Power4.easeInOut,
 			onComplete : this._afterIpsumGenerated.bind(this)

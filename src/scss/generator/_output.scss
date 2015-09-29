@@ -18,29 +18,36 @@
 	}
 }
 
-.output-content {
-	position: relative;
-	z-index: 1;
-	max-width: 980px;
-	margin: 0 auto;
-	background-color: $white;
-}
-
 
 // =================================
 // Ipsum output results container
 // =================================
 
 .output-results {
-	max-width: 980px;
-	margin: 0 auto;
-	padding: 40px 20px;
+	position: relative;
+	z-index: 1;
+	padding: 40px 0;
+	background-color: $white;
 	transform: translateZ(0);
 	opacity: 0;
 	transition: opacity 0.8s ease-out;
 
 	.show-results & {
 		opacity: 1;
+	}
+
+	.ipsum-item {
+		max-width: 980px;
+		margin: 0 auto;
+		padding: 15px 20px;
+
+		&.ipsum-item-list {
+			padding-left: 40px;
+		}
+
+		&:hover {
+			background: $off-white;
+		}
 	}
 
 }
