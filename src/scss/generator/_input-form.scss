@@ -49,12 +49,12 @@ $input-element-height-large  : 70px;
 	}
 
 	.no-touch &:hover {
-		background: $white;
+		background: $light-grey-brighter;
 	}
 
 	&:focus {
 		outline: none;
-		background: $white;
+		background: $light-grey-brighter;
 	}
 
 }
@@ -162,11 +162,11 @@ $input-element-height-large  : 70px;
 	@include media(small) {
 		float: left;
 		width: 40%;
-		border-right: 4px solid $off-white;
+		border-right: 4px solid $white;
 	}
 
 	.no-touch &:hover {
-		background: $white;
+		background: $light-grey-brighter;;
 		.icon-down-open {
 			color: $dark-grey;
 		}
@@ -234,7 +234,7 @@ $input-element-height-large  : 70px;
 			padding: 8px 12px;
 			list-style-type: none;
 			cursor: pointer;
-			border-top: 2px solid $off-white;
+			border-top: 2px solid $white;
 
 			@include media(small) {
 				padding: 14px 22px;
@@ -244,8 +244,8 @@ $input-element-height-large  : 70px;
 				display: none;
 			}
 
-			&:hover {
-				background: $white;
+			.no-touch &:hover {
+				background: $light-grey-darker;
 			}
 		}
 	}
@@ -254,7 +254,6 @@ $input-element-height-large  : 70px;
 		.select-list {
 			opacity: 1;
 			height: auto;
-			// transform: translateY(0px);
 		}
 	}
 }

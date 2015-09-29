@@ -727,7 +727,7 @@ body.page-uploader {
 }
 .uploader-message.show-message {
   height: 4.57rem;
-  background: #e8e8e8;
+  background: #eaeaea;
   -webkit-transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out;
           transition: height 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.2s 0s ease-in-out;
 }
@@ -764,7 +764,7 @@ body.page-uploader {
 body.page-generator {
   overflow: hidden;
   min-height: 100%;
-  background: #f2f7f9;
+  background: #ffffff;
 }
 body.page-generator.will-show-results {
   overflow: visible;
@@ -954,7 +954,7 @@ body.page-generator.will-show-results {
   border-right: 10px solid #f2f7f9;
   border-radius: 0;
   float: left;
-  background: #e8e8e8;
+  background: #eaeaea;
 }
 @media (min-width: 560px) {
   .input-number {
@@ -973,11 +973,11 @@ body.page-generator.will-show-results {
   }
 }
 .no-touch .input-number:hover {
-  background: #ffffff;
+  background: #f2f2f2;
 }
 .input-number:focus {
   outline: none;
-  background: #ffffff;
+  background: #f2f2f2;
 }
 
 .input-generate {
@@ -1079,17 +1079,17 @@ body.page-generator.will-show-results {
   width: 75%;
   padding-left: 20px;
   float: left;
-  background: #e8e8e8;
+  background: #eaeaea;
 }
 @media (min-width: 560px) {
   .input-select {
     float: left;
     width: 40%;
-    border-right: 4px solid #f2f7f9;
+    border-right: 4px solid #ffffff;
   }
 }
 .no-touch .input-select:hover {
-  background: #ffffff;
+  background: #f2f2f2;
 }
 .no-touch .input-select:hover .icon-down-open {
   color: #888;
@@ -1147,13 +1147,13 @@ body.page-generator.will-show-results {
   height: 0;
   margin: 0;
   padding: 0;
-  background: #e8e8e8;
+  background: #eaeaea;
 }
 .input-select .select-list li.select-option {
   padding: 8px 12px;
   list-style-type: none;
   cursor: pointer;
-  border-top: 2px solid #f2f7f9;
+  border-top: 2px solid #ffffff;
 }
 @media (min-width: 560px) {
   .input-select .select-list li.select-option {
@@ -1163,8 +1163,8 @@ body.page-generator.will-show-results {
 .input-select .select-list li.select-option.selected {
   display: none;
 }
-.input-select .select-list li.select-option:hover {
-  background: #ffffff;
+.no-touch .input-select .select-list li.select-option:hover {
+  background: #dddddd;
 }
 .input-select.focused .select-list {
   opacity: 1;
@@ -1249,7 +1249,7 @@ body.page-generator.will-show-results {
   top: 0;
   width: 100%;
   margin: 0 auto;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid #eaeaea;
 }
 .output-controls .output-controls-inner {
   position: relative;
