@@ -38,8 +38,6 @@ var Main = {
 		this._scrollToTop         = this._scrollToTop.bind(this);
 		this._printIpsumToOutput  = this._printIpsumToOutput.bind(this);
 
-		// TODO: reset the scroll to the top of the page
-
 		// generate the low poly ocean texture svg
 		this._generateBackgroundPattern();
 
@@ -49,10 +47,12 @@ var Main = {
 		// add position sticky
 		$('#output-controls').fixedsticky();
 
-		// reset the page when it first loads
+		// TODO: reset the scroll to the top of the page when it loads
+		// this doesnt seem to work on Safari for some reason...
 		this._clearIpsum();
 
 	},
+
 
 
 	/**
@@ -72,6 +72,7 @@ var Main = {
 			$(window).on( 'resize', this._onResize );
 		}
 	},
+
 
 
 	/**
@@ -102,6 +103,7 @@ var Main = {
 	},
 
 
+
 	/**
 	 * Handle page resize
 	 */
@@ -111,6 +113,7 @@ var Main = {
 	},
 
 
+
 	/**
 	 * Handle orientation change
 	 */
@@ -118,6 +121,7 @@ var Main = {
 		// generate a new background ocean pattern that matches the width on the new viewport size
 		this._generateBackgroundPattern();
 	},
+
 
 
 	/**
@@ -137,6 +141,7 @@ var Main = {
 			this._clearIpsum();
 		}
 	},
+
 
 
 	/**
@@ -161,6 +166,7 @@ var Main = {
 	},
 
 
+
 	/**
 	 * Called after the results are shown
 	 */
@@ -168,6 +174,7 @@ var Main = {
 		// add a body hook after the show results scroll animation finishes
 		this.$body.addClass('show-results');
 	},
+
 
 
 	/**
@@ -180,6 +187,11 @@ var Main = {
 
 		switch ( selectValue ) {
 			case 'paragraphs':
+
+				// for (var i = 0; i < inputValue.length; i++) {
+				// 	// new ipsumItemRefresher
+				// 	this.output.generateParagraph();
+				// };
 				this.output.printParagraphsToOutputElement( inputValue );
 				break;
 
@@ -198,11 +210,12 @@ var Main = {
 	},
 
 
+
 	/**
 	 * Clear the output and scroll back up to the top
+	 * @param {Number} animationDuration - scroll to top animation time
 	 */
 	_clearIpsum : function( ) {
-
 		// remove the body hook before we scroll back up to the top
 		this.$body.removeClass('show-results');
 
@@ -214,6 +227,7 @@ var Main = {
 	},
 
 
+
 	/**
 	 * Called after the clear scroll animation is complete
 	 */
@@ -222,6 +236,7 @@ var Main = {
 		this.$body.removeClass('will-show-results');
 		this.$outputResults.empty();
 	},
+
 
 
 	/**
