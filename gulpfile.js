@@ -29,13 +29,6 @@ gulp.task('styles', function() {
 });
 
 
-// Lint JS
-gulp.task('jshint', function() {
-	return gulp.src('src/js/**/*.js')
-		.pipe(jshint('.jshintrc'))
-		.pipe(jshint.reporter('default'))
-});
-
 
 // Build Generator JS
 gulp.task('generator', function () {
@@ -46,10 +39,10 @@ gulp.task('generator', function () {
 
 	return b.bundle()
 		.pipe(source('generator.js'))
-		.pipe(buffer())
-		.pipe(gulp.dest('dist/js/'))
-		.pipe(rename({suffix: '-min'}))
-		.pipe(uglify())
+		// .pipe(buffer())
+		// .pipe(gulp.dest('dist/js/'))
+		// .pipe(rename({suffix: '-min'}))
+		// .pipe(uglify())
 		.pipe(gulp.dest('dist/js/'));
 });
 
@@ -63,11 +56,32 @@ gulp.task('uploader', function () {
 
 	return b.bundle()
 		.pipe(source('uploader.js'))
-		.pipe(buffer())
-		.pipe(gulp.dest('dist/js/'))
-		.pipe(rename({suffix: '-min'}))
-		.pipe(uglify())
+		// .pipe(buffer())
+		// .pipe(gulp.dest('dist/js/'))
+		// .pipe(rename({suffix: '-min'}))
+		// .pipe(uglify())
 		.pipe(gulp.dest('dist/js/'));
+});
+
+
+// Minify JS
+// gulp.task('minify', function() {
+// 	var files = [
+// 		'dist/js/*.js',
+// 	];
+
+// 	return gulp.src('dist/js/generator.js')
+// 		.pipe(uglify())
+// 		.pipe(rename({suffix: '-min'}))
+// 		.pipe(gulp.dest('dist/js/'));
+// });
+
+
+// Lint JS
+gulp.task('jshint', function() {
+	return gulp.src('src/js/**/*.js')
+		.pipe(jshint('.jshintrc'))
+		.pipe(jshint.reporter('default'))
 });
 
 
