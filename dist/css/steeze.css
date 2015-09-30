@@ -399,15 +399,6 @@ th {
   padding: 0;
 }
 
-html {
-  background: none;
-  height: 100%;
-}
-
-html *, body * {
-  box-sizing: border-box;
-}
-
 @font-face {
   font-family: 'icons';
   src: url("../fonts/icons.eot?26494785");
@@ -585,6 +576,15 @@ ol, ul {
   font-size: 18px;
   line-height: 26px;
   margin: 0 0 20px 0;
+}
+
+html {
+  background: none;
+  height: 100%;
+}
+
+html *, body * {
+  box-sizing: border-box;
 }
 
 .fixedsticky {
@@ -1267,18 +1267,10 @@ body.page-generator.will-show-results {
   line-height: 34px;
   padding: 0;
 }
-.output-controls .output-button i {
+.output-controls .output-button .icon {
   display: inline-block;
   padding: 0 5px;
   color: #ffffff;
-}
-.output-controls .output-button span {
-  display: none;
-}
-@media (min-width: 760px) {
-  .output-controls .output-button span {
-    display: inline;
-  }
 }
 .output-controls .output-button:focus {
   outline: none;
@@ -1289,7 +1281,7 @@ body.page-generator.will-show-results {
   float: left;
   text-align: left;
 }
-.output-controls .output-button-add i {
+.output-controls .output-button-add .icon {
   margin-right: 15px;
   background: #77c15b;
 }
@@ -1299,7 +1291,7 @@ body.page-generator.will-show-results {
   float: right;
   text-align: right;
 }
-.output-controls .output-button-clear i {
+.output-controls .output-button-clear .icon {
   margin-left: 15px;
   background: red;
 }

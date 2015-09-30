@@ -12,10 +12,10 @@
 @import 'shared/normalize';
 @import 'shared/breakpoints';
 @import 'shared/colors';
-@import 'shared/base';
 @import 'shared/colors';
 @import 'shared/icons';
 @import 'shared/typography';
+@import 'shared/layout';
 @import 'shared/sticky-polyfill';
 
 
@@ -23,6 +23,7 @@
 // Page Specific
 // =================================================
 
+// Uploader
 @import 'uploader/page';
 @import 'uploader/uploader-element';
 @import 'uploader/uploader-form';
@@ -30,6 +31,7 @@
 @import 'uploader/uploader-submit';
 @import 'uploader/uploader-message';
 
+// Generator
 @import 'generator/page';
 @import 'generator/ocean';
 @import 'generator/input';

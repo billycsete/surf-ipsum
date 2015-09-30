@@ -1,8 +1,8 @@
 'use strict';
 
-var TweenLite       = require('../../../node_modules/gsap/src/uncompressed/TweenLite.js');
-require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
-require('../shared/fixedSticky.js');
+var TweenLite      = require('../../../node_modules/gsap/src/uncompressed/TweenLite.js');
+var ScrollToPlugin = require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
+var fixedSticky    = require('../shared/fixedSticky.js');
 var Trianglify     = require('../../../node_modules/trianglify/lib/trianglify.js');
 var SelectElement  = require('./SelectElement');
 var IpsumOutput    = require('./IpsumOutput');
