@@ -4,6 +4,7 @@
 //
 // ====================================
 
+// wraps the .ipsum-item and it 100% of the page width
 .ipsum-row {
 	position: relative;
 	z-index: 1;
@@ -33,9 +34,7 @@
 
 
 // ====================================
-//
 // Refresh Button
-//
 // ====================================
 
 .refresh-button {
@@ -67,6 +66,9 @@
 		.arrow {
 			background-color: $blue-alt;
 		}
+		.icon {
+			animation: rotate 1s infinite linear;
+		}
 	}
 
 	&:focus {
@@ -83,4 +85,14 @@
 		background: $blue;
 		transform: rotate(45deg) translate3d(0, -50%, 0);
 	}
+}
+
+
+// =================================
+// Rotate Refresh Animatino
+// =================================
+
+@keyframes rotate {
+	0%   { transform : rotate(0deg); }
+	100% { transform : rotate(359deg); }
 }

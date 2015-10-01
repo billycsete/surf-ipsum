@@ -60,7 +60,7 @@ proto._init = function() {
 
 
 proto._addRefreshButton = function( ) {
-	var refreshButtonElement = $('<button class="refresh-button"><i class="icon-cancel"></i><span class="arrow"></span></button>');
+	var refreshButtonElement = $('<button class="refresh-button"><i class="icon icon-arrows-ccw"></i><span class="arrow"></span></button>');
 
 	refreshButtonElement.on('click', function() {
 		// generate new ipsum
