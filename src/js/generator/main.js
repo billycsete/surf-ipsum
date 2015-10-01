@@ -6,6 +6,7 @@ var fixedSticky    = require('../shared/fixedSticky.js');
 var Trianglify     = require('../../../node_modules/trianglify/lib/trianglify.js');
 var SelectElement  = require('./SelectElement');
 var IpsumOutput    = require('./IpsumOutput');
+var IpsumItem      = require('./IpsumItem');
 
 
 var Main = {
@@ -27,7 +28,7 @@ var Main = {
 		this.selectElement = new SelectElement();
 
 		// Create the ipsum output generator
-		this.output = new IpsumOutput( this.$outputResults );
+		this.ipsumOutput = new IpsumOutput( this.$ipsumItemElement );
 
 		// Bound functions
 		this._onKeypress          = this._onKeypress.bind(this);
@@ -148,12 +149,11 @@ var Main = {
 	 * Animate to the generated ipsum
 	 */
 	_generateIpsum : function( ) {
-
 		// adds a body hook when the generate button is clicked
 		// and before the scroll animation happens
 		this.$body.addClass('will-show-results');
 
-		// start fetching the ipsum before we start animating
+		// start building the ipsum before we start animating
 		this._printIpsumToOutput();
 
 		TweenLite.to( window, 1, {
@@ -170,7 +170,7 @@ var Main = {
 	/**
 	 * Called after the results are shown
 	 */
-	_afterIpsumGenerated : function( ) {
+	_afterIpsumGenerated : function() {
 		// add a body hook after the show results scroll animation finishes
 		this.$body.addClass('show-results');
 	},
@@ -180,32 +180,16 @@ var Main = {
 	/**
 	 * Print the ipsum to the DOM and scroll down to the results
 	 */
-	_printIpsumToOutput : function( ) {
-
+	_printIpsumToOutput : function() {
+		// get the number value and type of ipsum from the inputs
 		var inputValue = this.$inputElement.val();
 		var selectValue = this.selectElement.getValue();
 
-		switch ( selectValue ) {
-			case 'paragraphs':
-
-				// for (var i = 0; i < inputValue.length; i++) {
-				// 	// new ipsumItemRefresher
-				// 	this.output.generateParagraph();
-				// };
-				this.output.printParagraphsToOutputElement( inputValue );
-				break;
-
-			case 'headlines':
-				this.output.printHeadlinesToOutputElement( inputValue );
-				break;
-
-			case 'lists':
-				this.output.printListsToOutputElement( inputValue );
-				break;
-
-			case 'words':
-				this.output.printWordsToOutputElement( inputValue );
-				break;
+		for (var i = 0; i < inputValue; i++) {
+			// create a new IpsumItem of the type from the select value
+			var ipsumItemElement = new IpsumItem( this.ipsumOutput, selectValue );
+			// prepend the generated IpsumItem element to the results
+			this.$outputResults.prepend( ipsumItemElement );
 		}
 	},
 
@@ -215,7 +199,7 @@ var Main = {
 	 * Clear the output and scroll back up to the top
 	 * @param {Number} animationDuration - scroll to top animation time
 	 */
-	_clearIpsum : function( ) {
+	_clearIpsum : function() {
 		// remove the body hook before we scroll back up to the top
 		this.$body.removeClass('show-results');
 
@@ -234,6 +218,10 @@ var Main = {
 	_afterIpsumCleared : function( ) {
 		// remove the body hook after the clear scroll animation is complete
 		this.$body.removeClass('will-show-results');
+
+		// TODO: add a destroy method in IpsumItem,
+		// then loop through each ipsum item and get
+		// rid of the element and the event listeners
 		this.$outputResults.empty();
 	},
 

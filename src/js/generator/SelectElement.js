@@ -30,7 +30,7 @@ var SelectElement = function( ) {
 	this.$optionsList    = $('<ul class="select-list"></ul>');
 	this.$optionElements = [ ];
 	// options available in the dropdown of the select element
-	this.selectOptions = [ 'paragraphs', 'headlines', 'lists', 'words' ];
+	this.selectOptions   = [ 'paragraphs', 'headlines', 'lists', 'words' ];
 
 	this._init();
 };

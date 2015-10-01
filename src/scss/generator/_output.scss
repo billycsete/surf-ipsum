@@ -30,21 +30,6 @@
 	.show-results & {
 		opacity: 1;
 	}
-
-	.ipsum-item {
-		max-width: 980px;
-		margin: 0 auto;
-		padding: 15px 20px;
-
-		&.ipsum-item-list {
-			padding-left: 40px;
-		}
-
-		&:hover {
-			background: $off-white;
-		}
-	}
-
 }
 
 
@@ -59,10 +44,17 @@ $button-height: 50px;
 	position: relative;
 	position: sticky;
 	z-index: 100;
+	opacity: 0;
 	top: 0;
 	width: 100%;
 	margin: 0 auto;
+	background: $white;
 	border-bottom: 1px solid $light-grey;
+	transition: opacity 0.8s ease-out;
+
+	.show-results & {
+		opacity: 1;
+	}
 
 	.output-controls-inner {
 		position: relative;
@@ -106,7 +98,11 @@ $button-height: 50px;
 		text-align: left;
 		.icon {
 			margin-right: 15px;
-			background: $green;
+			background-color: $green;
+		}
+
+		&:hover .icon {
+			background-color: $green-alt;
 		}
 	}
 
@@ -118,7 +114,11 @@ $button-height: 50px;
 		text-align: right;
 		.icon {
 			margin-left: 15px;
-			background: $red;
+			background-color: $red;
+		}
+
+		&:hover .icon {
+			background-color: $red-alt;
 		}
 	}
 }

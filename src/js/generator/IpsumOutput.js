@@ -10,14 +10,17 @@ var proto;
 /**
  * Ipsum Output
  * @constructor
+ *
+ * Responsible for interacting with the Firebase database
+ * to return randomly generated words, sentences, paragraphs,
+ * lists, or headlines.
+ *
  */
-var IpsumOutput = function( outputContainer ) {
-	// IpsumOutput elements
-	this.$outputElement = outputContainer;
+var IpsumOutput = function() {
 	// access to database of words
 	this.firebaseObject = new FirebaseObject();
 	// store arrays of special punctuation characters
-	this.endingPunctuation = ['?', '!'];
+	this.specialPunctuation = ['?', '!'];
 };
 
 proto = IpsumOutput.prototype;
@@ -28,7 +31,7 @@ proto = IpsumOutput.prototype;
  * Generate a random sentence
  * @return {String} - random sentence of surf words
  */
-proto.generateSentence = function( ) {
+proto.generateSentence = function() {
 	var sentenceLength = Utils.getRandomInt( 5, 10 );
 	// get strings from the firebase database
 	var sentence = this.firebaseObject.getRandomStrings( sentenceLength );
@@ -62,7 +65,7 @@ proto.generateWords = function( numberOfWords ) {
  * Generate a new paragraph element
  * @return {Element} - <p>
  */
-proto.generateParagraphElement = function( ) {
+proto.generateParagraphElement = function() {
 	var paragraph = '';
 	var sentencesPerParagraph = Utils.getRandomInt( 5, 8 );
 
@@ -74,7 +77,7 @@ proto.generateParagraphElement = function( ) {
 	paragraph = paragraph.slice( 0, - 1 );
 
 	return $( '<p>' + paragraph + '</p>' );
-}
+};
 
 
 
@@ -82,7 +85,7 @@ proto.generateParagraphElement = function( ) {
  * Generate a new list element
  * @return {Element} - <ul>
  */
-proto.generateListElement = function( ) {
+proto.generateListElement = function() {
 	var listLength = Utils.getRandomInt( 4, 8 );
 	var listElement = document.createElement( 'ul' );
 
@@ -101,15 +104,15 @@ proto.generateListElement = function( ) {
 	}
 
 	return $( listElement );
-}
+};
 
 
 
 /**
  * Generate a new headline element
- * @return {Element} - <h2>
+ * @return {Element} - <h1>
  */
-proto.generateHeadlineElement = function( ) {
+proto.generateHeadlineElement = function() {
 	var headlineLength = Utils.getRandomInt( 2, 4 );
 	// get strings from the firebase database
 	console.log(this.firebaseObject);
@@ -119,8 +122,8 @@ proto.generateHeadlineElement = function( ) {
 	// capitalize headline
 	headline = this._capitalizeString( headline );
 
-	return ( '<h2>' + headline + this._generatePunctuationEnding() + '</h2>' );
-}
+	return ( '<h1>' + headline + this._generatePunctuationEnding() + '</h1>' );
+};
 
 
 
@@ -132,62 +135,6 @@ proto.generateHeadlineElement = function( ) {
 proto.generateWordBlockElement = function( numberOfWords ) {
 	var words = this.generateWords( numberOfWords );
 	return $( '<p>' + words + '</p>' );
-}
-
-
-
-/**
- * Print paragraphs to the output element
- * @param {Number} numberOfParagraphs - number of paragraphs to generate
- */
-proto.printParagraphsToOutputElement = function( numberOfParagraphs ) {
-	for (var i = 0; i < numberOfParagraphs; i++) {
-		// generate a new paragraph element
-		var paragraphElement = this.generateParagraphElement();
-		// prepend the new paragraph to the output element
-		this.$outputElement.prepend( paragraphElement );
-	}
-};
-
-
-
-/**
- * Print headlines to the output element
- * @param {Number} numberOfHeadlines - number of headlines to generate
- */
-proto.printHeadlinesToOutputElement = function( numberOfHeadlines ) {
-	for ( var i = 0; i < numberOfHeadlines; i++ ) {
-		// generate a new headline element
-		var headlineElement = this.generateHeadlineElement();
-		// prepend the new headline to the output element
-		this.$outputElement.prepend( headlineElement );
-	}
-};
-
-
-
-/**
- * Print lists to the output element
- * @param {Number} numberOfLists - number of lists to generate
- */
-proto.printListsToOutputElement = function( numberOfLists ) {
-	for ( var i = 0; i < numberOfLists; i++ ) {
-		// generate a new list element
-		var listElement = this.generateListElement();
-		// prepend the new list to the output element
-		this.$outputElement.prepend( listElement );
-	}
-};
-
-
-
-/**
- * Print lists to the output element
- * @param {Number} numberOfWords - number of lists to generate
- */
-proto.printWordsToOutputElement = function( numberOfWords ) {
-	var wordBlockElement = this.generateWordBlockElement( numberOfWords );
-	this.$outputElement.prepend( wordBlockElement );
 };
 
 
@@ -198,7 +145,7 @@ proto.printWordsToOutputElement = function( numberOfWords ) {
  * @private
  * @return {String} - punctuation mark
  */
-proto._generatePunctuationEnding = function( ) {
+proto._generatePunctuationEnding = function() {
 	// TODO: add some sort of UI checkbox to enable special punctuation??
 	var randomNumber = Utils.getRandomInt( 0, 10 );
 	// if the random number is not a 5 return a period
@@ -207,7 +154,7 @@ proto._generatePunctuationEnding = function( ) {
 		return '.';
 	}
 	// If our 1 in 10 random number matched, randomly select a special punctuation mark
-	var punctuationMark = this.endingPunctuation[ Utils.getRandomInt( 0, this.endingPunctuation.length - 1 ) ];
+	var punctuationMark = this.specialPunctuation[ Utils.getRandomInt( 0, this.specialPunctuation.length - 1 ) ];
 
 	return punctuationMark;
 };
