@@ -12,14 +12,21 @@
 </head>
 <body class="page-generator">
 
+	<aside class="help-modal">
+		<h1>What the eff is this thing?</h1>
+	</aside>
+
 	<section class="input">
+		<button class="help-button">
+			<i class="icon icon-help-circled">WTF</i>
+		</button>
 		<header id="input-header" class="input-header">
 			<h1>Surf Ipsum</h1>
 			<p class="header-quote">"The gnarliest lorem ipsum generator on the interwebs."</p>
 			<p class="header-author">– Craig Anderson</p>
 		</header>
 		<div id="input-element" class="input-element">
-			<input id="input-number" class="input-number" type="text" name="number" pattern="[0-9]*" value="7" max="9999">
+			<input id="input-number" class="input-number" type="number" name="number" pattern="[0-9]*" required value="7" max="9999">
 			<div id="input-select" class="input-select"></div>
 			<button id="input-generate" class="input-generate" type="submit"><span class="button-text">Generate<i class="icon-shaka"></i></span></button>
 		</div>
@@ -44,7 +51,6 @@
 				<button id="output-button-clear" class="output-button output-button-clear" tabIndex="-1"><span class="button-inner">clear the lineup</span><i class="icon icon-cancel"></i></button>
 			</div>
 		</div>
-
 		<div id="output-results" class="output-results"></div>
 	</section>
 

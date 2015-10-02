@@ -800,6 +800,21 @@ body.page-generator.will-show-results {
   overflow: visible;
 }
 
+.help-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.help-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  background: #1d91c0;
+}
+
 .ocean-wrapper {
   position: relative;
   z-index: 1;
@@ -982,7 +997,7 @@ body.page-generator.will-show-results {
   width: 25%;
   padding: 0 10px 0 15px;
   border: none;
-  border-right: 10px solid #f2f7f9;
+  border-right: 10px solid #ffffff;
   border-radius: 0;
   float: left;
   background: #eaeaea;
@@ -990,7 +1005,7 @@ body.page-generator.will-show-results {
 @media (min-width: 560px) {
   .input-number {
     width: 20%;
-    border-right: 4px solid #f2f7f9;
+    border-right: 4px solid #ffffff;
   }
 }
 @media (min-width: 760px) {
@@ -1009,6 +1024,11 @@ body.page-generator.will-show-results {
 .input-number:focus {
   outline: none;
   background: #f2f2f2;
+}
+.input-number::-webkit-inner-spin-button, .input-number::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
+  margin: 0;
 }
 
 .input-generate {

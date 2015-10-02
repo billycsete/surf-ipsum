@@ -1,6 +1,6 @@
 // =================================================
 //
-// Ipsum Input Element
+// Ipsum Input Form
 //
 // =================================================
 
@@ -30,14 +30,14 @@ $input-element-height-large  : 70px;
 	width: 25%;
 	padding: 0 10px 0 15px;
 	border: none;
-	border-right: 10px solid $off-white;
+	border-right: 10px solid $white;
 	border-radius: 0;
 	float: left;
 	background: $light-grey;
 
 	@include media(small) {
 		width: 20%;
-		border-right: 4px solid $off-white;
+		border-right: 4px solid $white;
 	}
 
 	@include media(medium) {
@@ -55,6 +55,13 @@ $input-element-height-large  : 70px;
 	&:focus {
 		outline: none;
 		background: $light-grey-brighter;
+	}
+
+	// hide the default number arrows, they're ugly
+	&::-webkit-inner-spin-button,
+	&::-webkit-outer-spin-button {
+	  appearance: none;
+	  margin: 0;
 	}
 
 }
