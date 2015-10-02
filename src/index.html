@@ -12,14 +12,7 @@
 </head>
 <body class="page-generator">
 
-	<aside class="help-modal">
-		<h1>What the eff is this thing?</h1>
-	</aside>
-
 	<section class="input">
-		<button class="help-button">
-			<i class="icon icon-help-circled">WTF</i>
-		</button>
 		<header id="input-header" class="input-header">
 			<h1>Surf Ipsum</h1>
 			<p class="header-quote">"The gnarliest lorem ipsum generator on the interwebs."</p>
@@ -31,6 +24,14 @@
 			<button id="input-generate" class="input-generate" type="submit"><span class="button-text">Generate<i class="icon-shaka"></i></span></button>
 		</div>
 	</section>
+
+	<button class="help-button">
+		<em class="icon-text">WTF is a Surf Ipsum</em>
+		<i class="icon icon-help-circled"></i>
+	</button>
+	<aside class="help-modal">
+		<h1>What the eff is this thing?</h1>
+	</aside>
 
 	<div id="ocean-wrapper" class="ocean-wrapper">
 		<div class="wave-mask"></div>
@@ -47,8 +48,14 @@
 	<section class="output">
 		<div id="output-controls" class="output-controls">
 			<div class="output-controls-inner">
-				<button id="output-button-add" class="output-button output-button-add" tabIndex="-1"><i class="icon icon-plus"></i><span class="button-inner">add more ipsum</span></button>
-				<button id="output-button-clear" class="output-button output-button-clear" tabIndex="-1"><span class="button-inner">clear the lineup</span><i class="icon icon-cancel"></i></button>
+				<button id="output-button-clear" class="output-button output-button-clear" tabIndex="-1">
+					<i class="icon icon-cancel"></i>
+					<span class="button-inner">clear the lineup</span>
+				</button>
+				<button id="output-button-add" class="output-button output-button-add" tabIndex="-1">
+					<i class="icon icon-plus"></i>
+					<span class="button-inner">add more ipsum</span>
+				</button>
 			</div>
 		</div>
 		<div id="output-results" class="output-results"></div>

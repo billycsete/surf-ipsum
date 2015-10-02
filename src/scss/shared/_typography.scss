@@ -19,7 +19,10 @@ $bold     : 700;
 // =================================================
 
 body {
-	font-size: 16px;
+	font-size: 14px;
+	@include media(small) { font-size: 16px; }
+	@include media(medium) { font-size: 18px; }
+	@include media(xlarge) { font-size: 20px; }
 	line-height: 1.6;
 	font-family: 'Open Sans', 'Helvetica', 'sans-serif';
 	color: $black;
@@ -36,16 +39,13 @@ h1 {
 	font-family: 'Open Sans', 'Helvetica', 'sans-serif';
 	font-weight: $light;
 	font-size: 26px;
-	line-height: 26px;
 	margin-bottom: 12px;
-}
+	font-size: 22px;
+	line-height: 1.5;
 
-h2 {
-	font-family: 'Open Sans', 'Helvetica', 'sans-serif';
-	font-weight: $normal;
-	font-size: 36px;
-	line-height: 36px;
-	margin: 0 0 20px 0;
+	@include media(medium) { font-size: 26px; }
+	@include media(large) { font-size: 30px; }
+	@include media(xlarge) { font-size: 34px; }
 }
 
 
@@ -54,9 +54,12 @@ h2 {
 // =================================================
 
 p {
-	font-size: 16px;
+	font-size: 14px;
 	margin: 0 0 20px 0;
 	font-weight: $normal;
+	@include media(small) { font-size: 16px; }
+	@include media(medium) { font-size: 18px; }
+	@include media(xlarge) { font-size: 20px; }
 }
 
 

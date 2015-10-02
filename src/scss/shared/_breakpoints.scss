@@ -10,7 +10,8 @@
 
 $small  : 560px;
 $medium : 760px;
-$large  : 1000px;
+$large  : 1100px;
+$xlarge : 1700px;
 
 
 // ====================================
@@ -30,7 +31,11 @@ $large  : 1000px;
 		@media (min-width: $large) { @content; }
 	}
 
+	@else if $breakpoint == 'xlarge' {
+		@media (min-width: $xlarge) { @content; }
+	}
+
 	@else {
-		@warn "Media mixin supports only these values: small, medium, large";
+		@warn "Media mixin supports only these values: small, medium, large, xlarge";
 	}
 }

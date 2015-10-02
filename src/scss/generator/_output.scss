@@ -48,9 +48,18 @@ $button-height: 50px;
 	top: 0;
 	width: 100%;
 	margin: 0 auto;
+	padding: 0 20px;
 	background: $white;
-	border-bottom: 1px solid $light-grey;
 	transition: opacity 0.8s ease-out;
+
+	@include media(medium) {
+		padding: 0 70px;
+	}
+
+	&.fixedsticky-on {
+		background: $off-white;
+		border-bottom: 1px solid $light-grey;
+	}
 
 	.show-results & {
 		opacity: 1;
@@ -59,65 +68,45 @@ $button-height: 50px;
 	.output-controls-inner {
 		position: relative;
 		z-index: 10;
-		background: $white;
+		// background: $white;
 		max-width: 980px;
 		margin: 0 auto;
-		padding: 20px 0;
+		padding: 20px 20px;
 		@include clearfix;
+
+		@include media(xlarge) {
+			max-width: 1400px;
+		}
 	}
 
 	// output button
 	.output-button {
 		display: inline-block;
-		border: none;
-		box-shadow: none;
 		background-color: $off-white;
-		line-height: 34px;
-		padding: 0;
+		padding: 3px 15px 5px 10px;
+		color: $white;
+		float: left;
+		margin-right: 15px;
 
 		.icon {
 			display: inline-block;
-			padding: 0 5px;
-			color: $white;
-		}
-
-		.button-inner {
-
-		}
-
-		&:focus {
-			outline: none;
+			font-size: 1.1em;
+			transform: translateY(1px);
 		}
 	}
 
 	// Refresh the lineup button
 	.output-button-add {
-		margin-left: 20px;
-		padding-right: 20px;
-		float: left;
-		text-align: left;
-		.icon {
-			margin-right: 15px;
-			background-color: $green;
-		}
-
-		&:hover .icon {
+		background-color: $green;
+		.no-touch &:hover {
 			background-color: $green-alt;
 		}
 	}
 
 	// Clear the lineup button
 	.output-button-clear {
-		margin-right: 20px;
-		padding-left: 20px;
-		float: right;
-		text-align: right;
-		.icon {
-			margin-left: 15px;
-			background-color: $red;
-		}
-
-		&:hover .icon {
+		background-color: $red;
+		.no-touch &:hover {
 			background-color: $red-alt;
 		}
 	}
