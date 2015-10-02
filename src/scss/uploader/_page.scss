@@ -10,11 +10,11 @@ body.page-uploader {
 	background-position: center bottom;
 	background-repeat: no-repeat;
 
-	@include media($small) {
+	@include media(small) {
 		background-size: 1200px auto;
 	}
 
-	@include media($medium) {
+	@include media(medium) {
 		background-size: 100% auto;
 	}
 }

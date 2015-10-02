@@ -1,0 +1,99 @@
+// =================================================
+//
+// Ocean Background
+//
+// =================================================
+
+.ocean-wrapper {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	background: blue;
+	overflow: hidden;
+	margin-top: -140px;
+	@include media(small) { margin-top: -150px; }
+	@include media(medium) { margin-top: -170px; }
+	@include media(large) { margin-top: -200px; }
+
+	.touch & {
+		margin-top: -200px;
+	}
+
+	.wave-mask {
+		position: absolute;
+		z-index: 2;
+		width: 100%;
+		top: -4px;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-image: url(../images/wave.svg);
+		background-repeat: no-repeat;
+		background-position: -610px 0;
+		background-size: auto 140px;
+
+		@include media(small) {
+			background-position: -690px 0;
+			background-size: auto 160px;
+		}
+
+		@include media(large) {
+			background-size: auto 200px;
+			background-position: 50% 0;
+		}
+
+	}
+
+	.ocean {
+		position: relative;
+		z-index: 1;
+	}
+
+	svg {
+		display: block;
+	}
+}
+
+
+
+// =================================
+// Ocean header
+// =================================
+
+.ocean-header {
+	padding: 0 20px;
+	position: absolute;
+	z-index:4;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	transform: translate3d(0, 100%, 0);
+	transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+
+	@include media(medium) {
+		padding: 0 70px;
+	}
+
+	.show-results & {
+		transform: translate3d(0, 0, 0);
+	}
+
+	.ocean-header-inner {
+		background: $off-white;
+		max-width: 980px;
+		padding: 10px 20px;
+		margin: 0 auto;
+
+		@include media(xlarge) {
+			max-width: 1400px;
+		}
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}

@@ -1,6 +1,5 @@
 'use strict';
 
-var $        = require('../../../lib/jquery/jquery');
 var Firebase = require('Firebase');
 
 var proto;

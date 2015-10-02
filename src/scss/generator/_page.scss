@@ -5,10 +5,11 @@
 // =================================================
 
 body.page-generator {
-	background-color: $light-blue;
 	overflow: hidden;
+	min-height: 100%;
+	background: $white;
 
-	&.show-results {
+	&.will-show-results {
 		overflow: visible;
 	}
 }

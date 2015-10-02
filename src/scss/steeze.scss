@@ -5,29 +5,25 @@
  */
 
 // =================================================
-// Frameworks
-// =================================================
-
-@import 'bourbon';
-@import 'neat';
-
-
-// =================================================
 // Shared
 // =================================================
 
-@import 'shared/settings';
+@import 'shared/mixins';
 @import 'shared/normalize';
-@import 'shared/base';
+@import 'shared/breakpoints';
+@import 'shared/colors';
 @import 'shared/colors';
 @import 'shared/icons';
 @import 'shared/typography';
+@import 'shared/layout';
+@import 'shared/sticky-polyfill';
 
 
 // =================================================
 // Page Specific
 // =================================================
 
+// Uploader
 @import 'uploader/page';
 @import 'uploader/uploader-element';
 @import 'uploader/uploader-form';
@@ -35,9 +31,11 @@
 @import 'uploader/uploader-submit';
 @import 'uploader/uploader-message';
 
+// Generator
 @import 'generator/page';
-@import 'generator/ipsum-background';
-@import 'generator/ipsum-input';
-@import 'generator/input-element';
-@import 'generator/input-select';
-@import 'generator/ipsum-output';
+@import 'generator/help';
+@import 'generator/ocean';
+@import 'generator/input';
+@import 'generator/input-form';
+@import 'generator/output';
+@import 'generator/ipsum-item';

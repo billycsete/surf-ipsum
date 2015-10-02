@@ -1,0 +1,278 @@
+// =================================================
+//
+// Ipsum Input Form
+//
+// =================================================
+
+// ipsum input vars
+$input-element-height-small  : 52px;
+$input-element-height-medium : 60px;
+$input-element-height-large  : 70px;
+
+
+// ipsum input wrapper
+.input-element {
+	position: relative;
+	z-index: 1;
+	font-size: 20px;
+	@include clearfix;
+	@include media(small) { font-size: 22px; }
+	@include media(medium) { font-size: 24px; }
+}
+
+
+// =================================
+// Number input
+// =================================
+
+.input-number {
+	height: $input-element-height-small;
+	width: 25%;
+	padding: 0 10px 0 15px;
+	border: none;
+	border-right: 10px solid $white;
+	border-radius: 0;
+	float: left;
+	background: $light-grey;
+
+	@include media(small) {
+		width: 20%;
+		border-right: 4px solid $white;
+	}
+
+	@include media(medium) {
+		height: $input-element-height-medium;
+	}
+
+	@include media(large) {
+		height: $input-element-height-large;
+	}
+
+	.no-touch &:hover {
+		background: $light-grey-brighter;
+	}
+
+	&:focus {
+		outline: none;
+		background: $light-grey-brighter;
+	}
+
+	// hide the default number arrows, they're ugly
+	&::-webkit-inner-spin-button,
+	&::-webkit-outer-spin-button {
+	  appearance: none;
+	  margin: 0;
+	}
+
+}
+
+
+// =================================
+// Submit button
+// =================================
+
+.input-generate {
+	width: 100%;
+	height: $input-element-height-small;
+	line-height: $input-element-height-small;
+	background-color: $green;
+	padding: 0 0 0 25px;
+	margin: 10px 0 0 0;
+	box-shadow: none;
+	border: none;
+	color: rgba(0,0,0,0.5);
+	@include clearfix();
+
+	@include media(small) {
+		float: left;
+		width: 40%;
+		margin-top: 0;
+	}
+
+	@include media(medium) {
+		height: $input-element-height-medium;
+	}
+
+	@include media(large) {
+		height: $input-element-height-large;
+	}
+
+	.button-text {
+		position: relative;
+		z-index: 1;
+		display: inline-block;
+		line-height: $input-element-height-small;
+		padding-right: 60px;
+
+		@include media(medium) {
+			line-height: $input-element-height-medium;
+			padding-right: 70px;
+		}
+		@include media(large) {
+			line-height: $input-element-height-large;
+			padding-right: 80px;
+		}
+	}
+
+	.icon-shaka {
+		display: block;
+		position: absolute;
+		z-index: 1;
+		right: 0;
+		top: 0;
+		width: $input-element-height-small;
+		height: $input-element-height-small;
+		background-image: url('../images/shaka.svg');
+		background-size: 70px 70px;
+		background-repeat: no-repeat;
+		background-position: 100% 25%;
+		transform-origin: 40% 60%;
+
+		@include media(medium) {
+			background-size: 80px 80px;
+			height: $input-element-height-medium;
+			width: $input-element-height-medium;
+		}
+		@include media(large) {
+			background-size: 90px 90px;
+			height: $input-element-height-large;
+			width: $input-element-height-large;
+		}
+	}
+
+	.no-touch &:hover {
+		background-color: $green-alt;
+
+		.icon-shaka {
+			animation: shaka 0.2s infinite;
+		}
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+
+// =================================
+// Select Element
+// =================================
+
+.input-select {
+	position: relative;
+	z-index: 2;
+	width: 75%;
+	padding-left: 20px;
+	float: left;
+	background: $light-grey;
+
+	@include media(small) {
+		float: left;
+		width: 40%;
+		border-right: 4px solid $white;
+	}
+
+	.no-touch &:hover {
+		background: $light-grey-brighter;;
+		.icon-down-open {
+			color: $dark-grey;
+		}
+	}
+
+
+	// down arrow icon
+	.icon-down-open {
+		height: $input-element-height-small;
+		line-height: $input-element-height-small;
+		padding: 0 10px;
+		cursor: pointer;
+		position: absolute;
+		z-index: 1;
+		right: 0;
+		color: $grey;
+		background: rgba(0,0,0,0);
+		font-size: 18px;
+
+		@include media(medium) {
+			height: $input-element-height-medium;
+			line-height: $input-element-height-medium;
+		}
+		@include media(large) {
+			height: $input-element-height-large;
+			line-height: $input-element-height-large;
+		}
+	}
+
+
+	// current value
+	.select-value {
+		display: block;
+		cursor: pointer;
+		line-height: $input-element-height-small;
+
+		@include media(medium) {
+			line-height: $input-element-height-medium;
+		}
+		@include media(large) {
+			line-height: $input-element-height-large;
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+
+	// list of options
+	.select-list {
+		opacity: 0;
+		position: absolute;
+		z-index: 1;
+		overflow: hidden;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		height: 0;
+		margin: 0;
+		padding: 0;
+		background: $light-grey;
+
+		li.select-option {
+			padding: 8px 12px;
+			list-style-type: none;
+			cursor: pointer;
+			border-top: 2px solid $white;
+
+			@include media(small) {
+				padding: 14px 22px;
+			}
+
+			&.selected {
+				display: none;
+			}
+
+			.no-touch &:hover {
+				background: $light-grey-darker;
+			}
+		}
+	}
+
+	&.focused {
+		.select-list {
+			opacity: 1;
+			height: auto;
+		}
+	}
+}
+
+
+
+// =================================
+// Shaka Icon Animation
+// =================================
+
+@keyframes shaka {
+	0% { transform   : rotate(0deg); }
+	50% { transform  : rotate(-15deg); }
+	100% { transform : rotate(0deg); }
+}

@@ -1,6 +1,5 @@
 'use strict';
 
-var $              = require('../../../lib/jquery/jquery');
 var Utils          = require('../shared/Utils.js').Utils;
 var FirebaseObject = require('../shared/FirebaseObject');
 
@@ -11,14 +10,17 @@ var proto;
 /**
  * Ipsum Output
  * @constructor
+ *
+ * Responsible for interacting with the Firebase database
+ * to return randomly generated words, sentences, paragraphs,
+ * lists, or headlines.
+ *
  */
-var IpsumOutput = function( outputContainer ) {
-	// IpsumOutput elements
-	this.$outputElement = outputContainer;
+var IpsumOutput = function() {
 	// access to database of words
 	this.firebaseObject = new FirebaseObject();
 	// store arrays of special punctuation characters
-	this.endingPunctuation = ['?', '!'];
+	this.specialPunctuation = ['?', '!'];
 };
 
 proto = IpsumOutput.prototype;
@@ -29,7 +31,7 @@ proto = IpsumOutput.prototype;
  * Generate a random sentence
  * @return {String} - random sentence of surf words
  */
-proto.generateSentence = function ( ) {
+proto.generateSentence = function() {
 	var sentenceLength = Utils.getRandomInt( 5, 10 );
 	// get strings from the firebase database
 	var sentence = this.firebaseObject.getRandomStrings( sentenceLength );
@@ -44,90 +46,95 @@ proto.generateSentence = function ( ) {
 
 
 /**
- * Print paragraphs to the output element
- * @param {Number} numberOfParagraphs - number of paragraphs to generate
+ * Generate random words
+ * @param {Number} numberOfWords - number of words to generate
+ * @param {String} - string of words
  */
-proto.printParagraphsToOutputElement = function ( numberOfParagraphs ) {
-
-	for (var i = 0; i < numberOfParagraphs; i++) {
-		var sentencesPerParagraph = Utils.getRandomInt( 5, 8 );
-		var paragraph = '';
-
-		for ( var j = 0; j < sentencesPerParagraph; j++ ) {
-			paragraph += this.generateSentence() + ' ';
-		};
-
-		// trim off the trailing space on the last sentence
-		paragraph = paragraph.slice( 0, - 1 );
-		// print paragraph to the output element
-		this.$outputElement.append( '<p>' + paragraph + '</p>' );
-	}
-};
-
-
-
-/**
- * Print headlines to the output element
- * @param {Number} numberOfHeadlines - number of headlines to generate
- */
-proto.printHeadlinesToOutputElement = function ( numberOfHeadlines ) {
-
-	for ( var i = 0; i < numberOfHeadlines; i++ ) {
-		var headlineLength = Utils.getRandomInt( 2, 4 );
-		// get strings from the firebase database
-		var headline = this.firebaseObject.getRandomStrings( headlineLength );
-		// turn array of results into one long string and remove commas
-		headline = this._stringifyIpsumResults( headline );
-		// capitalize headline
-		headline = this._capitalizeString( headline );
-		// print a new headline to the output element
-		this.$outputElement.append( '<h2>' + headline + this._generatePunctuationEnding() + '</h2>' );
-	}
-};
-
-
-
-/**
- * Print lists to the output element
- * @param {Number} numberOfLists - number of lists to generate
- */
-proto.printListsToOutputElement = function ( numberOfLists ) {
-
-	for ( var i = 0; i < numberOfLists; i++ ) {
-		var listLength = Utils.getRandomInt( 4, 8 );
-		var listElement = document.createElement( 'ul' );
-
-		for (var j = 0; j < listLength; j++) {
-			var listItem = document.createElement( 'li' );
-
-			var listItemTextLength = Utils.getRandomInt( 2, 4 );
-			// get strings from the firebase database
-			var listItemText = this.firebaseObject.getRandomStrings( listItemTextLength );
-			// turn array of results into one long string and remove commas
-			listItemText = this._stringifyIpsumResults( listItemText );
-			// add the random text to the new list item
-			$(listItem).html( listItemText );
-			// add the new list item element to the list element
-			$(listElement).append( listItem );
-		};
-
-		this.$outputElement.append( listElement );
-	};
-};
-
-
-
-/**
- * Print lists to the output element
- * @param {Number} numberOfWords - number of lists to generate
- */
-proto.printWordsToOutputElement = function ( numberOfWords ) {
+proto.generateWords = function( numberOfWords ) {
 	// get strings from the firebase database
 	var words = this.firebaseObject.getRandomStrings( numberOfWords );
 	// turn array of results into one long string and remove commas
 	words = this._stringifyIpsumResults( words );
 	// print words to the output element
-	this.$outputElement.append( '<p>' + words + '</p>' );
+	return words;
+};
+
+
+
+/**
+ * Generate a new paragraph element
+ * @return {Element} - <p>
+ */
+proto.generateParagraphElement = function() {
+	var paragraph = '';
+	var sentencesPerParagraph = Utils.getRandomInt( 5, 8 );
+
+	for ( var j = 0; j < sentencesPerParagraph; j++ ) {
+		paragraph += this.generateSentence() + ' ';
+	}
+
+	// trim off the trailing space on the last sentence
+	paragraph = paragraph.slice( 0, - 1 );
+
+	return $( '<p>' + paragraph + '</p>' );
+};
+
+
+
+/**
+ * Generate a new list element
+ * @return {Element} - <ul>
+ */
+proto.generateListElement = function() {
+	var listLength = Utils.getRandomInt( 4, 8 );
+	var listElement = document.createElement( 'ul' );
+
+	for (var j = 0; j < listLength; j++) {
+		var listItem = document.createElement( 'li' );
+
+		var listItemTextLength = Utils.getRandomInt( 2, 4 );
+		// get strings from the firebase database
+		var listItemText = this.firebaseObject.getRandomStrings( listItemTextLength );
+		// turn array of results into one long string and remove commas
+		listItemText = this._stringifyIpsumResults( listItemText );
+		// add the random text to the new list item
+		$(listItem).html( listItemText );
+		// add the new list item element to the list element
+		$(listElement).append( listItem );
+	}
+
+	return $( listElement );
+};
+
+
+
+/**
+ * Generate a new headline element
+ * @return {Element} - <h1>
+ */
+proto.generateHeadlineElement = function() {
+	var headlineLength = Utils.getRandomInt( 2, 4 );
+	// get strings from the firebase database
+	console.log(this.firebaseObject);
+	var headline = this.firebaseObject.getRandomStrings( headlineLength );
+	// turn array of results into one long string and remove commas
+	headline = this._stringifyIpsumResults( headline );
+	// capitalize headline
+	headline = this._capitalizeString( headline );
+
+	return ( '<h1>' + headline + this._generatePunctuationEnding() + '</h1>' );
+};
+
+
+
+/**
+ * Generate a paragraph block of words
+ * @param {Number} numberOfWords - number of words to add to the paragraph
+ * @return {Element} - <p>
+ */
+proto.generateWordBlockElement = function( numberOfWords ) {
+	var words = this.generateWords( numberOfWords );
+	return $( '<p>' + words + '</p>' );
 };
 
 
@@ -138,7 +145,7 @@ proto.printWordsToOutputElement = function ( numberOfWords ) {
  * @private
  * @return {String} - punctuation mark
  */
-proto._generatePunctuationEnding = function( ) {
+proto._generatePunctuationEnding = function() {
 	// TODO: add some sort of UI checkbox to enable special punctuation??
 	var randomNumber = Utils.getRandomInt( 0, 10 );
 	// if the random number is not a 5 return a period
@@ -147,7 +154,7 @@ proto._generatePunctuationEnding = function( ) {
 		return '.';
 	}
 	// If our 1 in 10 random number matched, randomly select a special punctuation mark
-	var punctuationMark = this.endingPunctuation[ Utils.getRandomInt( 0, this.endingPunctuation.length - 1 ) ];
+	var punctuationMark = this.specialPunctuation[ Utils.getRandomInt( 0, this.specialPunctuation.length - 1 ) ];
 
 	return punctuationMark;
 };

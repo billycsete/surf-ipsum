@@ -6,12 +6,14 @@ var Utils = {
 	 * based on from https://github.com/inuyaksa/jquery.nicescroll/blob/master/jquery.nicescroll.js
 	 */
 	hasParent : function( e, p ) {
-		if ( !e ) return false;
+		if ( !e ) {
+			return false;
+		}
 		var el = e.target || e.srcElement || e || false;
-		while ( el && el != p ) {
+		while ( el && el !== p ) {
 			el = el.parentNode || false;
 		}
-		return ( el!==false );
+		return ( el !== false );
 	},
 
 	/**

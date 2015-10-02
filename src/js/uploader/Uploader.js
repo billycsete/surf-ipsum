@@ -1,6 +1,5 @@
 'use strict';
 
-var $               = require('../../../lib/jquery/jquery');
 var FirebaseObject  = require('../shared/FirebaseObject');
 var UploaderMessage = require('./UploaderMessage');
 
@@ -52,7 +51,7 @@ proto._attachEvents = function() {
 /**
  * Called when the uploader input is focused
  */
-proto._onFocus = function( evt ) {
+proto._onFocus = function( ) {
 	this.$uploaderElement.addClass( 'input-focused' );
 };
 
@@ -60,7 +59,7 @@ proto._onFocus = function( evt ) {
 /**
  * Called when the uploader input loses focus
  */
-proto._onBlur = function( evt ) {
+proto._onBlur = function( ) {
 	this.$uploaderElement.removeClass( 'input-focused' );
 };
 
@@ -68,7 +67,7 @@ proto._onBlur = function( evt ) {
 /**
  * Called when the input value changes
  */
-proto._onValueChange = function( evt ) {
+proto._onValueChange = function( ) {
 	var inputValue = this.$inputElement.val();
 
 	// hide the error message if someone starts typing again

@@ -1,7 +1,6 @@
-'use strict'
+'use strict';
 
-// Require statements
-var $         = require('../../../lib/jquery/jquery');
+// // Require statements
 var Uploader = require('./Uploader');
 
 var Main = {

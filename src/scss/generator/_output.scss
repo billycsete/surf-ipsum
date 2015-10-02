@@ -1,0 +1,113 @@
+// =================================================
+//
+// Output Section
+//
+// =================================================
+
+.output {
+	position: relative;
+	z-index: 10;
+	width: 100%;
+	min-height: 100vh;
+	background-color: $white;
+	tranform: translateZ(0);
+}
+
+
+// =================================
+// Ipsum output results container
+// =================================
+
+.output-results {
+	position: relative;
+	z-index: 1;
+	padding: 40px 0;
+	background-color: $white;
+	transform: translateZ(0);
+	opacity: 0;
+	transition: opacity 0.8s ease-out;
+
+	.show-results & {
+		opacity: 1;
+	}
+}
+
+
+// =================================
+// Output Controls
+// =================================
+
+$button-height: 50px;
+
+
+.output-controls {
+	position: relative;
+	position: sticky;
+	z-index: 100;
+	opacity: 0;
+	top: 0;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 20px;
+	background: $white;
+	transition: opacity 0.8s ease-out;
+
+	@include media(medium) {
+		padding: 0 70px;
+	}
+
+	&.fixedsticky-on {
+		background: $off-white;
+		border-bottom: 1px solid $light-grey;
+	}
+
+	.show-results & {
+		opacity: 1;
+	}
+
+	.output-controls-inner {
+		position: relative;
+		z-index: 10;
+		// background: $white;
+		max-width: 980px;
+		margin: 0 auto;
+		padding: 20px 20px;
+		@include clearfix;
+
+		@include media(xlarge) {
+			max-width: 1400px;
+		}
+	}
+
+	// output button
+	.output-button {
+		display: inline-block;
+		background-color: $off-white;
+		padding: 3px 15px 5px 10px;
+		color: $white;
+		float: left;
+		margin-right: 15px;
+
+		.icon {
+			display: inline-block;
+			font-size: 1.1em;
+			transform: translateY(1px);
+		}
+	}
+
+	// Refresh the lineup button
+	.output-button-add {
+		background-color: $green;
+		.no-touch &:hover {
+			background-color: $green-alt;
+		}
+	}
+
+	// Clear the lineup button
+	.output-button-clear {
+		background-color: $red;
+		.no-touch &:hover {
+			background-color: $red-alt;
+		}
+	}
+}

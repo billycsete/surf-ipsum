@@ -8,23 +8,23 @@
 	position: relative;
 	z-index: 1;
 	height: 6px;
-	padding-left: rem(22px);
+	padding-left: 1.57rem;
 	overflow: hidden;
 	background: $up-dark-blue;
 	color: $dark-grey;
-	font-size: rem(20px);
-	@include transform(translateZ(0));
-	@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0.2s ease-in-out);
+	font-size: 1.4rem;
+	transform: translateZ(0);
+	transition: height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0.2s ease-in-out;
 
 	&.show-message{
-		height: rem(64px);
+		height: 4.57rem;
 		background: $light-grey;
-		@include transition(height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0s ease-in-out);
+		transition: height 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550), background 0.2s 0s ease-in-out;
 	}
 
 	.message-text {
-		@include clearfix();
-		padding-top: rem(12px);
+		@include clearfix;
+		padding-top: 1.16rem;
 	}
 
 	span, i {
@@ -33,23 +33,23 @@
 	}
 
 	span {
-		margin-top: rem(2px);
-		padding: rem(5px) rem(10px);
+		margin-top: 2px;
+		padding: 5px 10px;
 
 		&.green {
 			color: $white;
 			background: $green;
-			margin-left: rem(10px);
+			margin-left: 10px;
 		}
 	}
 
 	.icon-cancel {
 		color: $red;
-		font-size: rem(28px);
+		font-size: 2rem;
 	}
 	.icon-ok {
 		color: $green;
-		font-size: rem(28px);
+		font-size: 2rem;
 	}
 
 }
