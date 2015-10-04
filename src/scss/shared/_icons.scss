@@ -25,8 +25,8 @@
 	display: inline-block;
 	text-decoration: inherit;
 	width: 1em;
-	margin-right: .2em;
-	margin-left: .2em;
+	margin-right: .1em;
+	margin-left: .1em;
 	text-align: center;
 
 	/* For safety - reset parent styles, that can break glyph codes*/
@@ -37,7 +37,7 @@
 	line-height: 1em;
 
 	/* you can be more comfortable with increased icons size */
-	/* font-size: 120%; */
+	font-size: 110%;
 }
 
 .icon-upload:before { content: '\e800'; } /* '' */

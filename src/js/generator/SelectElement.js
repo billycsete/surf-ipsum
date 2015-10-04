@@ -14,7 +14,6 @@ var Utils = require('../shared/Utils').Utils;
 //     <li class="select-option selected">paragraphs</li>
 //     <li class="select-option">headlines</li>
 //     <li class="select-option">lists</li>
-//     <li class="select-option">words</li>
 //   </ul>
 // </div>
 //
@@ -30,7 +29,7 @@ var SelectElement = function( ) {
 	this.$optionsList    = $('<ul class="select-list"></ul>');
 	this.$optionElements = [ ];
 	// options available in the dropdown of the select element
-	this.selectOptions   = [ 'paragraphs', 'headlines', 'lists', 'words' ];
+	this.selectOptions   = [ 'paragraphs', 'headlines', 'lists', ];
 
 	this._init();
 };

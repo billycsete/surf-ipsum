@@ -14,15 +14,17 @@ var Main = {
 	/**
 	 * Set up generator page
 	 */
-	initialize : function( ) {
-		this.$body              = $(document.body);
-		this.$oceanWrapper      = $('#ocean-wrapper');
-		this.$ocean             = $('#ocean');
-		this.$inputElement      = $('#input-number');
-		this.$generateButton    = $('#input-generate');
-		this.$outputResults     = $('#output-results');
-		this.$addButton         = $('#output-button-add');
-		this.$clearButton       = $('#output-button-clear');
+	initialize : function() {
+		this.$body               = $(document.body);
+		this.$oceanWrapper       = $('#ocean-wrapper');
+		this.$ocean              = $('#ocean');
+		this.$inputElement       = $('#input-number');
+		this.$generateButton     = $('#input-generate');
+		this.$outputResults      = $('#output-results');
+		this.$addHeadlineButton  = $('#add-headline');
+		this.$addParagraphButton = $('#add-paragraph');
+		this.$addListButton      = $('#add-list');
+		this.$clearButton        = $('#clear-output');
 
 		// Build custom select element
 		this.selectElement = new SelectElement();
@@ -59,11 +61,10 @@ var Main = {
 	/**
 	 * Set up events
 	 */
-	_setupEvents : function( ) {
+	_setupEvents : function() {
 		// buttons of action
-		this.$generateButton.on( 'click', this._generateIpsum );
-		this.$clearButton.on( 'click', this._clearIpsum );
-		this.$addButton.on( 'click', this._scrollToTop );
+		this.$generateButton.on( 'touchstart click', this._generateIpsum );
+		this.$clearButton.on( 'touchstart click', this._clearIpsum );
 		$(document).on( 'keydown', this._onKeypress );
 
 		// prevents iOS from redrawing the ocean SVG as the bottom menu scrolls away
@@ -79,7 +80,7 @@ var Main = {
 	/**
 	 * Generate Background Pattern
 	 */
-	_generateBackgroundPattern : function( ) {
+	_generateBackgroundPattern : function() {
 		var minOceanHeaderHeight = 380;
 		var oceanBackgroundHeight = minOceanHeaderHeight;
 
@@ -108,7 +109,7 @@ var Main = {
 	/**
 	 * Handle page resize
 	 */
-	_onResize : function( ) {
+	_onResize : function() {
 		// generate a new background ocean pattern that matches the width on the new viewport size
 		this._generateBackgroundPattern();
 	},
@@ -118,7 +119,7 @@ var Main = {
 	/**
 	 * Handle orientation change
 	 */
-	_onOrientationChange : function( ) {
+	_onOrientationChange : function() {
 		// generate a new background ocean pattern that matches the width on the new viewport size
 		this._generateBackgroundPattern();
 	},
@@ -145,10 +146,18 @@ var Main = {
 
 
 
+	_onAddButtonClick : function() {
+
+	},
+
+
+
 	/**
 	 * Animate to the generated ipsum
 	 */
-	_generateIpsum : function( ) {
+	_generateIpsum : function( evt ) {
+		evt.stopPropagation();
+		evt.preventDefault();
 		// adds a body hook when the generate button is clicked
 		// and before the scroll animation happens
 		this.$body.addClass('will-show-results');
@@ -197,9 +206,10 @@ var Main = {
 
 	/**
 	 * Clear the output and scroll back up to the top
-	 * @param {Number} animationDuration - scroll to top animation time
 	 */
-	_clearIpsum : function() {
+	_clearIpsum : function( evt ) {
+		evt.stopPropagation();
+		evt.preventDefault();
 		// remove the body hook before we scroll back up to the top
 		this.$body.removeClass('show-results');
 
@@ -215,7 +225,7 @@ var Main = {
 	/**
 	 * Called after the clear scroll animation is complete
 	 */
-	_afterIpsumCleared : function( ) {
+	_afterIpsumCleared : function() {
 		// remove the body hook after the clear scroll animation is complete
 		this.$body.removeClass('will-show-results');
 
@@ -230,7 +240,7 @@ var Main = {
 	/**
 	 * Scroll back to the top of the page
 	 */
-	_scrollToTop : function( ) {
+	_scrollToTop : function() {
 		TweenLite.to( window, 1, {
 			scrollTo: { y: 0 },
 			ease: Power4.easeInOut

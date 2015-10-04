@@ -21,7 +21,7 @@
 .output-results {
 	position: relative;
 	z-index: 1;
-	padding: 40px 0;
+	padding: 20px 0;
 	background-color: $white;
 	transform: translateZ(0);
 	opacity: 0;
@@ -37,9 +37,6 @@
 // Output Controls
 // =================================
 
-$button-height: 50px;
-
-
 .output-controls {
 	position: relative;
 	position: sticky;
@@ -48,17 +45,14 @@ $button-height: 50px;
 	top: 0;
 	width: 100%;
 	margin: 0 auto;
-	padding: 0 20px;
-	background: $white;
+	padding: 0 4px;
+	background: $light-grey-brighter;
+	border-top: 1px solid $light-grey-darker;
+	border-bottom: 1px solid $light-grey-darker;
 	transition: opacity 0.8s ease-out;
 
 	@include media(medium) {
 		padding: 0 70px;
-	}
-
-	&.fixedsticky-on {
-		background: $off-white;
-		border-bottom: 1px solid $light-grey;
 	}
 
 	.show-results & {
@@ -68,11 +62,19 @@ $button-height: 50px;
 	.output-controls-inner {
 		position: relative;
 		z-index: 10;
-		// background: $white;
 		max-width: 980px;
 		margin: 0 auto;
-		padding: 20px 20px;
+		padding: 6px;
 		@include clearfix;
+
+		@include media(small) {
+			padding: 6px 15px;
+		}
+
+		@include media(large) {
+			padding-top: 10px;
+			padding-bottom: 8px;
+		}
 
 		@include media(xlarge) {
 			max-width: 1400px;
@@ -82,32 +84,69 @@ $button-height: 50px;
 	// output button
 	.output-button {
 		display: inline-block;
-		background-color: $off-white;
-		padding: 3px 15px 5px 10px;
-		color: $white;
-		float: left;
-		margin-right: 15px;
+		padding: 6px 0;
+		margin-right: 5px;
+		background-color: transparent;
+		text-align: left;
+		color: $dark-grey;
+		font-size: 13px;
+
+		@include media(small) {
+			font-size: 14px;
+			margin-right: 20px;
+		}
+
+		@include media(large) {
+			padding: 10px 0;
+			font-size: 16px;
+		}
+
+		.no-touch &:hover {
+			color: $black;
+		}
 
 		.icon {
-			display: inline-block;
-			font-size: 1.1em;
-			transform: translateY(1px);
+			.no-touch & {
+				margin-right: 4px;
+			}
+		}
+
+		span {
+			&.hide-for-small {
+				display: none;
+				@include media(small) {
+					display: inline;
+				}
+			}
 		}
 	}
 
 	// Refresh the lineup button
 	.output-button-add {
-		background-color: $green;
+		.icon {
+			color: $green;
+		}
 		.no-touch &:hover {
-			background-color: $green-alt;
+			.icon {
+				color: $white;
+				background-color: $green-alt;
+			}
 		}
 	}
 
 	// Clear the lineup button
 	.output-button-clear {
-		background-color: $red;
-		.no-touch &:hover {
-			background-color: $red-alt;
+		float: right;
+
+		.icon {
+			color: $red;
 		}
+		.no-touch &:hover {
+			.icon {
+				color: $white;
+				background-color: $red-alt;
+			}
+		}
+
 	}
 }

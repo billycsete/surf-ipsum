@@ -26,7 +26,7 @@ var proto;
  *
  *
  * @param {Object} ipsumOutput - instance of IpsumOutput to generate the ipsum
- * @param {String} ipsumType - type of ipsum to be generated [ paragraph, headline, list, words ]
+ * @param {String} ipsumType - type of ipsum to be generated [ paragraph, headline, list ]
  *
  */
 
@@ -98,10 +98,6 @@ proto._generateIpsum = function( ) {
 
 		case 'lists':
 			newIpsumElement = this.IpsumOutput.generateListElement();
-			break;
-
-		case 'words':
-			newIpsumElement = this.IpsumOutput.generateParagraphElement();
 			break;
 	}
 

@@ -128,18 +128,6 @@ proto.generateHeadlineElement = function() {
 
 
 /**
- * Generate a paragraph block of words
- * @param {Number} numberOfWords - number of words to add to the paragraph
- * @return {Element} - <p>
- */
-proto.generateWordBlockElement = function( numberOfWords ) {
-	var words = this.generateWords( numberOfWords );
-	return $( '<p>' + words + '</p>' );
-};
-
-
-
-/**
  * Returns a randomized punctuation mark for ending a sentence
  * Periods are weighted heavier than other types of sentence ending punctuation marks
  * @private

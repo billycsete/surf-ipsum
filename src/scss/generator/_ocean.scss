@@ -60,15 +60,20 @@
 // Ocean header
 // =================================
 
+$header-transform-ease: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+
 .ocean-header {
-	padding: 0 20px;
 	position: absolute;
 	z-index:4;
 	bottom: 0;
 	left: 0;
 	width: 100%;
 	transform: translate3d(0, 100%, 0);
-	transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+	transition: transform 0.6s $header-transform-ease;
+
+	@include media(small) {
+		padding: 0 20px;
+	}
 
 	@include media(medium) {
 		padding: 0 70px;
@@ -79,21 +84,61 @@
 	}
 
 	.ocean-header-inner {
-		background: $off-white;
+		position: relative;
+		z-index: 1;
+		background: $white;
 		max-width: 980px;
-		padding: 10px 20px;
+		padding: 15px 15px 15px 98px;
 		margin: 0 auto;
+
+		@include media(small) {
+			padding: 15px 20px 15px 190px;
+		}
+
+		@include media(medium) {
+			padding: 20px 20px 20px 240px;
+		}
 
 		@include media(xlarge) {
 			max-width: 1400px;
 		}
 
-		&:first-child {
+		h1 {
 			margin-top: 0;
+			margin-bottom: 0.2em;
 		}
 
-		&:last-child {
+		p {
 			margin-bottom: 0;
+		}
+	}
+
+	.ocean-header-profile {
+		display: block;
+		position: absolute;
+		z-index: 1;
+		bottom: 0;
+		left: 0;
+		width: 100px;
+		margin: 0;
+		transform: translate3d(0, 40%, 0);
+		transition: transform 0.6s $header-transform-ease;
+
+		@include media(small) {
+			width: 200px;
+		}
+
+		@include media(medium) {
+			width: 250px;
+		}
+
+		.show-results & {
+			transform: translate3d(0, 0, 0);
+		}
+
+		img {
+			display: block;
+			width: 100%;
 		}
 	}
 }
