@@ -24,7 +24,7 @@ $ease-in-out-back: cubic-bezier(0.680, -0.550, 0.265, 1.550);
 	z-index: 2;
 	max-width: 980px;
 	margin: 0 auto;
-	padding: 20px 20px 20px 60px;
+	padding: 20px 20px 20px 50px;
 
 	@include media(medium) {
 		padding: 20px;
@@ -46,6 +46,10 @@ $ease-in-out-back: cubic-bezier(0.680, -0.550, 0.265, 1.550);
 		margin: 0;
 		user-select: text;
 	}
+
+	ul {
+		padding-left: 20px;
+	}
 }
 
 
@@ -58,19 +62,22 @@ $ease-in-out-back: cubic-bezier(0.680, -0.550, 0.265, 1.550);
 	position: absolute;
 	z-index: 100;
 	top: 23px;
-	left: 14px;
+	left: 12px;
 	z-index: 2;
 	padding: 4px;
 	background-color: $blue;
 	color: $white;
+	cursor: pointer;
+	font-size: 14px;
 
 	@include media(medium) {
 		left: -54px;
 		padding: 6px;
+		font-size: 15px;
 	}
 
 	@include media(large) {
-		left: -60px;
+		font-size: 16px;
 	}
 
 	// refresh button default state for desktop
@@ -80,8 +87,8 @@ $ease-in-out-back: cubic-bezier(0.680, -0.550, 0.265, 1.550);
 
 		@include media(medium) {
 			opacity: 0;
-			transform: translate3d(-30px, 0, 0);
-			transition: opacity 0.3s 0s $ease-in-out-back, transform 0.3s 0s ease-in-out;
+			transform: translate3d(-20px, 0, 0);
+			transition: opacity 0.3s 0s ease-in-out, transform 0.3s 0s $ease-in-out-back;
 		}
 	}
 	// refresh button hover state
@@ -96,15 +103,8 @@ $ease-in-out-back: cubic-bezier(0.680, -0.550, 0.265, 1.550);
 		@include media(medium) {
 			opacity: 1;
 			transform: translate3d(0, 0, 0);
-			transition: opacity 0.3s 0.3s ease-in-out,
-			            transform 0.3s 0.3s $ease-in-out-back;
+			transition: opacity 0.3s 0.3s ease-in-out;
 		}
-	}
-
-	// refresh icon
-	.icon {
-		// transform: rotate(0deg) translate3d(0, 0, 0);
-		// transition: transform 0.3s ease-in-out;
 	}
 
 	.arrow {

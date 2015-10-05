@@ -1533,7 +1533,7 @@ body.page-generator.will-show-results {
   z-index: 2;
   max-width: 980px;
   margin: 0 auto;
-  padding: 20px 20px 20px 60px;
+  padding: 20px 20px 20px 50px;
 }
 @media (min-width: 760px) {
   .ipsum-item {
@@ -1558,26 +1558,32 @@ body.page-generator.will-show-results {
       -ms-user-select: text;
           user-select: text;
 }
+.ipsum-item ul {
+  padding-left: 20px;
+}
 
 .refresh-button {
   position: absolute;
   z-index: 100;
   top: 23px;
-  left: 14px;
+  left: 12px;
   z-index: 2;
   padding: 4px;
   background-color: #1d91c0;
   color: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
 }
 @media (min-width: 760px) {
   .refresh-button {
     left: -54px;
     padding: 6px;
+    font-size: 15px;
   }
 }
 @media (min-width: 1100px) {
   .refresh-button {
-    left: -60px;
+    font-size: 16px;
   }
 }
 .no-touch .refresh-button {
@@ -1589,10 +1595,10 @@ body.page-generator.will-show-results {
 @media (min-width: 760px) {
   .no-touch .refresh-button {
     opacity: 0;
-    -webkit-transform: translate3d(-30px, 0, 0);
-            transform: translate3d(-30px, 0, 0);
-    -webkit-transition: opacity 0.3s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55), -webkit-transform 0.3s 0s ease-in-out;
-            transition: opacity 0.3s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.3s 0s ease-in-out;
+    -webkit-transform: translate3d(-20px, 0, 0);
+            transform: translate3d(-20px, 0, 0);
+    -webkit-transition: opacity 0.3s 0s ease-in-out, -webkit-transform 0.3s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: opacity 0.3s 0s ease-in-out, transform 0.3s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 .no-touch .refresh-button:hover {
@@ -1606,8 +1612,8 @@ body.page-generator.will-show-results {
     opacity: 1;
     -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
-    -webkit-transition: opacity 0.3s 0.3s ease-in-out, -webkit-transform 0.3s 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            transition: opacity 0.3s 0.3s ease-in-out, transform 0.3s 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -webkit-transition: opacity 0.3s 0.3s ease-in-out;
+            transition: opacity 0.3s 0.3s ease-in-out;
   }
 }
 .refresh-button .arrow {

@@ -115,7 +115,6 @@ proto.generateListElement = function() {
 proto.generateHeadlineElement = function() {
 	var headlineLength = Utils.getRandomInt( 2, 4 );
 	// get strings from the firebase database
-	console.log(this.firebaseObject);
 	var headline = this.firebaseObject.getRandomStrings( headlineLength );
 	// turn array of results into one long string and remove commas
 	headline = this._stringifyIpsumResults( headline );

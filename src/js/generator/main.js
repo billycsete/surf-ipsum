@@ -21,9 +21,7 @@ var Main = {
 		this.$inputElement       = $('#input-number');
 		this.$generateButton     = $('#input-generate');
 		this.$outputResults      = $('#output-results');
-		this.$addHeadlineButton  = $('#add-headline');
-		this.$addParagraphButton = $('#add-paragraph');
-		this.$addListButton      = $('#add-list');
+		this.$addButtons         = $('.output-button-add');
 		this.$clearButton        = $('#clear-output');
 
 		// Build custom select element
@@ -38,6 +36,7 @@ var Main = {
 		this._onOrientationChange = this._onOrientationChange.bind(this);
 		this._generateIpsum       = this._generateIpsum.bind(this);
 		this._clearIpsum          = this._clearIpsum.bind(this);
+		this._onAddButtonClick    = this._onAddButtonClick.bind(this);
 		this._scrollToTop         = this._scrollToTop.bind(this);
 		this._printIpsumToOutput  = this._printIpsumToOutput.bind(this);
 
@@ -63,8 +62,14 @@ var Main = {
 	 */
 	_setupEvents : function() {
 		// buttons of action
-		this.$generateButton.on( 'touchstart click', this._generateIpsum );
-		this.$clearButton.on( 'touchstart click', this._clearIpsum );
+		this.$generateButton.on( 'click', this._generateIpsum );
+		this.$clearButton.on( 'click', this._clearIpsum );
+
+		for (var i = 0; i < this.$addButtons.length; i++) {
+			$(this.$addButtons[i]).on( 'click', this._onAddButtonClick );
+		}
+
+		// handle keyboard events
 		$(document).on( 'keydown', this._onKeypress );
 
 		// prevents iOS from redrawing the ocean SVG as the bottom menu scrolls away
@@ -145,9 +150,33 @@ var Main = {
 	},
 
 
+	/**
+	 * Add button
+	 */
+	_onAddButtonClick : function( evt ) {
+		var buttonElement = evt.target;
+		var ipsumType = buttonElement.getAttribute('data-add');
+		// create  a new ipsum item
+		var ipsumItemElement = new IpsumItem( this.ipsumOutput, ipsumType );
 
-	_onAddButtonClick : function() {
+		// fade the new element in
+		// called after the scroll animation is complete
+		var prependNewElement = function() {
+			$(ipsumItemElement).hide();
+			this.$outputResults.prepend( ipsumItemElement );
+			$(ipsumItemElement).fadeIn(600);
+		};
 
+		// scroll to the top of the results
+		var scrollToY = this.$oceanWrapper.offset().top + this.$oceanWrapper.height();
+
+		TweenLite.to( window, 0.5, {
+			scrollTo: {
+				y: scrollToY
+			},
+			ease: Power4.easeInOut,
+			onComplete : prependNewElement.bind(this)
+		});
 	},
 
 
@@ -155,9 +184,7 @@ var Main = {
 	/**
 	 * Animate to the generated ipsum
 	 */
-	_generateIpsum : function( evt ) {
-		evt.stopPropagation();
-		evt.preventDefault();
+	_generateIpsum : function() {
 		// adds a body hook when the generate button is clicked
 		// and before the scroll animation happens
 		this.$body.addClass('will-show-results');
@@ -207,9 +234,7 @@ var Main = {
 	/**
 	 * Clear the output and scroll back up to the top
 	 */
-	_clearIpsum : function( evt ) {
-		evt.stopPropagation();
-		evt.preventDefault();
+	_clearIpsum : function() {
 		// remove the body hook before we scroll back up to the top
 		this.$body.removeClass('show-results');
 
