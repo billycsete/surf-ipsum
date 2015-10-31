@@ -28,12 +28,8 @@
 		display: inline-block;
 		opacity: 0;
 		color: $dark-grey;
-		transform: translateY(-2px);
+		transform: translateY(-4px);
 		transition: opacity 0.2s ease-in-out;
-	}
-
-	.no-touch .icon-text {
-		transform: translate3d(-20px, -2px, 0);
 	}
 
 	.no-touch &:hover {
@@ -42,21 +38,36 @@
 		}
 		.icon-text {
 			opacity: 1;
-			transform: translate3d(0, -2px, 0);
 		}
 	}
 }
 
 
 // ====================================
-// Help Modal
+// Testimonials
 // ====================================
 
-.help-modal {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	opacity: 0;
-	background: $blue;
+.endorsements {
+	padding: 20px 0 0 0;
+
+	.endorsement {
+		list-style-type: none;
+		margin-bottom: 30px;
+		@include clearfix;
+
+		h2 {
+			margin: 20px 0 5px 0;
+		}
+	}
+
+	.avatar {
+		margin: 0 20px 0 0;
+		width: 5rem;
+		float: left;
+		img {
+			display:block;
+			max-width: 100%;
+		}
+	}
+
 }

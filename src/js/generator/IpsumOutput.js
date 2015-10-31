@@ -121,7 +121,7 @@ proto.generateHeadlineElement = function() {
 	// capitalize headline
 	headline = this._capitalizeString( headline );
 
-	return ( '<h1>' + headline + this._generatePunctuationEnding() + '</h1>' );
+	return ( '<h2>' + headline + this._generatePunctuationEnding() + '</h2>' );
 };
 
 

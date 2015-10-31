@@ -38,8 +38,17 @@ body {
 h1 {
 	font-family: 'Open Sans', 'Helvetica', 'sans-serif';
 	font-weight: $light;
-	font-size: 26px;
-	margin-bottom: 12px;
+	font-size: 32px;
+	line-height: 1.5;
+
+	@include media(large) { font-size: 34px; }
+	@include media(xlarge) { font-size: 36px; }
+}
+
+
+h2 {
+	font-family: 'Open Sans', 'Helvetica', 'sans-serif';
+	font-weight: $light;
 	font-size: 22px;
 	line-height: 1.5;
 

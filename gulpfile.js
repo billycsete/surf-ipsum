@@ -127,6 +127,8 @@ gulp.task('watch', function() {
 	gulp.watch('src/js/uploader/*.js', ['uploader']);
 	// Watch generator .js files
 	gulp.watch('src/js/generator/*.js', ['generator']);
+	// Watch shared js files
+	gulp.watch('src/js/shared/*.js', ['uploader', 'generator']);
 	// Watch image files
 	gulp.watch('src/images/**/*', ['images']);
 	// Watch .html files

@@ -2,8 +2,9 @@
 
 var TweenLite      = require('../../../node_modules/gsap/src/uncompressed/TweenLite.js');
 var ScrollToPlugin = require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
-var fixedSticky    = require('../shared/fixedSticky.js');
 var Trianglify     = require('../../../node_modules/trianglify/lib/trianglify.js');
+var fixedSticky    = require('../shared/fixedSticky.js');
+var Modal          = require('../shared/Modal.js');
 var SelectElement  = require('./SelectElement');
 var IpsumOutput    = require('./IpsumOutput');
 var IpsumItem      = require('./IpsumItem');
@@ -26,6 +27,11 @@ var Main = {
 
 		// Build custom select element
 		this.selectElement = new SelectElement();
+
+		// Instantiate Help Modal
+		var modalTrigger = document.getElementById('help-button');
+		var modal = document.getElementById('help-modal');
+		this.helpModal = new Modal( modalTrigger, modal );
 
 		// Create the ipsum output generator
 		this.ipsumOutput = new IpsumOutput( this.$ipsumItemElement );
@@ -72,7 +78,7 @@ var Main = {
 		// handle keyboard events
 		$(document).on( 'keydown', this._onKeypress );
 
-		// prevents iOS from redrawing the ocean SVG as the bottom menu scrolls away
+		// prevent iOS from redrawing the ocean SVG as the bottom menu scrolls away
 		if ( $('html').hasClass('touch') ) {
 			$(window).on( 'orientationchange', this._onOrientationChange );
 		} else {
@@ -170,6 +176,8 @@ var Main = {
 		// scroll to the top of the results
 		var scrollToY = this.$oceanWrapper.offset().top + this.$oceanWrapper.height();
 
+		// animate scroll to top of output
+		// and then fade in new ipsum when scroll is finished
 		TweenLite.to( window, 0.5, {
 			scrollTo: {
 				y: scrollToY

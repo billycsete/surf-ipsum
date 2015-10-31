@@ -59,7 +59,7 @@ proto._init = function() {
 };
 
 
-proto._addRefreshButton = function( ) {
+proto._addRefreshButton = function() {
 	var refreshButtonElement = $('<button class="refresh-button"><i class="icon icon-arrows-ccw"></i><span class="arrow"></span></button>');
 
 	refreshButtonElement.on('click', function() {
@@ -82,7 +82,7 @@ proto.destroy = function() {
 /**
  * Generate the correct type of ipsum and add it to the IpusmItem element
  */
-proto._generateIpsum = function( ) {
+proto._generateIpsum = function() {
 
 	var newIpsumElement;
 
