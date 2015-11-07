@@ -946,6 +946,7 @@ body.page-generator.will-show-results {
   padding: 20px 0 0 0;
 }
 .endorsements .endorsement {
+  opacity: 0;
   list-style-type: none;
   margin-bottom: 30px;
 }
@@ -956,6 +957,11 @@ body.page-generator.will-show-results {
 }
 .endorsements .endorsement h2 {
   margin: 20px 0 5px 0;
+}
+.modal-open .endorsements .endorsement {
+  opacity: 1;
+  -webkit-transition: 0.3s 0.4s ease-in-out;
+          transition: 0.3s 0.4s ease-in-out;
 }
 .endorsements .avatar {
   margin: 0 20px 0 0;
