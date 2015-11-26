@@ -5,6 +5,28 @@
 // =================================================
 
 // ====================================
+// Staggered Fade
+// ====================================
+
+$delay-increment: 0.2; // in seconds
+
+@for $i from 1 to 10 {
+	.delay-#{$i} {
+		opacity: 0;
+		transform: translate3d(0,20px,0);
+
+		.modal-open & {
+			opacity: 1;
+			transform: translate3d(0,0,0);
+			transition-property: opacity, transform;
+			transition-duration: 0.5s, 0.5s;
+			transition-timing-function: ease-in-out, cubic-bezier(0.075, 0.820, 0.165, 1.000);
+			transition-delay: #{$i * $delay-increment}s, #{$i * $delay-increment}s;
+		}
+	}
+}
+
+// ====================================
 // Help Button
 // ====================================
 
@@ -51,29 +73,26 @@
 	padding: 20px 0 0 0;
 
 	.endorsement {
-		opacity: 0;
 		list-style-type: none;
+		padding-left: 6rem;
 		margin-bottom: 30px;
 		@include clearfix;
 
 		h2 {
 			margin: 20px 0 5px 0;
 		}
-
-		.modal-open & {
-			opacity: 1;
-			transition: 0.3s 0.4s ease-in-out;
-		}
 	}
 
 	.avatar {
 		margin: 0 20px 0 0;
 		width: 5rem;
-		float: left;
+		position: absolute;
+		top: 0;
+		left: 0;
+
 		img {
 			display:block;
 			max-width: 100%;
 		}
 	}
-
 }

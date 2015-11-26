@@ -12,14 +12,15 @@ var proto;
  *
  */
 var Modal = function( triggerElement, modalElement ) {
-	// access to database of words
+	// modal elements
 	this.openTriggerElement = triggerElement;
 	this.modalElement = modalElement;
-	this.$closeTriggerElement = $(modalElement).find('.close-button');
+	this.closeTriggerElement = modalElement.querySelector('.close-button');
 
-	// bind event listeners
-	this.openModal = this.openModal.bind(this);
-	this.closeModal = this.closeModal.bind(this);
+	// bound functions
+	this.openModal   = this.openModal.bind(this);
+	this.closeModal  = this.closeModal.bind(this);
+	this._onKeypress = this._onKeypress.bind(this);
 
 	this._setupEvents();
 };
@@ -34,10 +35,24 @@ proto = Modal.prototype;
 proto._setupEvents = function() {
 	// buttons of action
 	this.openTriggerElement.addEventListener( 'click', this.openModal );
-	this.$closeTriggerElement.on( 'click', this.closeModal);
+	this.closeTriggerElement.addEventListener( 'click', this.closeModal );
 
 	// handle keyboard events
-	// $(document).on( 'keydown', this._onKeypress );
+	$(document).on( 'keydown', this._onKeypress );
+};
+
+
+
+/**
+ * Set up events
+ */
+proto._onKeypress = function( evt ) {
+	var keycode = evt.keyCode ? evt.keyCode : evt.which;
+
+	// If the 'Esc' key is pressed
+	if( keycode === 27 ) {
+		this.closeModal();
+	}
 };
 
 

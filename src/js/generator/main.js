@@ -16,7 +16,7 @@ var Main = {
 	 * Set up generator page
 	 */
 	initialize : function() {
-		this.$body               = $(document.body);
+		this.body                = document.body;
 		this.$oceanWrapper       = $('#ocean-wrapper');
 		this.$ocean              = $('#ocean');
 		this.$inputElement       = $('#input-number');
@@ -25,18 +25,19 @@ var Main = {
 		this.$addButtons         = $('.output-button-add');
 		this.$clearButton        = $('#clear-output');
 
-		// Build custom select element
+		// build custom select element
 		this.selectElement = new SelectElement();
 
-		// Instantiate Help Modal
+		// instantiate Help Modal
 		var modalTrigger = document.getElementById('help-button');
-		var modal = document.getElementById('help-modal');
+		var modal        = document.getElementById('help-modal');
+
 		this.helpModal = new Modal( modalTrigger, modal );
 
-		// Create the ipsum output generator
+		// create the ipsum output generator
 		this.ipsumOutput = new IpsumOutput( this.$ipsumItemElement );
 
-		// Bound functions
+		// bound functions
 		this._onKeypress          = this._onKeypress.bind(this);
 		this._onResize            = this._onResize.bind(this);
 		this._onOrientationChange = this._onOrientationChange.bind(this);
@@ -144,7 +145,7 @@ var Main = {
 	 */
 	_onKeypress : function( evt ) {
 		// cross browser keycode
-		var keycode = (evt.keyCode ? evt.keyCode : evt.which);
+		var keycode = evt.keyCode ? evt.keyCode : evt.which;
 		// If the 'Enter' key is pressed
 		if( keycode === 13 ) {
 			this._generateIpsum();
@@ -195,7 +196,7 @@ var Main = {
 	_generateIpsum : function() {
 		// adds a body hook when the generate button is clicked
 		// and before the scroll animation happens
-		this.$body.addClass('will-show-results');
+		this.body.classList.add('will-show-results');
 
 		// start building the ipsum before we start animating
 		this._printIpsumToOutput();
@@ -216,7 +217,7 @@ var Main = {
 	 */
 	_afterIpsumGenerated : function() {
 		// add a body hook after the show results scroll animation finishes
-		this.$body.addClass('show-results');
+		this.body.classList.add('show-results');
 	},
 
 
@@ -244,7 +245,7 @@ var Main = {
 	 */
 	_clearIpsum : function() {
 		// remove the body hook before we scroll back up to the top
-		this.$body.removeClass('show-results');
+		this.body.classList.remove('show-results');
 
 		TweenLite.to( window, 1, {
 			scrollTo: { y: 0 },
@@ -260,7 +261,7 @@ var Main = {
 	 */
 	_afterIpsumCleared : function() {
 		// remove the body hook after the clear scroll animation is complete
-		this.$body.removeClass('will-show-results');
+		this.body.classList.remove('will-show-results');
 
 		// TODO: add a destroy method in IpsumItem,
 		// then loop through each ipsum item and get
