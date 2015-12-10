@@ -26,6 +26,7 @@ $delay-increment: 0.2; // in seconds
 	}
 }
 
+
 // ====================================
 // Help Button
 // ====================================
@@ -50,7 +51,7 @@ $delay-increment: 0.2; // in seconds
 		display: inline-block;
 		opacity: 0;
 		color: $dark-grey;
-		transform: translateY(-4px);
+		transform: translateY(-4px); // fix vertical alignment of text
 		transition: opacity 0.2s ease-in-out;
 	}
 
