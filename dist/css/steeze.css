@@ -1269,7 +1269,7 @@ body.page-generator.will-show-results {
 .ocean-header .ocean-header-inner {
   position: relative;
   z-index: 1;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.7);
   max-width: 980px;
   padding: 15px 15px 15px 98px;
   margin: 0 auto;
