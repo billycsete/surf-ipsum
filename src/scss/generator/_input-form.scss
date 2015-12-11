@@ -21,6 +21,27 @@ $input-element-height-large  : 70px;
 }
 
 
+//
+
+.input-number,
+.input-generate,
+.input-select {
+	opacity: 0;
+	transform: translate3d(40px,0px,0);
+	transition-property: opacity, transform;
+	transition-duration: 0.5s, 0.5s;
+	transition-timing-function: ease-in-out, cubic-bezier(0.075, 0.820, 0.165, 1.000);
+
+	.select-ready & {
+		opacity: 1;
+		transform: translate3d(0,0,0);
+	}
+}
+
+.input-number   { transition-delay: 0.1s, 0.1s; }
+.input-select   { transition-delay: 0.2s, 0.2s; }
+.input-generate { transition-delay: 0.3s, 0.3s; }
+
 // =================================
 // Number input
 // =================================

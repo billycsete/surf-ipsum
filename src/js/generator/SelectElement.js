@@ -1,6 +1,7 @@
 'use strict';
 
-var Utils = require('../shared/Utils').Utils;
+var TweenLite = require('../../../node_modules/gsap/src/uncompressed/TweenLite.js');
+var Utils     = require('../shared/Utils').Utils;
 
 
 // ======================================================
@@ -23,6 +24,7 @@ var Utils = require('../shared/Utils').Utils;
 var proto;
 
 var SelectElement = function( ) {
+	this.body            = document.body;
 	this.$element        = $('#input-select');
 	this.$downIcon       = $('<i class="icon-down-open"></i>');
 	this.$selectValue    = $('<span class="select-value" tabindex="0">paragraphs</span>');
@@ -41,6 +43,7 @@ proto = SelectElement.prototype;
 proto._init = function( ) {
 	this._buildSelectElement();
 	this._attachEvents();
+	this.body.classList.add('select-ready');
 };
 
 

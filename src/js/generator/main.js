@@ -1,13 +1,14 @@
 'use strict';
 
 var TweenLite      = require('../../../node_modules/gsap/src/uncompressed/TweenLite.js');
-var ScrollToPlugin = require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
 var Trianglify     = require('../../../node_modules/trianglify/lib/trianglify.js');
-var fixedSticky    = require('../shared/fixedSticky.js');
 var Modal          = require('../shared/Modal.js');
 var SelectElement  = require('./SelectElement');
 var IpsumOutput    = require('./IpsumOutput');
 var IpsumItem      = require('./IpsumItem');
+
+require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
+require('../shared/fixedSticky.js');
 
 
 var Main = {
@@ -44,7 +45,6 @@ var Main = {
 		this._generateIpsum       = this._generateIpsum.bind(this);
 		this._clearIpsum          = this._clearIpsum.bind(this);
 		this._onAddButtonClick    = this._onAddButtonClick.bind(this);
-		this._scrollToTop         = this._scrollToTop.bind(this);
 		this._printIpsumToOutput  = this._printIpsumToOutput.bind(this);
 
 		// generate the low poly ocean texture svg
@@ -161,31 +161,21 @@ var Main = {
 	 * Add button
 	 */
 	_onAddButtonClick : function( evt ) {
-		var buttonElement = evt.target;
+		var buttonElement = evt.currentTarget;
+
 		var ipsumType = buttonElement.getAttribute('data-add');
+		var animationDuration = 0.5;
+
 		// create  a new ipsum item
 		var ipsumItemElement = new IpsumItem( this.ipsumOutput, ipsumType );
 
-		// fade the new element in
-		// called after the scroll animation is complete
-		var prependNewElement = function() {
-			$(ipsumItemElement).hide();
-			this.$outputResults.prepend( ipsumItemElement );
-			$(ipsumItemElement).fadeIn(600);
-		};
-
-		// scroll to the top of the results
-		var scrollToY = this.$oceanWrapper.offset().top + this.$oceanWrapper.height();
-
 		// animate scroll to top of output
-		// and then fade in new ipsum when scroll is finished
-		TweenLite.to( window, 0.5, {
-			scrollTo: {
-				y: scrollToY
-			},
-			ease: Power4.easeInOut,
-			onComplete : prependNewElement.bind(this)
-		});
+		this._scrollToResults( animationDuration );
+
+
+		$(ipsumItemElement).hide();
+		this.$outputResults.prepend( ipsumItemElement );
+		$(ipsumItemElement).delay(500).fadeIn(600);
 	},
 
 
@@ -194,6 +184,8 @@ var Main = {
 	 * Animate to the generated ipsum
 	 */
 	_generateIpsum : function() {
+		var animationDuration = 1;
+
 		// adds a body hook when the generate button is clicked
 		// and before the scroll animation happens
 		this.body.classList.add('will-show-results');
@@ -201,23 +193,18 @@ var Main = {
 		// start building the ipsum before we start animating
 		this._printIpsumToOutput();
 
-		TweenLite.to( window, 1, {
+		// scroll the window to the output
+		TweenLite.to( window, animationDuration, {
 			scrollTo: {
 				y: $(window).height()
 			},
-			ease: Power4.easeInOut,
-			onComplete : this._afterIpsumGenerated.bind(this)
+			ease: Power4.easeInOut
 		});
-	},
 
-
-
-	/**
-	 * Called after the results are shown
-	 */
-	_afterIpsumGenerated : function() {
-		// add a body hook after the show results scroll animation finishes
-		this.body.classList.add('show-results');
+		// show the results after the scroll animation finishes
+		window.setTimeout( function() {
+			this.body.classList.add('show-results');
+		}.bind(this), animationDuration * 1000);
 	},
 
 
@@ -244,39 +231,48 @@ var Main = {
 	 * Clear the output and scroll back up to the top
 	 */
 	_clearIpsum : function() {
+		var animationDuration = 1;
+
 		// remove the body hook before we scroll back up to the top
 		this.body.classList.remove('show-results');
 
-		TweenLite.to( window, 1, {
-			scrollTo: { y: 0 },
-			ease: Power4.easeInOut,
-			onComplete : this._afterIpsumCleared.bind(this)
-		});
-	},
+		// scroll back to the top of the page
+		this._scrollToTop( animationDuration );
 
-
-
-	/**
-	 * Called after the clear scroll animation is complete
-	 */
-	_afterIpsumCleared : function() {
-		// remove the body hook after the clear scroll animation is complete
-		this.body.classList.remove('will-show-results');
-
-		// TODO: add a destroy method in IpsumItem,
-		// then loop through each ipsum item and get
-		// rid of the element and the event listeners
-		this.$outputResults.empty();
+		// clear the output after the scroll animation completes
+		window.setTimeout( function() {
+			this.body.classList.remove('will-show-results');
+			this.$outputResults.empty();
+		}.bind(this), animationDuration);
 	},
 
 
 
 	/**
 	 * Scroll back to the top of the page
+	 * @param {Number} scrollAnimationDuration - length in seconds of scroll animation
 	 */
-	_scrollToTop : function() {
-		TweenLite.to( window, 1, {
+	_scrollToTop : function( scrollAnimationDuration ) {
+		TweenLite.to( window, scrollAnimationDuration, {
 			scrollTo: { y: 0 },
+			ease: Power4.easeInOut
+		});
+	},
+
+
+
+	/**
+	 * Scroll to the top of the output results
+	 * @param {Number} scrollAnimationDuration - length in seconds of scroll animation
+	 */
+	_scrollToResults : function( scrollAnimationDuration ) {
+		// get the scrollY of the top of the output element
+		var scrollToY = this.$oceanWrapper.offset().top + this.$oceanWrapper.height();
+
+		TweenLite.to( window, scrollAnimationDuration, {
+			scrollTo: {
+				y: scrollToY
+			},
 			ease: Power4.easeInOut
 		});
 	}

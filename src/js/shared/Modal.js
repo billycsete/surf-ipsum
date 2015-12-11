@@ -12,9 +12,11 @@ var proto;
  *
  */
 var Modal = function( triggerElement, modalElement ) {
+	this.body = document.body;
+
 	// modal elements
-	this.openTriggerElement = triggerElement;
-	this.modalElement = modalElement;
+	this.openTriggerElement  = triggerElement;
+	this.modalElement        = modalElement;
 	this.closeTriggerElement = modalElement.querySelector('.close-button');
 
 	// bound functions
@@ -61,6 +63,7 @@ proto._onKeypress = function( evt ) {
  * Open Modal
  */
 proto.openModal = function() {
+	this.body.classList.remove('will-show-results');
 	this.modalElement.classList.add('modal-open');
 };
 
@@ -70,6 +73,12 @@ proto.openModal = function() {
  * Close Modal
  */
 proto.closeModal = function() {
+	// only add the will show class back is the results were visible
+	// when the modal was opened
+	if ( this.body.classList.contains('show-results') ) {
+		this.body.classList.add('will-show-results');
+	}
+
 	this.modalElement.classList.remove('modal-open');
 };
 

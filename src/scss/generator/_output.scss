@@ -46,9 +46,7 @@
 	width: 100%;
 	margin: 0 auto;
 	padding: 0 4px;
-	background: $light-grey-brighter;
-	border-top: 1px solid $light-grey-darker;
-	border-bottom: 1px solid $light-grey-darker;
+	background: $black;
 	transition: opacity 0.8s ease-out;
 
 	@include media(medium) {
@@ -64,16 +62,16 @@
 		z-index: 10;
 		max-width: 980px;
 		margin: 0 auto;
-		padding: 6px;
+		padding: 8px 6px;
 		@include clearfix;
 
 		@include media(small) {
-			padding: 6px 15px;
+			padding: 8px 15px;
 		}
 
 		@include media(large) {
-			padding-top: 10px;
-			padding-bottom: 8px;
+			padding-top: 11px;
+			padding-bottom: 11px
 		}
 
 		@include media(xlarge) {
@@ -88,7 +86,7 @@
 		margin-right: 5px;
 		background-color: transparent;
 		text-align: left;
-		color: $dark-grey;
+		color: $off-white;
 		font-size: 13px;
 
 		@include media(small) {
@@ -102,7 +100,7 @@
 		}
 
 		.no-touch &:hover {
-			color: $black;
+			color: $white;
 		}
 
 		.icon {

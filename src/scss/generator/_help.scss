@@ -8,20 +8,22 @@
 // Staggered Fade
 // ====================================
 
-$delay-increment: 0.2; // in seconds
+$delay-increment: 0.1; // in seconds
 
 @for $i from 1 to 10 {
 	.delay-#{$i} {
 		opacity: 0;
-		transform: translate3d(0,20px,0);
+		transform: translate3d(0,20px,0) scale(0.8);
+		transition-property: opacity, transform;
+		transition-duration: 0.4s, 0.5s;
+		transition-timing-function: ease-in-out, cubic-bezier(0.895, 0.030, 0.685, 0.220);
+		transition-delay: #{$i * $delay-increment}s, #{$i * $delay-increment}s;
 
 		.modal-open & {
 			opacity: 1;
-			transform: translate3d(0,0,0);
-			transition-property: opacity, transform;
+			transform: translate3d(0,0,0) scale(1);
 			transition-duration: 0.5s, 0.5s;
 			transition-timing-function: ease-in-out, cubic-bezier(0.075, 0.820, 0.165, 1.000);
-			transition-delay: #{$i * $delay-increment}s, #{$i * $delay-increment}s;
 		}
 	}
 }
@@ -75,18 +77,22 @@ $delay-increment: 0.2; // in seconds
 
 	.endorsement {
 		list-style-type: none;
-		padding-left: 6rem;
-		margin-bottom: 30px;
+		padding-left: 5rem;
+		margin-bottom: 50px;
 		@include clearfix;
+	}
 
-		h2 {
-			margin: 20px 0 5px 0;
-		}
+	.endorsement-quote {
+		margin: 0 0 5px 0;
+	}
+
+	.endorsement-author {
+		margin: 0;
 	}
 
 	.avatar {
 		margin: 0 20px 0 0;
-		width: 5rem;
+		width: 4rem;
 		position: absolute;
 		top: 0;
 		left: 0;
