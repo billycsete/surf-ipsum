@@ -8,6 +8,7 @@ var IpsumOutput    = require('./IpsumOutput');
 var IpsumItem      = require('./IpsumItem');
 
 require('../../../node_modules/gsap/src/uncompressed/plugins/ScrollToPlugin.js');
+require('../generator/tweetButton.js');
 require('../shared/fixedSticky.js');
 
 

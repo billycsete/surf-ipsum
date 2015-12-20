@@ -4,9 +4,13 @@
 //
 // =================================================
 
+html.touch {
+	overflow: hidden;
+}
+
 body.page-generator {
 	overflow: hidden;
-	min-height: 100%;
+	height: 100%;
 	background: $white;
 
 	&.will-show-results {
