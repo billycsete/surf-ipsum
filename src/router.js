@@ -1,10 +1,14 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import firebase from 'firebase';
 
-Vue.use(Router)
+import Home from './views/Home.vue';
+import Uploader from './views/Uploader.vue';
+import Login from './views/Login.vue';
 
-export default new Router({
+Vue.use(Router);
+
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -12,12 +16,31 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/uploader',
+      name: 'uploader',
+      component: Uploader,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
-})
+});
+
+
+router.beforeEach((to, from, next) => {
+  console.log(to, from, next);
+  let currentUser = firebase.auth().currentUser;
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  // if (requiresAuth && !currentUser) next('login');
+  // else if (!requiresAuth && currentUser) next('comics');
+  // else next();
+  next();
+});
+
+export default router;
