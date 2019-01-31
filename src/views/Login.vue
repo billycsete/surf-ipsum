@@ -1,18 +1,20 @@
 <template>
   <div class="login">
-    <input
+    <el-input
       type="text"
       v-model="email"
       placeholder="Email"
       class="input"
       required>
-    <input
+    </el-input>
+    <el-input
       type="password"
       v-model="password"
       placeholder="Password"
       class="input"
       required>
-      <button v-on:click="login" class="button">Login</button>
+    </el-input>
+    <el-button v-on:click="login" class="button">Login</el-button>
   </div>
 </template>
 
