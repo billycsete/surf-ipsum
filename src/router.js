@@ -5,6 +5,7 @@ import firebase from 'firebase';
 import Home from './views/Home.vue';
 import Uploader from './views/Uploader.vue';
 import Login from './views/Login.vue';
+import Manager from './views/Manager.vue';
 
 Vue.use(Router);
 
@@ -19,6 +20,14 @@ let router = new Router({
       path: '/uploader',
       name: 'uploader',
       component: Uploader,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/manager',
+      name: 'manager',
+      component: Manager,
       meta: {
         requiresAuth: true
       }

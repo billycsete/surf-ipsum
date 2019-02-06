@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+// import firebase from 'firebase';
 // import 'firebase/auth';
 
 export default {
-  name: 'login',
+  name: 'Login',
   data: function() {
     return {
       email: '',
@@ -32,11 +32,11 @@ export default {
   },
   methods: {
     login() {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) => {
-        this.$router.replace('/')
-      }).catch((err) => {
-        alert(err.message)
-      })
+      // firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) => {
+      //   this.$router.replace('/')
+      // }).catch((err) => {
+      //   alert(err.message)
+      // })
     }
   }
 }
